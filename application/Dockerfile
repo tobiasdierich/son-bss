@@ -24,5 +24,4 @@ RUN rm -f /usr/local/yeoman/SonataBSS/app/modules/NSD/nSD/views/deleteNSD.html
 RUN cp -r /usr/local/yeoman/bss/code/* /usr/local/yeoman/SonataBSS/
 RUN bower install
 RUN sudo npm install
-RUN grunt serve:development &
 EXPOSE 1337
