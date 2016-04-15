@@ -1,0 +1,15 @@
+{
+  "name": "SonataBSS",
+  "version": "0.0.0",
+  "dependencies": {
+      "angular":"*",
+      "angular-ui-router":"*",
+      "angular-formly":"*",
+      "angular-formly-templates-bootstrap":"*",
+      "bootstrap":"*",
+      "jquery":"*",
+      "angular-json-tree":"*",
+      "angular-animate":"*"
+  }
+}
+

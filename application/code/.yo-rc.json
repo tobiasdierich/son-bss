@@ -1,0 +1,27 @@
+{
+  "generator-angular-crud-custom-module": {
+    "modules": [
+      {
+        "moduleName": "NSD",
+        "moduleVariable": "nSDs",
+        "module": "nSD",
+        "dir": "app/modules/NSD",
+        "relativePath": "modules/NSD"
+      },
+      {
+        "moduleName": "VNFD",
+        "moduleVariable": "vNFDs",
+        "module": "vNFD",
+        "dir": "app/modules/VNFD",
+        "relativePath": "modules/VNFD"
+      },
+      {
+        "moduleName": "InstantationRequests",
+        "moduleVariable": "instantationRequestss",
+        "module": "instantationRequests",
+        "dir": "app/modules/InstantationRequests",
+        "relativePath": "modules/InstantationRequests"
+      }
+    ]
+  }
+}
