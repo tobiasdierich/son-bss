@@ -14,6 +14,7 @@ docker build -t son-yo-gen generator/
 docker build --no-cache -t son-yo-gen-bss application/ 
 ```
 
+
 Run Docker container
 ```
 docker run --name son-bss -i -p 9000:9000 -p 1337:1337 son-yo-gen-bss sudo grunt serve:development &
