@@ -8,7 +8,6 @@ Very simple gui that allows customers to retrieve and inspect Network Services a
 Build Docker container image 
 ```
 docker rm -f sonata-bss
-docker rm $(docker ps -a -q)
 
 docker build -t sonata-yo-base .
 docker build -t sonata-yo-gen generator/
