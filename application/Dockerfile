@@ -1,4 +1,4 @@
-FROM sonata-yo-gen
+FROM registry.sonata-nfv.eu:5000/son-yo-gen
 
 MAINTAINER Optare [fporto,srodriguez,jcunha]@optaresolutions.com
 USER yeoman

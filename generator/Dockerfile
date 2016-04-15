@@ -1,4 +1,4 @@
-FROM sonata-yo-base
+FROM registry.sonata-nfv.eu:5000/son-yo-base
 
 MAINTAINER Optare [fporto,srodriguez,jcunha]@optaresolutions.com
 
