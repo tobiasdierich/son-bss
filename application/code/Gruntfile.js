@@ -46,6 +46,14 @@ module.exports = function(grunt) {
 		},
 		connect: {
 			dist: {
+				port: 25001,
+				base: 'app'
+			},
+			int: {
+				port: 25002,
+				base: 'app'
+			},
+			prod: {
 				port: 1337,
 				base: 'app'
 			}
@@ -82,6 +90,14 @@ module.exports = function(grunt) {
 	if (target === 'development') {
     
 	return grunt.task.run(['ngconstant:development','connect:dist']);
+  }
+  	if (target === 'integration') {
+    
+	return grunt.task.run(['ngconstant:integration','connect:int']);
+  }
+  	if (target === 'production') {
+    
+	return grunt.task.run(['ngconstant:production','connect:prod']);
   }
   
 });
