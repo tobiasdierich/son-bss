@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 		    constants: {
 		      ENV: {
 			name: 'production',
-			apiEndpoint: 'http://prod.server:XXXX'
+			apiEndpoint: 'http://production.server:XXXX'
 		      }
 		    }
 		  }
