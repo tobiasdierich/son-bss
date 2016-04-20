@@ -46,11 +46,11 @@ module.exports = function(grunt) {
 		},
 		connect: {
 			dist: {
-				port: 25001,
+				port: 1337,
 				base: 'app'
 			},
 			int: {
-				port: 25002,
+				port: 1337,
 				base: 'app'
 			},
 			prod: {
