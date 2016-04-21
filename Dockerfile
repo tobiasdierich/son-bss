@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -yq update && \
     apt-get -yq install vim git net-tools sudo bzip2 bash expect
 	
-RUN npm install -g --silent yo@1.7.0 bower@1.7.6 grunt@1.0.1 grunt-ng-constant@2.0.1
+RUN npm install -g --silent yo@1.7.0 bower@1.7.6 grunt@1.0.1 grunt-ng-constant@2.0.1 karma chai mocha jasmine-core karma-jasmine phantomjs-prebuilt karma-phantomjs-launcher
 
 # Add a yeoman user because grunt doesn't like being root
 RUN adduser --disabled-password --gecos "" yeoman && \
