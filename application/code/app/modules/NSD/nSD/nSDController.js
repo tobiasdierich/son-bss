@@ -6,7 +6,6 @@ angular.module('NSD')
     .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices","ENV",function ($scope, $rootScope,NSDServices,ENV) {
 
         $scope.currentNSD= {};
-        
         // retrieve NSD to server
         $scope.retrieveNSDs = (function(){
             NSDServices.retrieveNSDs(ENV)
