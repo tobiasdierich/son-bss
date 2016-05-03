@@ -5,7 +5,7 @@
 angular.module('InstantiationRequests')
     .factory('InstantiationRequestsServices',["$http","$q",function ($http,$q) {
         return {
-            retrieveInstantiationRequestss:function(ENV){
+            retrieveInstantiationRequests:function(ENV){
 
                 var defer=$q.defer();
                 $http.get(ENV.apiEndpoint+"/requests")
