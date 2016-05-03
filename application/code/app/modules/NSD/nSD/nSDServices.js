@@ -15,22 +15,13 @@ angular.module('NSD')
                 return defer.promise;
             },
           
-            instantiateNSD:function(id,ENV){
-
+            instantiateNSD:function(id,ENV){				
                 var defer=$q.defer();
-                $http.post(ENV.apiEndpoint+"/requests",{service_id:id})
+				$http.post(ENV.apiEndpoint+"/requests",{"service_id":id})
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
-
+				
                 return defer.promise;
-            }/*,
-            retrieveNSDById:function(id,ENV){
-
-                var defer=$q.defer();
-                $http.get(ENV.apiEndpoint||"/services/")
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-                return defer.promise;
-            }*/
+            }
         }
     }]);
