@@ -3,12 +3,13 @@ FROM registry.sonata-nfv.eu:5000/son-yo-gen
 MAINTAINER Optare [fporto,srodriguez,jcunha]@optaresolutions.com
 USER yeoman
 RUN mkdir /usr/local/yeoman/bss
-RUN mkdir /usr/local/yeoman/bss/code/E2E_tests/reports
-RUN chmod -R 775 /usr/local/yeoman/
+RUN chmod 775 /usr/local/yeoman/
 
 #Include the application directory from the yeoman base applications directory
 ADD configure_app.sh /usr/local/yeoman/bss/configure_app.sh
 ADD code /usr/local/yeoman/bss/code
+RUN mkdir /usr/local/yeoman/bss/code/E2E_tests/reports
+RUN chmod 775 /usr/local/yeoman/bss/code/E2E_tests/reports
 RUN sudo chmod +x /usr/local/yeoman/bss/configure_app.sh
 WORKDIR /usr/local/yeoman/bss/code
 
