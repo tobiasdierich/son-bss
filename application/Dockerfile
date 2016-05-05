@@ -9,7 +9,6 @@ RUN chmod 775 /usr/local/yeoman/
 ADD configure_app.sh /usr/local/yeoman/bss/configure_app.sh
 ADD code /usr/local/yeoman/bss/code
 RUN sudo mkdir /usr/local/yeoman/bss/code/E2E_tests/reports
-RUN sudo chown -R yeoman:yeoman /usr/local/yeoman/bss/code/E2E_tests/reports
 RUN sudo chmod +x /usr/local/yeoman/bss/configure_app.sh
 WORKDIR /usr/local/yeoman/bss/code
 
