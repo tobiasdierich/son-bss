@@ -3,6 +3,7 @@ FROM registry.sonata-nfv.eu:5000/son-yo-gen
 MAINTAINER Optare [fporto,srodriguez,jcunha]@optaresolutions.com
 USER yeoman
 RUN mkdir /usr/local/yeoman/bss
+RUN mkdir /usr/local/yeoman/bss/code/E2E_tests/reports
 RUN chmod 775 /usr/local/yeoman/
 
 #Include the application directory from the yeoman base applications directory
@@ -21,7 +22,6 @@ WORKDIR /usr/local/yeoman/SonataBSS
 #RUN rm -f /usr/local/yeoman/SonataBSS/app/modules/NSD/nSD/views/addNSD.html
 #RUN rm -f /usr/local/yeoman/SonataBSS/app/modules/NSD/nSD/views/deleteNSD.html
 RUN cp -r /usr/local/yeoman/bss/code/* /usr/local/yeoman/SonataBSS/
-RUN mkdir /usr/local/yeoman/SonataBSS/E2E_tests/reports
 RUN bower install
 RUN sudo npm install
 RUN mv /usr/local/yeoman/SonataBSS/bower_components /usr/local/yeoman/SonataBSS/app/vendor
