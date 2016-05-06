@@ -54,7 +54,8 @@ describe('NSDs View', function() {
 	yes_el.click();
 	browser.sleep(1500);
 
-	expect(element(by.id('instantiateNSD')).isDisplayed()).toBe(false);
+	//expect(element(by.id('instantiateNSD')).isDisplayed()).toBe(false);
+	expect(element(by.id('instantiateRequest')).isDisplayed()).toBe(true);
 	
   });
 
