@@ -3,70 +3,72 @@
  */
 
 angular.module('NSD')
-    .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices","ENV",function ($scope, $rootScope,NSDServices,ENV) {
+ .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices", "ENV", function($scope, $rootScope, NSDServices, ENV) {
 
-        $scope.currentNSD= {};
-        // retrieve NSD to server
-        $scope.retrieveNSDs = (function(){
-            NSDServices.retrieveNSDs(ENV)
-                .then(function(result){
-                    $rootScope.nSDs = result;
-                    },function(error){
-                        alert(error);
-                    })
-            });
+  $scope.currentNSD = {};
+  // retrieve NSD to server
+  $scope.retrieveNSDs = (function() {
+   NSDServices.retrieveNSDs(ENV)
+    .then(function(result) {
+     $rootScope.nSDs = result;
+    }, function(error) {
+     alert(error);
+    })
+  });
 
-		$scope.retrieveNSDs();
-		
-        $scope.openAddNSD=function(){
-            $scope.currentNSD= {};
-            $('#addNSD.modal').modal('show');
-        }
+  $scope.retrieveNSDs();
 
-        // save NSD to server
-        $scope.saveNSD = function(){
-            NSDServices.saveNSD($scope.currentNSD)
-            .then(function(result){
-                    $rootScope.nSDs.push(result);
-                },function(error){
-                    alert(error);
-                })
-        }
+  $scope.openAddNSD = function() {
+   $scope.currentNSD = {};
+   $('#addNSD.modal').modal('show');
+  }
 
-        $scope.openUpdateNSD=function(data){
-	    $scope.currentNSD=angular.copy(data);
-        $('#updateNSD.modal').modal('show');	    
-	    $($(".key.ng-binding.ng-scope")[0]).text("NSD#"+$scope.currentNSD.uuid);
-	    
-	    //$(".key.ng-binding.ng-scope").text("NSD")
-        }
+  // save NSD to server
+  $scope.saveNSD = function() {
+   NSDServices.saveNSD($scope.currentNSD)
+    .then(function(result) {
+     $rootScope.nSDs.push(result);
+    }, function(error) {
+     alert(error);
+    })
+  }
 
-        $scope.openInstantiateNSD=function(data){
-            $scope.currentNSD=angular.copy(data);
-            $('#instantiateNSD.modal').modal('show');
-        }
+  $scope.openUpdateNSD = function(data) {
+   $scope.currentNSD = angular.copy(data);
+   $('#updateNSD.modal').modal('show');
+   $($(".key.ng-binding.ng-scope")[0]).text("NSD#" + $scope.currentNSD.uuid);
 
-        
-        $scope.instantiateNSD = function(){
-				//console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-                NSDServices.instantiateNSD($scope.currentNSD.uuid,ENV)
-                .then(function(result){
-                    $('#instantiateNSD.modal').modal('hide');
-                },function(error){
-                    alert(error);
-                })
-        }
+   //$(".key.ng-binding.ng-scope").text("NSD")
+  }
 
-        $scope.emptyNSD = function(){
-            $scope.currentNSD={};
-	};    
-	$scope.showPopover = function(nSD){
-	$scope.popoverIsVisible = true; 
-	$scope.hoveredNSD = nSD; 
-	};
+  $scope.openInstantiateNSD = function(data) {
+   $scope.currentNSD = angular.copy(data);
+   $('#instantiateNSD.modal').modal('show');
+  }
 
-        $scope.hidePopover = function(){
-	$scope.popoverIsVisible = false;
-	};
-    
-    }]);
+
+  $scope.instantiateNSD = function() {
+   //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
+   NSDServices.instantiateNSD($scope.currentNSD.uuid, ENV)
+    .then(function(result) {
+     $('#instantiateNSD.modal').modal('hide');	 
+	 $scope.instantiateRequest = result;
+	 $('#instantiateRequest.modal').modal('show');    
+	}, function(error) {
+     alert(error);
+    })
+  }
+
+  $scope.emptyNSD = function() {
+   $scope.currentNSD = {};
+  };
+  $scope.showPopover = function(nSD) {
+   $scope.popoverIsVisible = true;
+   $scope.hoveredNSD = nSD;
+  };
+
+  $scope.hidePopover = function() {
+   $scope.popoverIsVisible = false;
+  };
+
+ }]);

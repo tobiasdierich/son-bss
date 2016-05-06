@@ -8,6 +8,7 @@ RUN chmod 775 /usr/local/yeoman/
 #Include the application directory from the yeoman base applications directory
 ADD configure_app.sh /usr/local/yeoman/bss/configure_app.sh
 ADD code /usr/local/yeoman/bss/code
+RUN sudo mkdir /usr/local/yeoman/bss/code/E2E_tests/reports
 RUN sudo chmod +x /usr/local/yeoman/bss/configure_app.sh
 WORKDIR /usr/local/yeoman/bss/code
 
@@ -21,7 +22,6 @@ WORKDIR /usr/local/yeoman/SonataBSS
 #RUN rm -f /usr/local/yeoman/SonataBSS/app/modules/NSD/nSD/views/addNSD.html
 #RUN rm -f /usr/local/yeoman/SonataBSS/app/modules/NSD/nSD/views/deleteNSD.html
 RUN cp -r /usr/local/yeoman/bss/code/* /usr/local/yeoman/SonataBSS/
-RUN mkdir /usr/local/yeoman/SonataBSS/E2E_tests/reports
 RUN bower install
 RUN sudo npm install
 RUN mv /usr/local/yeoman/SonataBSS/bower_components /usr/local/yeoman/SonataBSS/app/vendor
