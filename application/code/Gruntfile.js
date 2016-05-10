@@ -103,8 +103,8 @@ module.exports = function(grunt) {
 		    constants: {
 		      ENV: {
 				name: 'development',
-				apiEndpoint: 'http://localhost:1338/mock'
-				//apiEndpoint: 'http://bss.sonata-nfv.eu:25002/mock'
+				//apiEndpoint: 'http://localhost:1338/mock'
+				apiEndpoint: 'http://bss.sonata-nfv.eu:25002/mock'
 		      }
 		    }
 		  },
