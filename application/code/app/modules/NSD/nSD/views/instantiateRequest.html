@@ -4,14 +4,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div>
-                    <h4 class="modal-title kpiCustomHeading">Instantiate Request Created</h4>
+                    <h4 class="modal-title kpiCustomHeading">Instantiate Request Created with the next requestId</h4>
                 </div>
             </div>
 
             <div class="modal-body">
                 <div class="row ">
                     <div class="col-xs-12">
-                        <p>Request Id: {{instantiateRequest.requestId}}</p>
+			<div id="requestId" class="bar">{{instantiateRequest.requestId}}</div>
                     </div>
                 </div>
             </div>

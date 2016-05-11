@@ -9,7 +9,12 @@ var reporter = new HtmlScreenshotReporter({
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
   seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',
-  specs: ['E2E_tests/todo-spec.js'],
+  //specs: ['E2E_tests/todo-spec.js'],
+  suites: {
+	  unit: ['E2E_tests/*.js'],
+	  intBSS_GK: ['E2E_tests/int-BSS-GK-spec.js'],
+	  intBSS_GK_MANO: ['E2E_tests/int-BSS-GK-MANO-spec.js']
+  },
   
   capabilities: {
   'browserName': 'phantomjs',

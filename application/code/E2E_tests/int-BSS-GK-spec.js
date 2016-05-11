@@ -1,4 +1,4 @@
-describe('SonataBSS', function() {
+describe('SonataBSS Retrieves Services and Instantiation Requests', function() {
 
    beforeEach(function() {
     browser.get('http://localhost:1337');
@@ -38,25 +38,6 @@ describe('NSDs View', function() {
 	
 	
 	expect(tree_el.getAttribute('object')).toBe('currentNSD');
-  });
-  
-  it('when clicked: "request service instantiation" instantiates a new service' , function() {
-	
-	var inst_el=element.all(by.css('.btn-danger')).get(0);
-	
-	inst_el.click();
-	
-	var parent = element(by.id('instantiateNSD'));
-	var child = parent.element(by.binding('childBinding'));
-	
-	var yes_el=parent.element(by.css('.btn-success'));
-	
-	yes_el.click();
-	browser.sleep(1500);
-
-	//expect(element(by.id('instantiateNSD')).isDisplayed()).toBe(false);
-	expect(element(by.id('instantiateRequest')).isDisplayed()).toBe(true);
-	
   });
 
   });
