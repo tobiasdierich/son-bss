@@ -61,7 +61,7 @@ describe('Instantiation Requests View', function() {
   });
 
   
-  it('instantiation requests must be in the list', function() {
+  it('instantiation request must be in the list', function() {
 	  
 	var query = element(by.model('InstantiationRequestsSearch'));
 	query.sendKeys(requestId);
