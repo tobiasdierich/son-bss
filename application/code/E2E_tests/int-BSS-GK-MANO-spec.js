@@ -62,11 +62,14 @@ describe('Instantiation Requests View', function() {
 
   
   it('instantiation requests must be in the list', function() {
-	
-	console.log('requestId = '+requestId);
 	  
-	var data = element.all(by.repeater("iR in InstantiationRequests")).all(by.repeater("cell in iR"));
-	expect(data.getText()).toContain(requestId);
+	var query = element(by.model('InstantiationRequestsSearch'));
+	query.sendKeys(requestId);
+	  
+	var data = element.all(by.repeater("iR in InstantiationRequests"));
+	
+	expect(data.count()).toBe(1);
+	  
   });
 
 });  
