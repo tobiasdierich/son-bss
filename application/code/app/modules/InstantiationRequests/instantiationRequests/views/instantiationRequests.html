@@ -7,8 +7,8 @@
             </h2>
 
             <div class="col-md-3 pull-right">
-                <input type="text" class="form-control customSearch" ng-model="InstantiationRequestsSearch"
-                       placeholder="Search InstantiationRequests">
+                <!--input type="text" class="form-control customSearch" ng-model="InstantiationRequestsSearch" placeholder="Search InstantiationRequests"-->
+		<input type="text" class="form-control" placeholder="Search InstantiationRequests" ng-model="InstantiationRequestsSearch">
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr ng-repeat="iR in InstantiationRequests">
+					  <tr ng-repeat="iR in InstantiationRequests | filter:InstantiationRequestsSearch">
 						<td ng-repeat="cell in iR">
 						  {{cell}}
 						</td>
