@@ -169,7 +169,7 @@ module.exports = function(grunt) {
 			keepAlive: true,
 			options: {
 				args: {
-					seleniumPort: 4444
+					seleniumPort: 4444					
 				}
 			}
 		  }
@@ -185,11 +185,6 @@ module.exports = function(grunt) {
 		}
 	});
     
-	//grunt.loadNpmTasks('grunt-contrib-connect');
-	//grunt.loadNpmTasks('grunt-contrib-watch');
-	//grunt.loadNpmTasks('grunt-ng-constant');
-	//grunt.loadNpmTasks('grunt-protractor-runner');
-	//grunt.loadNpmTasks('grunt-protractor-webdriver');
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);	
 	
 	grunt.registerTask('default', 'connect:dist');

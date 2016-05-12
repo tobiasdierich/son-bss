@@ -1,5 +1,7 @@
-describe('SonataBSS', function() {
+describe('SonataBSS Instantiates a Service', function() {
 
+   var requestId;
+	
    beforeEach(function() {
     browser.get('http://localhost:1337');
   });
@@ -27,18 +29,6 @@ describe('NSDs View', function() {
 	var count=element.all(by.repeater('nSD in nSDs')).count();
 	expect(count).toBeGreaterThan(0);
   });
-
-  it('when clicked: "service details" shows the service descriptor details' , function() {
-	
-	var el=element.all(by.css('.btn-success')).get(0);
-	
-	el.click();
-	
-	var tree_el=element(by.tagName('json-tree'));
-	
-	
-	expect(tree_el.getAttribute('object')).toBe('currentNSD');
-  });
   
   it('when clicked: "request service instantiation" instantiates a new service' , function() {
 	
@@ -54,8 +44,12 @@ describe('NSDs View', function() {
 	yes_el.click();
 	browser.sleep(1500);
 
-	//expect(element(by.id('instantiateNSD')).isDisplayed()).toBe(false);
-	expect(element(by.id('instantiateRequest')).isDisplayed()).toBe(true);
+	parent = element(by.id('instantiateRequest'));
+	expect(parent.isDisplayed()).toBe(true);
+	
+	parent.element(by.id('requestId')).getText().then(function(text){
+		requestId =  text;
+	});
 	
   });
 
@@ -67,22 +61,15 @@ describe('Instantiation Requests View', function() {
   });
 
   
-  it('instantiation requests list must not be empty', function() {
+  it('instantiation request must be in the list', function() {
+	  
+	var query = element(by.model('InstantiationRequestsSearch'));
+	query.sendKeys(requestId);
+	  
+	var data = element.all(by.repeater("iR in InstantiationRequests"));
 	
-	var count=element.all(by.repeater('iR in InstantiationRequests')).count();
-	expect(count).toBeGreaterThan(0);
-  });
-
-  it('when clicked: "request details" shows the instantiation request details' , function() {
-	
-	var el=element.all(by.css('.btn-success')).get(0);
-	
-	el.click();
-	
-	var tree_el=element(by.tagName('json-tree'));
-	
-	
-	expect(tree_el.getAttribute('object')).toBe('currentInstantiationRequests');
+	expect(data.count()).toBe(1);
+	  
   });
 
 });  
