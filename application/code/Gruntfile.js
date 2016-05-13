@@ -30,11 +30,7 @@ var fmock =  function (req, res, next) {
 										  //console.log("GET");
 										  if (path.indexOf('/services') === 0) {
 											  //body response
-											  body += '[';
-											  body += '{ "name": "Service Example 1", "version": 0.1, "description": "functionality, purpose of the service 1", "uuid": "32adeb1e-d981-16ec-dc44-e288e80067a1", "sla": 5, "vendor": "Vendor 1"}';
-											  body += ',';
-											  body += '{ "name": "Service Example 2", "version": 0.3, "description": "functionality, purpose of the service 2", "uuid": "32adeb1e-d981-16ec-dc44-e288e80067a2", "sla": 1, "vendor": "Vendor 2"}';
-											  body += ']';			
+											  body += JSON.stringify(require('./examples/NSD.json'));											  
 											  //body response
 											  res.setHeader('Access-Control-Allow-Origin', '*');
 											  res.writeHeader(200, {
@@ -45,11 +41,7 @@ var fmock =  function (req, res, next) {
 											  res.end(); 
 										  } else {
 											  if (path.indexOf('/requests') === 0) {
-												  body += '[';
-												  body += '{ "requestId": "12345", "status":"In Progress" ,"descriptorId": "32adeb1e-d981-16ec-dc44-e288e80067a1","instanceId": "I11111"}';
-												  body += ',';
-												  body += '{ "requestId": "12346", "status": "Ready", "descriptorId": "32adeb1e-d981-16ec-dc44-e288e80067a2","instanceId": "I22222"}';
-												  body += ']';
+												  body += JSON.stringify(require('./examples/request.json'));
 												  res.setHeader('Access-Control-Allow-Origin', '*');
 												  res.writeHeader(200, {
 													"Content-Type": "application/json"
