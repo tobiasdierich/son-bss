@@ -36,7 +36,7 @@
                 </tr>
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">
-                <tr ng-repeat="nSD in nSDs | searchObject:nSDsSearch | orderObjectBy:sort:reverse"
+                <tr ng-repeat="nSD in nSDs | searchObject:nSDsSearch | orderObjectBy:sort:reverse | itemsPerPage:10"
                     ng-animate="''" ng-mouseover="showPopover(nSD)" ng-mouseleave="hidePopover()">
                     
 		    <td>{{ nSD['name'] }}</td>                    
@@ -77,4 +77,11 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+    
+    <dir-pagination-controls
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+    
 </div>
