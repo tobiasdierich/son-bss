@@ -66,7 +66,7 @@ describe('Instantiation Requests View', function() {
 	var query = element(by.model('InstantiationRequestsSearch'));
 	query.sendKeys(requestId);
 	  
-	var data = element.all(by.repeater("iR in InstantiationRequests"));
+	var data = element.all(by.repeater("InstantiationRequest in InstantiationRequests"));
 	
 	expect(data.count()).toBe(1);
 	  

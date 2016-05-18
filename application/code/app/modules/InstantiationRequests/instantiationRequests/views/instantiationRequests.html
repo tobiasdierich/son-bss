@@ -37,16 +37,16 @@
                 </thead>
                 <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">
                 <!--tr ng-repeat="InstantiationRequests in InstantiationRequests | searchObject:InstantiationRequestsSearch | orderObjectBy:sort:reverse" ng-animate="''"-->		
-		 <tr dir-paginate="InstantiationRequests in InstantiationRequests | searchObject:InstantiationRequestsSearch | orderObjectBy:sort:reverse | itemsPerPage:10" ng-animate="''">
+		 <tr dir-paginate="InstantiationRequest in InstantiationRequests | searchObject:InstantiationRequestsSearch | orderObjectBy:sort:reverse | itemsPerPage:10" ng-animate="''">
                     
-                    <td>{{ InstantiationRequests['requestId'] }}</td>
-                    <td>{{ InstantiationRequests['descriptorId'] }}</td>
-                    <td>{{ InstantiationRequests['status'] }}</td>
-                    <td>{{ InstantiationRequests['instanceId'] }}</td>
+                    <td>{{ InstantiationRequest['requestId'] }}</td>
+                    <td>{{ InstantiationRequest['descriptorId'] }}</td>
+                    <td>{{ InstantiationRequest['status'] }}</td>
+                    <td>{{ InstantiationRequest['instanceId'] }}</td>
                     <td>
                         <button class="btn btn-success btn-xs" tooltip-init
                                 data-toggle="tooltip" data-placement="top" title="Update"
-                                ng-click="openUpdateInstantiationRequests(InstantiationRequests)">
+                                ng-click="openUpdateInstantiationRequests(InstantiationRequest)">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </td>
@@ -57,12 +57,6 @@
         </div>
     </div>
     
-    <dir-pagination-controls
-       max-size="5"
-       direction-links="true"
-       boundary-links="true" >
-    </dir-pagination-controls>
-    
     <ng-include src="'modules/InstantiationRequests/instantiationRequests/views/addInstantiationRequests.html'"></ng-include>
     <ng-include src="'modules/InstantiationRequests/instantiationRequests/views/updateInstantiationRequests.html'"></ng-include>
     <ng-include src="'modules/InstantiationRequests/instantiationRequests/views/deleteInstantiationRequests.html'"></ng-include>
@@ -71,4 +65,11 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+        
+	<dir-pagination-controls
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+    
 </div>
