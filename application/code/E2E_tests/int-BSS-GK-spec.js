@@ -50,7 +50,7 @@ describe('Instantiation Requests View', function() {
   
   it('instantiation requests list must not be empty', function() {
 	
-	var count=element.all(by.repeater('iR in InstantiationRequests')).count();
+	var count=element.all(by.repeater('InstantiationRequest in InstantiationRequests')).count();
 	expect(count).toBeGreaterThan(0);
   });
 
