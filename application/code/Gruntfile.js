@@ -17,7 +17,7 @@ var fmock =  function (req, res, next) {
 							  } else {
 									if (req.method === 'POST') {		
 										//console.log("POST");
-										body += '{ "requestId": "12345" }';
+										body += '{ "id": "12345" }';
 										res.setHeader('Access-Control-Allow-Origin', '*');
 										res.setHeader('Access-Control-Allow-Headers', '"Origin, X-Requested-With, Content-Type, Accept');								  
 										res.writeHeader(200, {
