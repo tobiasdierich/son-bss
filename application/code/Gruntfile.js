@@ -9,7 +9,7 @@ var fmock =  function (req, res, next) {
 							    //console.log("OPTIONS");
 								
 								res.setHeader('Access-Control-Allow-Origin', '*');
-								res.setHeader('Access-Control-Allow-Headers', '"Origin, X-Requested-With, Content-Type, Accept');								  
+								res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');								  
 								res.writeHeader(200, {
 									"Content-Type": "application/json"
 								});
@@ -19,7 +19,7 @@ var fmock =  function (req, res, next) {
 										//console.log("POST");
 										body += '{ "id": "12345" }';
 										res.setHeader('Access-Control-Allow-Origin', '*');
-										res.setHeader('Access-Control-Allow-Headers', '"Origin, X-Requested-With, Content-Type, Accept');								  
+										res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');								  
 										res.writeHeader(200, {
 											"Content-Type": "application/json"
 										});
