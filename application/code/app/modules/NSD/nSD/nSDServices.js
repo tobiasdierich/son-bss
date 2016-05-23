@@ -17,7 +17,7 @@ angular.module('NSD')
           
             instantiateNSD:function(id,ENV){				
                 var defer=$q.defer();
-				$http.post(ENV.apiEndpoint+"/requests",{"service_uuid":id})
+				$http.post(ENV.apiEndpoint+"/requests","service_uuid="+encodeURIComponent(id))
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
 											
