@@ -47,7 +47,7 @@ describe('NSDs View', function() {
 	parent = element(by.id('instantiateRequest'));
 	expect(parent.isDisplayed()).toBe(true);
 	
-	parent.element(by.id('requestId')).getText().then(function(text){
+	parent.element(by.id('id')).getText().then(function(text){
 		requestId =  text;
 	});
 	
