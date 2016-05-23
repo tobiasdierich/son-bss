@@ -29,9 +29,10 @@
                 <thead>
                 <tr role="row">                    
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Request Id</th>                    
-                    <th role="columnheader" ng-click="sort='user';reverse=!reverse">Descriptor Id</th>                    
-                    <th role="columnheader" ng-click="sort='descriptorId';reverse=!reverse">Status</th>                    
-                    <th role="columnheader" ng-click="sort='instanceId';reverse=!reverse">Instance Id</th>                    
+                    <th role="columnheader" ng-click="sort='user';reverse=!reverse">Created at</th>                    
+                    <th role="columnheader" ng-click="sort='descriptorId';reverse=!reverse">Updated at</th>                    
+                    <th role="columnheader" ng-click="sort='instanceId';reverse=!reverse">Service Id</th>                    
+					<th role="columnheader" ng-click="sort='instanceId';reverse=!reverse">Status</th>
                     <th role="columnheader" class="actionTH">Actions</th>
                 </tr>
                 </thead>
@@ -39,10 +40,11 @@
                 <!--tr ng-repeat="InstantiationRequests in InstantiationRequests | searchObject:InstantiationRequestsSearch | orderObjectBy:sort:reverse" ng-animate="''"-->		
 		 <tr dir-paginate="InstantiationRequest in InstantiationRequests | searchObject:InstantiationRequestsSearch | orderObjectBy:sort:reverse | itemsPerPage:10" ng-animate="''">
                     
-                    <td>{{ InstantiationRequest['requestId'] }}</td>
-                    <td>{{ InstantiationRequest['descriptorId'] }}</td>
-                    <td>{{ InstantiationRequest['status'] }}</td>
-                    <td>{{ InstantiationRequest['instanceId'] }}</td>
+                    <td>{{ InstantiationRequest['id'] }}</td>
+                    <td>{{ InstantiationRequest['created_at'] }}</td>
+                    <td>{{ InstantiationRequest['updated_at'] }}</td>
+                    <td>{{ InstantiationRequest['service_uuid'] }}</td>
+					<td>{{ InstantiationRequest['status'] }}</td>
                     <td>
                         <button class="btn btn-success btn-xs" tooltip-init
                                 data-toggle="tooltip" data-placement="top" title="Update"
