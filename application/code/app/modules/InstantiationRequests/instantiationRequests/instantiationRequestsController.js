@@ -16,8 +16,8 @@ angular.module('InstantiationRequests')
                         alert(error);
                     })
             });
-
-		$scope.retrieveInstantiationRequests();
+	    
+	$scope.retrieveInstantiationRequests();
 			
         $scope.openUpdateInstantiationRequests=function(data){
             $scope.currentInstantiationRequests=angular.copy(data);

@@ -8,7 +8,8 @@ angular.module('NSD')
             retrieveNSDs:function(ENV){
 
                 var defer=$q.defer();
-		$http.get(ENV.apiEndpoint+"/services/")
+		var maxSafeInteger = Math.pow(2,32) - 1;
+		$http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")
                     .success(function(result){
 					defer.resolve(result)})
                     .error(function(error){defer.reject(error)});

@@ -8,7 +8,9 @@ angular.module('InstantiationRequests')
             retrieveInstantiationRequests:function(ENV){
 
                 var defer=$q.defer();
-                $http.get(ENV.apiEndpoint+"/requests")
+		var maxSafeInteger = Math.pow(2,32) - 1;
+                $http.get(ENV.apiEndpoint+"/requests?limit="+maxSafeInteger+"&offset=0")		
+		//$http.get(ENV.apiEndpoint+"/requests?limit=100&offset=0")		
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
                 return defer.promise;
