@@ -66,8 +66,6 @@ var fmock =  function (req, res, next) {
 							}
 						};
 
-var apiUrl;
-
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -87,9 +85,41 @@ module.exports = function(grunt) {
 		    space: '  ',
 		    wrap: '"use strict";\n\n {%= __ngModule %}',
 		    name: 'config',
-			livereload: true,
-			dest: 'app/config/config.js',
-			apiEndpoint: apiUrl
+			livereload: true
+		  },
+		  // Environment targets
+		  development: {
+		    options: {
+		      dest: 'app/config/config.js'
+		    },
+		    constants: {
+		      ENV: {
+				name: 'development',
+				apiEndpoint: [grunt.option('gkApiUrl')]
+		      }
+		    }
+		  },
+		  integration: {
+		    options: {
+		      dest: 'app/config/config.js'
+		    },
+		    constants: {
+		      ENV: {
+				name: 'integration',
+				apiEndpoint: [grunt.option('gkApiUrl')]
+		      }
+		    }
+		  },
+		  qualification: {
+		    options: {
+		      dest: 'app/config/config.js'
+		    },
+		    constants: {
+		      ENV: {
+				name: 'qualification',
+				apiEndpoint: [grunt.option('gkApiUrl')]
+		      }
+		    }
 		  }
 		},
 		connect: {			
@@ -118,7 +148,7 @@ module.exports = function(grunt) {
 				port: 1337,
 				base: 'app'
 			}
-		},		
+		},
 		protractor: {
 		  options: {
 			configFile: "protractor.conf.js",		 
@@ -149,24 +179,22 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);	
 	
 	grunt.registerTask('default', 'connect:dist');
-	grunt.registerTask('serve', function (target, gkApiUrl) {	
+	grunt.registerTask('serve', function (target) {	
 	
-		apiUrl = gkApiUrl;
-		
 		if (target === 'development') {    
-			return grunt.task.run(['ngconstant', 'connect:dist', 'connect:mock', 'watch:protractor']);
+			return grunt.task.run(['ngconstant:development', 'connect:dist', 'connect:mock', 'watch:protractor']);
 		}		
 		if (target === 'unit_tests') {    
-			return grunt.task.run(['ngconstant', 'connect:dist', 'connect:mock', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
+			return grunt.task.run(['ngconstant:development', 'connect:dist', 'connect:mock', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
 		}
 		if (target === 'integration_tests') {    
-			return grunt.task.run(['ngconstant','connect:int', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
+			return grunt.task.run(['ngconstant:integration','connect:int', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
 		}
 		if (target === 'integration') {    
-			return grunt.task.run(['ngconstant','connect:int', 'watch:protractor']);
+			return grunt.task.run(['ngconstant:integration','connect:int', 'watch:protractor']);
 		}
 		if (target === 'qualification') {    
-			return grunt.task.run(['ngconstant','connect:qualif', 'watch:protractor']);
+			return grunt.task.run(['ngconstant:qualification','connect:qualif', 'watch:protractor']);
 		}  
 	});
 }; 
