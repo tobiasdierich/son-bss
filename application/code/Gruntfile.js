@@ -90,42 +90,7 @@ module.exports = function(grunt) {
 			livereload: true,
 			dest: 'app/config/config.js',
 			apiEndpoint: apiUrl
-		  }/*,
-		  // Environment targets
-		  development: {
-		    options: {
-		      dest: 'app/config/config.js'
-		    },
-		    constants: {
-		      ENV: {
-				name: 'development',
-				//apiEndpoint: 'http://localhost:1338/mock'
-				apiEndpoint: 'http://bss.sonata-nfv.eu:25002/mock'
-		      }
-		    }
-		  },
-		  integration: {
-		    options: {
-		      dest: 'app/config/config.js'
-		    },
-		    constants: {
-		      ENV: {
-			name: 'integration',
-			apiEndpoint: gkApiUrl//'http://sp.int3.sonata-nfv.eu:32001'
-		      }
-		    }
-		  },
-		  qualification: {
-		    options: {
-		      dest: 'app/config/config.js'
-		    },
-		    constants: {
-		      ENV: {
-			name: 'qualification',
-			apiEndpoint: 'http://sp.qualif.sonata-nfv.eu:32001'
-		      }
-		    }
-		  }*/
+		  }
 		},
 		connect: {			
 			dist: {				
