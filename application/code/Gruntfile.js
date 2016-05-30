@@ -66,6 +66,8 @@ var fmock =  function (req, res, next) {
 							}
 						};
 
+var apiUrl;
+
 module.exports = function(grunt) {
 
 	grunt.initConfig({
@@ -85,8 +87,10 @@ module.exports = function(grunt) {
 		    space: '  ',
 		    wrap: '"use strict";\n\n {%= __ngModule %}',
 		    name: 'config',
-			livereload: true
-		  },
+			livereload: true,
+			dest: 'app/config/config.js',
+			apiEndpoint: apiUrl
+		  }/*,
 		  // Environment targets
 		  development: {
 		    options: {
@@ -107,7 +111,7 @@ module.exports = function(grunt) {
 		    constants: {
 		      ENV: {
 			name: 'integration',
-			apiEndpoint: <%= gkApiUrl %>//'http://sp.int3.sonata-nfv.eu:32001'
+			apiEndpoint: gkApiUrl//'http://sp.int3.sonata-nfv.eu:32001'
 		      }
 		    }
 		  },
@@ -121,7 +125,7 @@ module.exports = function(grunt) {
 			apiEndpoint: 'http://sp.qualif.sonata-nfv.eu:32001'
 		      }
 		    }
-		  }
+		  }*/
 		},
 		connect: {			
 			dist: {				
@@ -180,22 +184,24 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);	
 	
 	grunt.registerTask('default', 'connect:dist');
-	grunt.registerTask('serve', function (target) {	
+	grunt.registerTask('serve', function (target, gkApiUrl) {	
 	
+		apiUrl = gkApiUrl;
+		
 		if (target === 'development') {    
-			return grunt.task.run(['ngconstant:development', 'connect:dist', 'connect:mock', 'watch:protractor']);
+			return grunt.task.run(['ngconstant', 'connect:dist', 'connect:mock', 'watch:protractor']);
 		}		
 		if (target === 'unit_tests') {    
-			return grunt.task.run(['ngconstant:development', 'connect:dist', 'connect:mock', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
+			return grunt.task.run(['ngconstant', 'connect:dist', 'connect:mock', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
 		}
 		if (target === 'integration_tests') {    
-			return grunt.task.run(['ngconstant:integration','connect:int', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
+			return grunt.task.run(['ngconstant','connect:int', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
 		}
 		if (target === 'integration') {    
-			return grunt.task.run(['ngconstant:integration','connect:int', 'watch:protractor']);
+			return grunt.task.run(['ngconstant','connect:int', 'watch:protractor']);
 		}
 		if (target === 'qualification') {    
-			return grunt.task.run(['ngconstant:qualification','connect:qualif:keepalive']);
+			return grunt.task.run(['ngconstant','connect:qualif', 'watch:protractor']);
 		}  
 	});
 }; 
