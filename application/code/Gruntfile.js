@@ -107,7 +107,7 @@ module.exports = function(grunt) {
 		    constants: {
 		      ENV: {
 			name: 'integration',
-			apiEndpoint: 'http://sp.int2.sonata-nfv.eu:32001'
+			apiEndpoint: <%= gkApiUrl %>//'http://sp.int3.sonata-nfv.eu:32001'
 		      }
 		    }
 		  },
@@ -190,6 +190,9 @@ module.exports = function(grunt) {
 		}
 		if (target === 'integration_tests') {    
 			return grunt.task.run(['ngconstant:integration','connect:int', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
+		}
+		if (target === 'integration') {    
+			return grunt.task.run(['ngconstant:integration','connect:int', 'watch:protractor']);
 		}
 		if (target === 'qualification') {    
 			return grunt.task.run(['ngconstant:qualification','connect:qualif:keepalive']);
