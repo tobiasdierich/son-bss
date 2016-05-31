@@ -17,7 +17,8 @@ docker build --no-cache -t son-yo-gen-bss application/
 
 Run Docker container
 ```
-docker run --name son-bss -i -p 1338:1338 -p 1337:1337 son-yo-gen-bss sudo grunt serve:development &
+docker run -d --name son-bss -p 25001:1337 -p 25002:1338 -it son-yo-gen-bss
+docker exec -t -d son-bss grunt serve:unit_tests --gkApiUrl=[gatekeeper api url] --suite=unit
 ```
 ### Technologies
 

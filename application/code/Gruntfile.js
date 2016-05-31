@@ -95,8 +95,7 @@ module.exports = function(grunt) {
 		    constants: {
 		      ENV: {
 				name: 'development',
-				//apiEndpoint: 'http://localhost:1338/mock'
-				apiEndpoint: 'http://bss.sonata-nfv.eu:25002/mock'
+				apiEndpoint: [grunt.option('gkApiUrl')]
 		      }
 		    }
 		  },
@@ -106,8 +105,8 @@ module.exports = function(grunt) {
 		    },
 		    constants: {
 		      ENV: {
-			name: 'integration',
-			apiEndpoint: 'http://sp.int2.sonata-nfv.eu:32001'
+				name: 'integration',
+				apiEndpoint: [grunt.option('gkApiUrl')]
 		      }
 		    }
 		  },
@@ -117,8 +116,8 @@ module.exports = function(grunt) {
 		    },
 		    constants: {
 		      ENV: {
-			name: 'qualification',
-			apiEndpoint: 'http://sp.qualif.sonata-nfv.eu:32001'
+				name: 'qualification',
+				apiEndpoint: [grunt.option('gkApiUrl')]
 		      }
 		    }
 		  }
@@ -149,7 +148,7 @@ module.exports = function(grunt) {
 				port: 1337,
 				base: 'app'
 			}
-		},		
+		},
 		protractor: {
 		  options: {
 			configFile: "protractor.conf.js",		 
@@ -191,8 +190,11 @@ module.exports = function(grunt) {
 		if (target === 'integration_tests') {    
 			return grunt.task.run(['ngconstant:integration','connect:int', 'protractor_webdriver', 'protractor:run', 'watch:protractor']);
 		}
+		if (target === 'integration') {    
+			return grunt.task.run(['ngconstant:integration','connect:int', 'watch:protractor']);
+		}
 		if (target === 'qualification') {    
-			return grunt.task.run(['ngconstant:qualification','connect:qualif:keepalive']);
+			return grunt.task.run(['ngconstant:qualification','connect:qualif', 'watch:protractor']);
 		}  
 	});
 }; 
