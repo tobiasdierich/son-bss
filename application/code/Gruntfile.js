@@ -153,11 +153,11 @@ module.exports = function(grunt) {
 		  options: {
 			configFile: "protractor.conf.js",		 
 			noColor: false,
-			keepAlive: true
+			keepAlive: false
 		  },		  
 		  run: {},
 		  auto: {
-			keepAlive: true,
+			keepAlive: false,
 			options: {
 				args: {
 					seleniumPort: 4444					
@@ -169,7 +169,7 @@ module.exports = function(grunt) {
 			start: {
 				options: {
 					path: 'node_modules/protractor/bin/',
-					keepAlive: true,
+					keepAlive: false,
 					command: 'webdriver-manager start'
 				}
 			}
