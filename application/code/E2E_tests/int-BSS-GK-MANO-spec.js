@@ -18,6 +18,7 @@ describe('SonataBSS Instantiates a Service', function() {
         var inst_el = element.all(by.css('.btn-danger')).get(0);
 
         inst_el.click();
+		browser.sleep(1000);
 
         var parent = element(by.id('instantiateNSD'));
         var child = parent.element(by.binding('childBinding'));
