@@ -1,10 +1,6 @@
 var HtmlScreenshotReporter = require('protractor-jasmine2-html-reporter');
 
-var reporter = new HtmlScreenshotReporter({
-  //dest: 'E2E_tests/reports',
-  //filename: 'my-report.html'
-  savePath: 'E2E_tests/reports/'
-});
+var reportName;
 
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -26,6 +22,16 @@ exports.config = {
      
   
   onPrepare: function() {
-      jasmine.getEnv().addReporter(reporter);
+     process.argv.forEach((val, index, array) => {
+        if (`${val}`=='--suite') {
+                reportName = process.argv[`${index+1}`];
+        }
+     });    
+     jasmine.getEnv().addReporter(
+        new HtmlScreenshotReporter({
+          savePath: 'E2E_tests/reports/',
+          filePrefix: reportName
+        })
+     );
    }
 }
