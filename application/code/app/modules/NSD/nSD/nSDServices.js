@@ -9,7 +9,7 @@ angular.module('NSD')
 
                 var defer=$q.defer();
 		var maxSafeInteger = Math.pow(2,32) - 1;
-		$http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")
+		$http.get(ENV.apiEndpoint+"/services?status=active&limit="+maxSafeInteger+"&offset=0")
                     .success(function(result){
 					defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
