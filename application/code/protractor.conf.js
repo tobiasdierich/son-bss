@@ -7,9 +7,9 @@ exports.config = {
   seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',
   //specs: ['E2E_tests/todo-spec.js'],
   suites: {
-	  unit: ['E2E_tests/*.js'],
-	  intBSS_GK: ['E2E_tests/int-BSS-GK-spec.js'],
-	  intBSS_GK_MANO: ['E2E_tests/int-BSS-GK-MANO-spec.js']
+	  allTests: ['E2E_tests/*.js'],
+	  menus_Navigation: ['E2E_tests/menusNavigation.js'],
+	  service_Instantiation: ['E2E_tests/serviceInstantiation.js']
   },
   
   capabilities: {
