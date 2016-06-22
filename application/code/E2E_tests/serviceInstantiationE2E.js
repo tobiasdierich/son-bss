@@ -48,10 +48,6 @@ describe('SonataBSS Instantiates a Service', function() {
         expect(data.count()).toBe(1);
 
     });
-	
-    });
-
-	
 
 	it('request must be ready after service instantiation process', function() {
 
