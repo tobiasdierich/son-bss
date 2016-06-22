@@ -45,7 +45,13 @@ describe('SonataBSS Instantiates a Service', function() {
 
         var data = element.all(by.repeater("InstantiationRequest in InstantiationRequests"));
 
-        expect(data.count()).toBe(1);
+        #expect(data.count()).toBe(1);
+
+		var EC = protractor.ExpectedConditions;
+		// Waits for instantiation request to contain the text 'ready'.
+		browser.wait(EC.textToBePresentInElement(data, 'ready'), 60000);
+		
+		expect(data['status']).toEqual('ready');
 
     });
 
