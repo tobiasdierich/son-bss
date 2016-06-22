@@ -9,7 +9,8 @@ exports.config = {
   suites: {
 	  allTests: ['E2E_tests/*.js'],
 	  menus_Navigation: ['E2E_tests/menusNavigation.js'],
-	  service_Instantiation: ['E2E_tests/serviceInstantiation.js']
+	  service_Instantiation: ['E2E_tests/serviceInstantiation.js'],
+	  ready_Request_Validation: ['E2E_tests/readyRequestValidation.js']
   },
   
   capabilities: {

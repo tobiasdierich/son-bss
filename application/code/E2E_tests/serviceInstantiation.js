@@ -1,6 +1,8 @@
 describe('SonataBSS Instantiates a Service', function() {
 
     var requestId;
+	var serviceId;
+	var file = new File("ids.txt");
 
     beforeEach(function() {
         browser.get('http://localhost:1337/#/NSDs');
@@ -34,6 +36,9 @@ describe('SonataBSS Instantiates a Service', function() {
             requestId = text;
         });
 
+		file.open("w");
+		file.writeln(requestId);		
+		
     });
 
     it('instantiation request must be in the list', function() {
@@ -45,6 +50,9 @@ describe('SonataBSS Instantiates a Service', function() {
 
         var data = element.all(by.repeater("InstantiationRequest in InstantiationRequests"));
 
+		serviceId = data['service_uuid'];
+		file.writeln(serviceId);
+		file.close
         expect(data.count()).toBe(1);
 
     });
