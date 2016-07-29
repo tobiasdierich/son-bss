@@ -32,7 +32,7 @@ angular.module('NSD')
             retrieveNSDs:function(ENV){
 
                 var defer=$q.defer();
-		var maxSafeInteger = Math.pow(2,32) - 1;
+		var maxSafeInteger = Math.pow(2,16) - 1;
 		$http.get(ENV.apiEndpoint+"/services?status=active&limit="+maxSafeInteger+"&offset=0")
                     .success(function(result){
 					defer.resolve(result)})
