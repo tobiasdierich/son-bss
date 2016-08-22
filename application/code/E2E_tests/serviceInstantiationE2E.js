@@ -85,7 +85,7 @@ describe('SonataBSS Instantiates a Service', function() {
 		query.sendKeys(requestId);
 
 		var EC = protractor.ExpectedConditions;
-		browser.wait(EC.textToBePresentInElement(element(by.repeater("InstantiationRequest in InstantiationRequests").column('status')) ,'ready', 60000));
+		browser.wait(EC.textToBePresentInElement(element(by.repeater("InstantiationRequest in InstantiationRequests").column('status')) ,'ready', 240000));
 
     });
 
