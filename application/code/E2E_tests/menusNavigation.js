@@ -26,7 +26,7 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
  
-describe('SonataBSS Retrieves Services and Instantiation Requests', function() {
+describe('SonataBSS Retrieves Available Services, Instantiation Requests and Service Instances', function() {
 
     beforeEach(function() {
         browser.get('http://localhost:1337');
@@ -97,6 +97,31 @@ describe('SonataBSS Retrieves Services and Instantiation Requests', function() {
 
     });
 
+    describe('Service Instances View', function() {
 
+        beforeEach(function() {
+            browser.get('http://localhost:1337/#/nSRs');
+        });
+
+
+        it('service instances list must not be empty', function() {
+
+            var count = element.all(by.repeater('nSR in nSRs')).count();
+            expect(count).toBeGreaterThan(0);
+        });
+
+        it('when clicked: "request details" shows the instantiation request details', function() {
+
+            var el = element.all(by.css('.btn-success')).get(0);
+
+            el.click();
+
+            var tree_el = element(by.tagName('json-tree'));
+
+
+            expect(tree_el.getAttribute('object')).toBe('currentNSR');
+        });
+
+    });
 
 });
