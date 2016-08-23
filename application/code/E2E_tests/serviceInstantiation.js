@@ -31,7 +31,7 @@ describe('SonataBSS Instantiates a Service', function() {
     var requestId;
 	
     beforeEach(function() {
-        browser.get('http://localhost:1337/#/NSDs');
+        browser.get('http://localhost:1337/#/nSDs');
     });
 
 

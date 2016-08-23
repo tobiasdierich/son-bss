@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h2 class="moduleHeader">
-                Network Services
+                Available Network Services
             </h2>
 
             
@@ -30,7 +30,7 @@
                     <th role="columnheader" ng-click="sort='name';reverse=!reverse">Name</th>
 		    <th role="columnheader" ng-click="sort='name';reverse=!reverse">Description</th>
                     <th role="columnheader" ng-click="sort='vendor';reverse=!reverse">Vendor</th>
-                    <th role="columnheader" ng-click="sort='version';reverse=!reverse">Version</th>
+                    <th role="columnheader" ng-click="sort='version';reverse=!reverse">Descriptor Version</th>
 		    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Id</th>
                     <th role="columnheader" class="actionTH">Actions</th>
                 </tr>
@@ -41,7 +41,7 @@
 		    <td>{{ nSD['name'] }}</td>                    
                     <td>{{ nSD['description'] }}</td>
                     <td>{{ nSD['vendor'] }}</td>
-                    <td>{{ nSD['version'] }}</td>
+                    <td>{{ nSD['descriptor_version'] }}</td>
 		    <td>{{ nSD['uuid'] }}</td>
                     <td>
                         <button class="btn btn-success btn-xs" tooltip-init
@@ -57,10 +57,9 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
+            </table>	 
 	    
-	    
-	<div class="descriptionpopup" ng-show="popoverIsVisible" }" style="clear:both;"><b><u>Description:</b></u> <i>{{hoveredNSD['description']}}</i></div>            
+	<div class="descriptionpopup" ng-show="popoverIsVisible"  style="clear:both;"><b><u>Description:</b></u> <i>{{hoveredNSD['description']}}</i></div>            
 
 
         </div>

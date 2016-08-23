@@ -26,42 +26,39 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-var HtmlScreenshotReporter = require('protractor-jasmine2-html-reporter');
+angular.module('NSR')
+    .factory('NSRServices',["$http","$q",function ($http,$q) {
+        return {
+            retrieveNSRs:function(ENV){
 
-var reportName;
-
-exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
-  seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',
-  //specs: ['E2E_tests/todo-spec.js'],
-  suites: {
-	  unitTests: ['E2E_tests/menusNavigation.js', 'E2E_tests/serviceInstantiation.js', 'E2E_tests/serviceUpdate.js'],	  
-	  menus_Navigation: ['E2E_tests/menusNavigation.js'],
-	  service_Instantiation: ['E2E_tests/serviceInstantiation.js'],
-	  service_Update: ['E2E_tests/serviceUpdate.js'],
-	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js']
-  },
-  
-  capabilities: {
-  'browserName': 'phantomjs',
-    version: '',
-    platform: 'ANY',
-	'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs',
-	'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
-  },
-     
-  
-  onPrepare: function() {
-     process.argv.forEach((val, index, array) => {
-        if (`${val}`=='--suite') {
-                reportName = process.argv[`${index+1}`];
+                var defer=$q.defer();
+				var maxSafeInteger = Math.pow(2,16) - 1;
+				$http.get(ENV.apiEndpoint+"/records/services?limit="+maxSafeInteger+"&offset=0")
+                    .success(function(result){
+					defer.resolve(result)})
+                    .error(function(error){defer.reject(error)});
+                return defer.promise;
+            },
+          
+            updateNSR:function(id,ENV){				
+                var defer=$q.defer();
+				var data={"service_uuid":id};
+				$http.put(ENV.apiEndpoint+"/records/services",data)
+                    .success(function(result){defer.resolve(result)})
+                    .error(function(error){defer.reject(error)});
+											
+                return defer.promise;
+            },
+			
+	    retrieveNSDs:function(ENV){
+                var defer=$q.defer();
+				var maxSafeInteger = Math.pow(2,16) - 1;
+				$http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")
+                    .success(function(result){
+					defer.resolve(result)})
+                    .error(function(error){defer.reject(error)});
+                return defer.promise;
+            }
+	    
         }
-     });    
-     jasmine.getEnv().addReporter(
-        new HtmlScreenshotReporter({
-          savePath: 'E2E_tests/reports/',
-          filePrefix: reportName
-        })
-     );
-   }
-}
+    }]);

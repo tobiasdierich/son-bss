@@ -25,46 +25,38 @@
  * acknowledge the contributions of their colleagues of the SONATA 
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
+ 
+describe('SonataBSS Updates a Service', function() {
 
-    
-angular.module("NSD",["config"]);
-    
-angular.module("InstantiationRequests",["config"]);
-
-angular.module("NSR",["config"]);
-
-angular.module("SonataBSS", ["angular-json-tree","ui.router","formly","formlyBootstrap","ngAnimate","angularUtils.directives.dirPagination"
-
-        ,"NSD"
-
-        ,"InstantiationRequests"
+    var requestId;
 	
-	,"NSR"
-    
+    beforeEach(function() {
+        browser.get('http://localhost:1337/#/nSRs');
+    });
 
-])
-    .config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-        
-            $stateProvider
-            
-                .state("NSD",{
-                    url: "/nSDs",
-                    templateUrl: "modules/NSD/nSD/views/nSDs.html",
-                    controller: "NSDCtrl"
-                    })
-                .state("InstantiationRequests",{
-                    url: "/InstantiationRequests",
-                    templateUrl: "modules/InstantiationRequests/instantiationRequests/views/instantiationRequests.html",
-                    controller: "InstantiationRequestsCtrl"
-                    })
-		.state("NSR",{
-                    url: "/nSRs",
-                    templateUrl: "modules/NSR/nSR/views/nSRs.html",
-                    controller: "NSRCtrl"
-                    })
-		
-         
-        
-            $urlRouterProvider.otherwise("/nSDs");
-        
-    }]);
+
+    it('instances list must not be empty', function() {	
+        var count = element.all(by.repeater('nSR in nSRs')).count();
+        expect(count).toBeGreaterThan(0);
+    });
+
+    it('when clicked: "update service" updates the service', function() {
+	
+        var inst_el = element.all(by.css('.btn-danger')).get(0);
+
+        inst_el.click();
+
+        var parent = element(by.id('updateNSR'));
+        var child = parent.element(by.binding('childBinding'));
+
+        var yes_el = parent.element(by.css('.btn-success'));
+
+        yes_el.click();
+        browser.sleep(1500);
+
+        parent = element(by.id('updateRequest'));
+        expect(parent.isDisplayed()).toBe(true);        
+
+    });
+    
+});
