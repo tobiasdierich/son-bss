@@ -96,7 +96,7 @@ angular.module('NSR')
 
   $scope.updateNSR = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-   NSRServices.updateNSR($scope.currentNSR.uuid,$scope.actualDescUuid, ENV)
+   NSRServices.updateNSR($scope.currentNSR.uuid,$scope.currentNSR.descriptor_reference,$scope.actualDescUuid, ENV)
     .then(function(result) {
      $('#updateNSR.modal').modal('hide');	 	 
 	 $('#updateRequest.modal').modal('show');    

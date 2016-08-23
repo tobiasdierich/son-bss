@@ -40,10 +40,10 @@ angular.module('NSR')
                 return defer.promise;
             },
           
-            updateNSR:function(nsrId,nsdId,ENV){				
+            updateNSR:function(nsrId,nsdId,latestNsdId,ENV){				
                 var defer=$q.defer();
-				var data={"nsr_id":nsrId,"nsd_id":nsdId};
-				$http.put(ENV.apiEndpoint+"/records/services",data)
+				var data={"nsd_id":nsdId,"latest_nsd_id":latestNsdId};
+				$http.put(ENV.apiEndpoint+"/records/services/"+nsrId,data)
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
 											
