@@ -26,22 +26,21 @@
                    class="table table-striped table-hover table-bordered dataTable">
                 <thead>
                 <tr role="row">                                        
-                    <th role="columnheader" ng-click="sort='name';reverse=!reverse">Descriptor Reference</th>
-		    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Id</th>
-		    <th role="columnheader" ng-click="sort='vendor';reverse=!reverse">Status</th>                    		    
-		    <th role="columnheader" ng-click="sort='name';reverse=!reverse">Descriptor Version Used</th>
-                    <th role="columnheader" ng-click="sort='version';reverse=!reverse">Actual Descriptor Version</th>
+					<th role="columnheader" ng-click="sort='id';reverse=!reverse">NSR Id</th>
+					<th role="columnheader" ng-click="sort='vendor';reverse=!reverse">Status</th>
+                    <th role="columnheader" ng-click="sort='name';reverse=!reverse">Currently Running NSD ID</th>
+					<th role="columnheader" ng-click="sort='name';reverse=!reverse">Current Descriptor Version</th>					                    		    				
+                    <th role="columnheader" ng-click="sort='version';reverse=!reverse">Latest Descriptor Version</th>
                     <th role="columnheader" class="actionTH">Actions</th>
                 </tr>
                 </thead>		
                 <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">
                 <tr dir-paginate="nSR in nSRs | searchObject:nSRsSearch | orderObjectBy:sort:reverse | itemsPerPage:10" ng-animate="''" ng-mouseover="showPopover(nSR)" ng-mouseleave="hidePopover()">		
-		    
-                    <td>{{ nSR['descriptor_reference'] }}</td>                                        
-		    <td>{{ nSR['uuid'] }}</td>
-                    <td>{{ nSR['status'] }}</td>                    		    
-		    <td>{{ nSR['descriptor_version'] }}</td>
-		    <td>{{getActualNSDVersion(nSR, nSDsMap, activeNSDsMap)}}</td>
+					<td>{{ nSR['uuid'] }}</td>
+					<td>{{ nSR['status'] }}</td>                    		    
+                    <td>{{ nSR['descriptor_reference'] }}</td>                                        					                    
+					<td>{{ nSR['descriptor_version'] }}</td>
+					<td>{{getActualNSDVersion(nSR, nSDsMap, activeNSDsMap)}}</td>
                     <td>
                         <button class="btn btn-success btn-xs" tooltip-init
                                 data-toggle="tooltip" data-placement="top" title="Show details"

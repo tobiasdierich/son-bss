@@ -63,7 +63,7 @@ angular.module('NSR')
 			if (key == "status") status=obj[i][key];		
 	       }	  	       
 	       $rootScope.nSDsMap[uuid] = name+"//"+vendor+"//"+version;
-	       if (status == "active") $rootScope.activeNSDsMap[name+vendor] = version;
+	       if (status == "active") $rootScope.activeNSDsMap[name+vendor] = version+"//"+uuid;
 	}
 	//console.log("----------------------"+JSON.stringify($rootScope.nSDsMap));
 	//console.log("----------------------"+JSON.stringify($rootScope.activeNSDsMap));
@@ -96,7 +96,7 @@ angular.module('NSR')
 
   $scope.updateNSR = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-   NSRServices.updateNSR($scope.currentNSR.uuid, ENV)
+   NSRServices.updateNSR($scope.currentNSR.uuid,$scope.currentNSR.descriptor_reference,$scope.actualDescUuid, ENV)
     .then(function(result) {
      $('#updateNSR.modal').modal('hide');	 	 
 	 $('#updateRequest.modal').modal('show');    
@@ -111,12 +111,16 @@ angular.module('NSR')
 	  var nameVendorVersion = nSDsMap[nSR.descriptor_reference];	  
 	  var nameVendor = nameVendorVersion.substring(0,nameVendorVersion.lastIndexOf("//"));
 	  nameVendor = nameVendor.replace("//","");
-	  var actualDescVersion = activeNSDsMap[nameVendor];
+	  var actualDescVersionUuid = activeNSDsMap[nameVendor];
 	  //console.log("actual descriptor version: "+actualDescVersion);
 	  
-	  $scope.actualDescVersion = actualDescVersion;	  
+	  $scope.actualDescVersion = actualDescVersionUuid.substring(0,actualDescVersionUuid.lastIndexOf("//"));	  
+	  $scope.actualDescUuid = actualDescVersionUuid.substring(actualDescVersionUuid.lastIndexOf("//")+2,actualDescVersionUuid.length);
 	  
-	  return actualDescVersion;
+	  //console.log("actual desc version: "+$scope.actualDescVersion);
+	  //console.log("actual desc uuid: "+$scope.actualDescUuid);
+	  
+	  return $scope.actualDescVersion;
   }
 
   $scope.emptyNSR = function() {
