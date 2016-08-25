@@ -45,7 +45,7 @@ var fmock =  function (req, res, next) {
 		  };
 		  if (req.method === 'POST') {		
 			//console.log("POST");
-			body += '{ "id": "12345" }';
+			body += '{ "id": "8c58b169-7c38-4bcd-9421-a91bd786f100" }';
 			res.setHeader('Access-Control-Allow-Origin', '*');
 			res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');								  
 			res.writeHeader(200, {

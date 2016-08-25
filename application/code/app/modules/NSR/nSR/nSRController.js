@@ -59,7 +59,7 @@ angular.module('NSR')
 			if (key == "uuid") uuid=obj[i][key];		
 			if (key == "name") name=obj[i][key];		
 			if (key == "vendor") vendor=obj[i][key];		
-			if (key == "descriptor_version") version=obj[i][key];
+			if (key == "version") version=obj[i][key];
 			if (key == "status") status=obj[i][key];		
 	       }	  	       
 	       $rootScope.nSDsMap[uuid] = name+"//"+vendor+"//"+version;
