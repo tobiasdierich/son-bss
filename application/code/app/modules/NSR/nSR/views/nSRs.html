@@ -49,7 +49,7 @@
                         </button>						
                         <button class="btn btn-danger btn-xs" tooltip-init
                                 data-toggle="tooltip" data-placement="top" title="Update"
-                                ng-click="openUpdateNSR(nSR)" ng-show="nSR.descriptor_version < actualDescVersion">
+                                ng-click="openUpdateNSR(nSR)" ng-show="nSR.descriptor_version < actualDescVersion && (nSR['status'] | uppercase) != 'UPDATING'">
                             <i class="glyphicon glyphicon-repeat"></i>
                         </button>
                     </td>
