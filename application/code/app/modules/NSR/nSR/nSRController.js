@@ -52,6 +52,7 @@ angular.module('NSR')
 	  var name;
 	  var vendor;
 	  var version;
+	  var descriptorVersion;
 	  var status;
 	  
 	  for (var i=0; i<obj.length;i++){
@@ -60,10 +61,11 @@ angular.module('NSR')
 			if (key == "name") name=obj[i][key];		
 			if (key == "vendor") vendor=obj[i][key];		
 			if (key == "version") version=obj[i][key];
+			if (key == "descriptor_version") descriptorVersion=obj[i][key];
 			if (key == "status") status=obj[i][key];		
 	       }	  	       
 	       $rootScope.nSDsMap[uuid] = name+"//"+vendor+"//"+version;
-	       if (status == "active") $rootScope.activeNSDsMap[name+vendor] = version+"//"+uuid;
+	       if (status == "active") $rootScope.activeNSDsMap[name+vendor] = descriptorVersion+"//"+uuid;
 	}
 	//console.log("----------------------"+JSON.stringify($rootScope.nSDsMap));
 	//console.log("----------------------"+JSON.stringify($rootScope.activeNSDsMap));
