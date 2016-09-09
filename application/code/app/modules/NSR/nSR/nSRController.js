@@ -105,6 +105,12 @@ angular.module('NSR')
     })
   }
   
+  $scope.getNSRDescriptorVersion = function(descriptorReference, nSDsMap ){
+	  var nameVendorVersion = nSDsMap[descriptorReference];
+	  var descriptorVersion = nameVendorVersion.substring(nameVendorVersion.lastIndexOf("//")+2,nameVendorVersion.length);
+	  return descriptorVersion;
+  }
+  
   $scope.getActualNSDVersion = function(nSR, nSDsMap, activeNSDsMap){
 	  //console.log("descriptor_reference: "+nSR.descriptor_reference);
 	  //console.log("original descriptor version: "+nSR.descriptor_version);
