@@ -39,8 +39,8 @@
 					<td>{{ nSR['uuid'] }}</td>
 					<td>{{ nSR['status'] }}</td>                    		    
                     <td>{{ nSR['descriptor_reference'] }}</td>                                        					                    
-					<td>{{ nSR['version'] }}</td>
-					<td>{{getActualNSDVersion(nSR, nSDsMap, activeNSDsMap)}}</td>
+					<td>{{ getNSRDescriptorVersion(nSR['descriptor_reference'], nSDsMap) }}</td>
+					<td>{{ getActualNSDVersion(nSR, nSDsMap, activeNSDsMap )}}</td>
                     <td>
                         <button class="btn btn-success btn-xs" tooltip-init
                                 data-toggle="tooltip" data-placement="top" title="Show details"
