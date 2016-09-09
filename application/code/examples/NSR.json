@@ -1,6 +1,6 @@
 [
 {
-  "descriptor_version": "1.0",
+  "descriptor_version": "0.0",
   "uuid": "a4711437-10ce-3e06-845f-3710909184de",
   "status": "normal operation",
   "virtual_links": [
@@ -97,7 +97,7 @@
   ]
 },
 {
-  "descriptor_version": "2.0",
+  "descriptor_version": "0.0",
   "uuid": "a4711437-10ce-3e06-845f-3710909184df",
   "status": "normal operation",
   "virtual_links": [
@@ -194,7 +194,7 @@
   ]
 },
 {
-  "descriptor_version": "1.0",
+  "descriptor_version": "0.0",
   "uuid": "a4711437-10ce-3e06-845f-3710909184fg",
   "status": "updating",
   "virtual_links": [
