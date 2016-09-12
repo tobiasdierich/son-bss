@@ -46,7 +46,7 @@ angular.module('InstantiationRequests')
         $scope.openUpdateInstantiationRequests=function(data){
             $scope.currentInstantiationRequests=angular.copy(data);
 			$('#updateInstantiationRequests.modal').modal('show');
-			$($(".key.ng-binding.ng-scope")[0]).text("InstantiationRequest#"+$scope.currentInstantiationRequests.requestId);
+			$($(".key.ng-binding.ng-scope")[0]).text("InstantiationRequest#"+$scope.currentInstantiationRequests.id);
         }
 
         //update data to server
