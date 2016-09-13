@@ -100,8 +100,8 @@ angular.module('NSR')
     .then(function(result) {
      $('#updateNSR.modal').modal('hide');	 	 
 	 $('#updateRequest.modal').modal('show');    
-	}, function(error) {
-     alert(error);
+	}, function(error) {		
+     alert(JSON.stringify(error));
     })
   }
   
