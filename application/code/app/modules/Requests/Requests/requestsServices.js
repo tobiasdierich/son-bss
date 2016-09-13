@@ -26,10 +26,10 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('InstantiationRequests')
-    .factory('InstantiationRequestsServices',["$http","$q",function ($http,$q) {
+angular.module('Requests')
+    .factory('RequestsServices',["$http","$q",function ($http,$q) {
         return {
-            retrieveInstantiationRequests:function(ENV){
+            retrieveRequests:function(ENV){
 
                 var defer=$q.defer();
 		var maxSafeInteger = Math.pow(2,32) - 1;
@@ -39,36 +39,36 @@ angular.module('InstantiationRequests')
                     .error(function(error){defer.reject(error)});
                 return defer.promise;
             },
-            saveInstantiationRequests:function(InstantiationRequestsObj){
+            saveRequests:function(RequestsObj){
 
                 var defer=$q.defer();
-                $http.post("InstantiationRequests",InstantiationRequestsObj)
+                $http.post("Requests",RequestsObj)
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
                 return defer.promise;
             },
-            updateInstantiationRequests:function(InstantiationRequestsObj){
+            updateRequests:function(RequestsObj){
 
                 var defer=$q.defer();
-                $http.put("InstantiationRequests/"+InstantiationRequestsObj.id,InstantiationRequestsObj)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-
-                return defer.promise;
-            },
-            deleteInstantiationRequests:function(id){
-
-                var defer=$q.defer();
-                $http.delete("InstantiationRequests/"+id)
+                $http.put("Requests/"+RequestsObj.id,RequestsObj)
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
 
                 return defer.promise;
             },
-            retrieveInstantiationRequestsById:function(id){
+            deleteRequests:function(id){
 
                 var defer=$q.defer();
-                $http.get("InstantiationRequests/"+id)
+                $http.delete("Requests/"+id)
+                    .success(function(result){defer.resolve(result)})
+                    .error(function(error){defer.reject(error)});
+
+                return defer.promise;
+            },
+            retrieveRequestsById:function(id){
+
+                var defer=$q.defer();
+                $http.get("Requests/"+id)
                     .success(function(result){defer.resolve(result)})
                     .error(function(error){defer.reject(error)});
                 return defer.promise;

@@ -70,20 +70,20 @@ describe('SonataBSS Retrieves Available Services, Instantiation Requests and Ser
 
     });
 
-    describe('Instantiation Requests View', function() {
+    describe('Requests View', function() {
 
         beforeEach(function() {
-            browser.get('http://localhost:1337/#/InstantiationRequests');
+            browser.get('http://localhost:1337/#/requests');
         });
 
 
-        it('instantiation requests list must not be empty', function() {
+        it('requests list must not be empty', function() {
 
-            var count = element.all(by.repeater('InstantiationRequest in InstantiationRequests')).count();
+            var count = element.all(by.repeater('Request in Requests')).count();
             expect(count).toBeGreaterThan(0);
         });
 
-        it('when clicked: "request details" shows the instantiation request details', function() {
+        it('when clicked: "request details" shows the request details', function() {
 
             var el = element.all(by.css('.btn-success')).get(0);
 
@@ -92,7 +92,7 @@ describe('SonataBSS Retrieves Available Services, Instantiation Requests and Ser
             var tree_el = element(by.tagName('json-tree'));
 
 
-            expect(tree_el.getAttribute('object')).toBe('currentInstantiationRequests');
+            expect(tree_el.getAttribute('object')).toBe('currentRequests');
         });
 
     });

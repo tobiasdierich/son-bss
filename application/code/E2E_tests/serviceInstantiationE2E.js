@@ -55,7 +55,7 @@ describe('SonataBSS Instantiates a Service', function() {
         yes_el.click();
         browser.sleep(1500);
 
-        parent = element(by.id('instantiateRequest'));
+        parent = element(by.id('request'));
         expect(parent.isDisplayed()).toBe(true);
 
         parent.element(by.id('requestId')).getText().then(function(text) {
@@ -66,12 +66,12 @@ describe('SonataBSS Instantiates a Service', function() {
 
     it('instantiation request must be in the list', function() {
 
-        browser.get('http://localhost:1337/#/InstantiationRequests');
+        browser.get('http://localhost:1337/#/requests');
         
-        var query = element(by.model('InstantiationRequestsSearch'));
+        var query = element(by.model('RequestsSearch'));
         query.sendKeys(requestId);
 
-        var data = element.all(by.repeater("InstantiationRequest in InstantiationRequests"));
+        var data = element.all(by.repeater("Request in Requests"));
 
         expect(data.count()).toBe(1);
 
@@ -79,14 +79,13 @@ describe('SonataBSS Instantiates a Service', function() {
 
 	it('request must be ready after service instantiation process', function() {
 
-		browser.get('http://localhost:1337/#/InstantiationRequests');
+		browser.get('http://localhost:1337/#/requests');
 
-		var query = element(by.model('InstantiationRequestsSearch'));
+		var query = element(by.model('RequestsSearch'));
 		query.sendKeys(requestId);
 
 		var EC = protractor.ExpectedConditions;
-		//The test will be failed if does not get "ready" response before 15 minutes
-		browser.wait(EC.textToBePresentInElement(element(by.repeater("InstantiationRequest in InstantiationRequests").column('status')) ,'ready', 900000));
+		browser.wait(EC.textToBePresentInElement(element(by.repeater("Request in Requests").column('status')) ,'ready', 60000));
 
     });
 
