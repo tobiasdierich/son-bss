@@ -66,12 +66,12 @@ describe('SonataBSS Instantiates a Service', function() {
 
     it('instantiation request must be in the list', function() {
 
-        browser.get('http://localhost:1337/#/InstantiationRequests');
+        browser.get('http://localhost:1337/#/requests');
         
-        var query = element(by.model('InstantiationRequestsSearch'));
+        var query = element(by.model('RequestsSearch'));
         query.sendKeys(requestId);
 
-        var data = element.all(by.repeater("InstantiationRequest in InstantiationRequests"));
+        var data = element.all(by.repeater("Request in Requests"));
 
         expect(data.count()).toBe(1);
 

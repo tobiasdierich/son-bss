@@ -26,43 +26,43 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('InstantiationRequests')
-    .controller('InstantiationRequestsCtrl', ["$scope", "$rootScope", "InstantiationRequestsServices","ENV", function ($scope, $rootScope,InstantiationRequestsServices,ENV) {
+angular.module('Requests')
+    .controller('RequestsCtrl', ["$scope", "$rootScope", "RequestsServices","ENV", function ($scope, $rootScope,RequestsServices,ENV) {
 
-        $scope.currentInstantiationRequests= {};
+        $scope.currentRequests= {};
 
-        // retrieve InstantiationRequests to server
-        $scope.retrieveInstantiationRequests = (function(){
-            InstantiationRequestsServices.retrieveInstantiationRequests(ENV)
+        // retrieve Requests to server
+        $scope.retrieveRequests = (function(){
+            RequestsServices.retrieveRequests(ENV)
                 .then(function(result){
-                    $rootScope.InstantiationRequests = result;
+                    $rootScope.Requests = result;
                     },function(error){
                         alert(error);
                     })
             });
 	    
-	$scope.retrieveInstantiationRequests();
+	$scope.retrieveRequests();
 			
-        $scope.openUpdateInstantiationRequests=function(data){
-            $scope.currentInstantiationRequests=angular.copy(data);
-			$('#updateInstantiationRequests.modal').modal('show');
-			$($(".key.ng-binding.ng-scope")[0]).text("InstantiationRequest#"+$scope.currentInstantiationRequests.id);
+        $scope.openUpdateRequests=function(data){
+            $scope.currentRequests=angular.copy(data);
+			$('#updateRequests.modal').modal('show');
+			$($(".key.ng-binding.ng-scope")[0]).text("Request#"+$scope.currentRequests.id);
         }
 
         //update data to server
-        $scope.updateInstantiationRequests = function(){
-            InstantiationRequestsServices.updateInstantiationRequests($scope.currentInstantiationRequests)
+        $scope.updateRequests = function(){
+            RequestsServices.updateRequests($scope.currentRequests)
             .then(function(result){
-                for(var key in $rootScope.InstantiationRequests){
-                    if(result.id==$rootScope.InstantiationRequests[key].id)
-                        $rootScope.InstantiationRequests[key] = result;
+                for(var key in $rootScope.Requests){
+                    if(result.id==$rootScope.Requests[key].id)
+                        $rootScope.Requests[key] = result;
                 }
                 },function(error){
                     alert(error);
                 })
         }
 
-        $scope.emptyInstantiationRequests = function(){
-            $scope.currentInstantiationRequests={};
+        $scope.emptyRequests = function(){
+            $scope.currentRequests={};
         }
     }]);

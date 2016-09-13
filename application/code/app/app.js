@@ -29,7 +29,7 @@
     
 angular.module("NSD",["config"]);
     
-angular.module("InstantiationRequests",["config"]);
+angular.module("Requests",["config"]);
 
 angular.module("NSR",["config"]);
 
@@ -37,7 +37,7 @@ angular.module("SonataBSS", ["angular-json-tree","ui.router","formly","formlyBoo
 
         ,"NSD"
 
-        ,"InstantiationRequests"
+        ,"Requests"
 	
 	,"NSR"
     
@@ -52,10 +52,10 @@ angular.module("SonataBSS", ["angular-json-tree","ui.router","formly","formlyBoo
                     templateUrl: "modules/NSD/nSD/views/nSDs.html",
                     controller: "NSDCtrl"
                     })
-                .state("InstantiationRequests",{
-                    url: "/InstantiationRequests",
-                    templateUrl: "modules/InstantiationRequests/instantiationRequests/views/instantiationRequests.html",
-                    controller: "InstantiationRequestsCtrl"
+                .state("Requests",{
+                    url: "/requests",
+                    templateUrl: "modules/Requests/Requests/views/requests.html",
+                    controller: "RequestsCtrl"
                     })
 		.state("NSR",{
                     url: "/nSRs",
