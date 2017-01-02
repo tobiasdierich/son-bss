@@ -47,7 +47,8 @@ exports.config = {
     version: '',
     platform: 'ANY',
 	'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs',
-	'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
+	'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG'],
+  'phantomjs.cli.args': ['--web-security=false', '--ignore-ssl-errors=true', '--webdriver-loglevel=DEBUG', '--logfile=E2E_tests/protractor.log']
   },
      
   

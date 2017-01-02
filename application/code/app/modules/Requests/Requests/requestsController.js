@@ -26,27 +26,40 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('Requests')
-    .controller('RequestsCtrl', ["$scope", "$rootScope", "RequestsServices","ENV", function ($scope, $rootScope,RequestsServices,ENV) {
+ angular.module('Requests')
+ .controller('RequestsCtrl', ["$scope", "$rootScope", "RequestsServices","ENV", "linkHeaderParser", function ($scope, $rootScope, RequestsServices, ENV, linkHeaderParser) {
 
-        $scope.currentRequests= {};
+    $scope.currentRequests= {};
+    $scope.offset = 0;
+    $scope.limit = 10;
 
         // retrieve Requests to server
-        $scope.retrieveRequests = (function(){
-            RequestsServices.retrieveRequests(ENV)
-                .then(function(result){
-                    $rootScope.Requests = result;
-                    },function(error){
-                        alert(error);
-                    })
-            });
-	    
-	$scope.retrieveRequests();
-			
+        $scope.retrieveRequests = (function(offset){
+            RequestsServices.retrieveRequests(ENV, offset)
+            .then(function(result){
+                $rootScope.Requests = result.data; 
+                    //pagination
+                    var linkHeaderText = result.headers("Link");                    
+                    var link = linkHeaderParser.parse(linkHeaderText);                    
+                    $scope.totalPages = parseInt(link.last.offset)+1;
+                    $scope.limit = parseInt(link.last.limit);
+                    $scope.totalRecords = $scope.limit*$scope.totalPages;
+                    
+                },function(error){
+                    if(JSON.stringify(error.data.code).indexOf('401') >= 0) {
+                        $rootScope.Requests = '';
+                    } 
+                    $scope.error = angular.copy(JSON.stringify(error.data.message));
+                    $('#error.modal').modal('show');   
+                })
+        });
+        
+        $scope.retrieveRequests($scope.offset);              
+        
         $scope.openUpdateRequests=function(data){
             $scope.currentRequests=angular.copy(data);
-			$('#updateRequests.modal').modal('show');
-			$($(".key.ng-binding.ng-scope")[0]).text("Request#"+$scope.currentRequests.id);
+            $('#updateRequests.modal').modal('show');
+            $($(".key.ng-binding.ng-scope")[0]).text("Request#"+$scope.currentRequests.id);
         }
 
         //update data to server
@@ -54,15 +67,27 @@ angular.module('Requests')
             RequestsServices.updateRequests($scope.currentRequests)
             .then(function(result){
                 for(var key in $rootScope.Requests){
-                    if(result.id==$rootScope.Requests[key].id)
-                        $rootScope.Requests[key] = result;
+                    if(result.data.id==$rootScope.Requests[key].id)
+                        $rootScope.Requests[key] = result.data;
                 }
-                },function(error){
-                    alert(error);
-                })
+            },function(error){
+                $scope.error = angular.copy(JSON.stringify(error.data.message));
+                $('#error.modal').modal('show');   
+            })
         }
 
         $scope.emptyRequests = function(){
             $scope.currentRequests={};
         }
+
+        $scope.openUpdateRequests=function(){
+            return (10*$rootScope.totalPages);
+        }
+
+        $scope.clickPageButton=function(page){
+            //console.log("button navigation clicked (page "+page+")");
+            var offset = page-1;            
+            $scope.retrieveRequests(offset);
+        }
+        
     }]);

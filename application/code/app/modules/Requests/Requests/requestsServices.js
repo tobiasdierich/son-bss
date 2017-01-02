@@ -29,30 +29,32 @@
 angular.module('Requests')
     .factory('RequestsServices',["$http","$q",function ($http,$q) {
         return {
-            retrieveRequests:function(ENV){
+            retrieveRequests:function(ENV, offset){
 
                 var defer=$q.defer();
-		var maxSafeInteger = Math.pow(2,32) - 1;
-                $http.get(ENV.apiEndpoint+"/requests?limit="+maxSafeInteger+"&offset=0")		
-		//$http.get(ENV.apiEndpoint+"/requests?limit=100&offset=0")		
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
+                //console.log("request registers from "+ENV.apiEndpoint+"/requests?limit="+10+"&offset="+offset);		        
+                $http.get(ENV.apiEndpoint+"/requests?limit="+10+"&offset="+offset)		
+		        //$http.get(ENV.apiEndpoint+"/requests?limit=100&offset=0")		
+                    .then(function successCallback(response){                        
+                        defer.resolve(response)
+                    })
+                    .catch(function errorCallback(error){defer.reject(error)});
                 return defer.promise;
             },
             saveRequests:function(RequestsObj){
 
                 var defer=$q.defer();
                 $http.post("Requests",RequestsObj)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
+                    .then(function successCallback(result){defer.resolve(result)})
+                    .catch(function errorCallback(error){defer.reject(error)});
                 return defer.promise;
             },
             updateRequests:function(RequestsObj){
 
                 var defer=$q.defer();
                 $http.put("Requests/"+RequestsObj.id,RequestsObj)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
+                    .then(function successCallback(result){defer.resolve(result)})
+                    .catch(function errorCallback(error){defer.reject(error)});
 
                 return defer.promise;
             },
@@ -60,8 +62,8 @@ angular.module('Requests')
 
                 var defer=$q.defer();
                 $http.delete("Requests/"+id)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
+                    .then(function successCallback(result){defer.resolve(result)})
+                    .catch(function errorCallback(error){defer.reject(error)});
 
                 return defer.promise;
             },
@@ -69,8 +71,8 @@ angular.module('Requests')
 
                 var defer=$q.defer();
                 $http.get("Requests/"+id)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
+                    .then(function successCallback(result){defer.resolve(result)})
+                    .catch(function errorCallback(error){defer.reject(error)});
                 return defer.promise;
             }
         }

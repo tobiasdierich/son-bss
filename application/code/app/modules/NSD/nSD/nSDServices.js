@@ -26,28 +26,49 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('NSD')
-    .factory('NSDServices',["$http","$q",function ($http,$q) {
-        return {
-            retrieveNSDs:function(ENV){
+ angular.module('NSD')
+ .factory('NSDServices',["$http","$q",function ($http,$q) {
+    return {
+        retrieveNSDs:function(ENV, offset){
 
-                var defer=$q.defer();
-		var maxSafeInteger = Math.pow(2,16) - 1;
-		$http.get(ENV.apiEndpoint+"/services?status=active&limit="+maxSafeInteger+"&offset=0")
-                    .success(function(result){
-					defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-                return defer.promise;
-            },
-          
-            instantiateNSD:function(id,ENV){				
-                var defer=$q.defer();
-				var data={"service_uuid":id};
-				$http.post(ENV.apiEndpoint+"/requests",data)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-											
-                return defer.promise;
-            }
+            var defer=$q.defer();		        
+            $http.get(ENV.apiEndpoint+"/services?status=active&limit="+10+"&offset="+offset)
+            .then(function successCallback(result){
+                defer.resolve(result)})
+            .catch(function errorCallback(error){
+                defer.reject(error)});
+            return defer.promise;
+        },
+        
+        instantiateNSD:function(id,ENV){				
+            var defer=$q.defer();
+            var data={"service_uuid":id};
+            $http.post(ENV.apiEndpoint+"/requests",data)
+            .then(function successCallback(result){defer.resolve(result)})
+            .catch(function errorCallback(error){defer.reject(error)});
+            
+            return defer.promise;
+        },
+
+        getUserLicenses:function(ENV, username){
+            var defer=$q.defer();               
+            var maxSafeInteger = Math.pow(2,16) - 1;            
+            $http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")
+            .then(function successCallback(result){                
+                defer.resolve(result)})
+            .catch(function errorCallback(error){                
+                defer.reject(error)});
+            return defer.promise;  
+        },
+
+        requestLicense:function(id,ENV){                
+            var defer=$q.defer();
+            var data={"service_uuid":id};
+            $http.post(ENV.apiEndpoint+"/licenseRequests",data)
+            .then(function successCallback(result){defer.resolve(result)})
+            .catch(function errorCallback(error){defer.reject(error)});
+            
+            return defer.promise;
         }
-    }]);
+    }
+}]);

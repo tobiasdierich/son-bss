@@ -26,73 +26,146 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('NSD')
- .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices", "ENV", function($scope, $rootScope, NSDServices, ENV) {
+ angular.module('NSD')
+ .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices", "ENV", "linkHeaderParser", function($scope, $rootScope, NSDServices, ENV, linkHeaderParser) {
 
   $scope.currentNSD = {};
+  $scope.offset = 0;
+  $scope.limit = 10;
+
+$scope.getUserLicenses = function(callback) {
+  //console.log("-------------- getUserLicenses");
+  NSDServices.getUserLicenses(ENV, $rootScope.username)
+  .then(function(result) {   
+   $rootScope.userLicenses = result.data;
+   callback(result.data);
+ }, function(error) {
+  $scope.error = angular.copy(JSON.stringify(error.data.message));
+  $('#error.modal').modal('show');   
+})
+}
+
   // retrieve NSD to server
-  $scope.retrieveNSDs = (function() {
-   NSDServices.retrieveNSDs(ENV)
-    .then(function(result) {
-     $rootScope.nSDs = result;
-    }, function(error) {
-     alert(error);
-    })
+  $scope.retrieveNSDs = (function(offset) {    
+
+    $scope.getUserLicenses(function(){
+      //console.log("-------------- retrieveNSDs");
+      NSDServices.retrieveNSDs(ENV, offset)
+      .then(function(result) {
+
+       var nSDs = result.data;
+       var licenses = $rootScope.userLicenses;     
+
+       for (x in nSDs) {      
+        nSDs[x].userPermission="false";
+        for (y in licenses) {        
+          if (licenses[y].service === nSDs[x].uuid) {
+            nSDs[x].userPermission="true";
+          }
+        }
+      }
+      $rootScope.nSDs = nSDs;
+      //console.log("-- final nSDs: "+JSON.stringify(nSDs));    
+
+      //pagination
+      var linkHeaderText = result.headers("Link");                    
+      var link = linkHeaderParser.parse(linkHeaderText);                    
+      $scope.totalPages = parseInt(link.last.offset)+1;
+      $scope.limit = parseInt(link.last.limit);
+      $scope.totalRecords = $scope.limit*$scope.totalPages;
+
+      }, function(error) {      
+        if(JSON.stringify(error.data.code).indexOf('401') >= 0) {
+          $rootScope.nSDs = '';
+          $rootScope.userLicenses = '';
+        }
+        $scope.error = angular.copy(JSON.stringify(error.data.message));
+        $('#error.modal').modal('show');   
+      })
+    })    
   });
 
-  $scope.retrieveNSDs();
+  //$scope.getUserLicenses();
+
+  $scope.retrieveNSDs($scope.offset, $scope.userLicenses);
 
   $scope.openAddNSD = function() {
    $scope.currentNSD = {};
    $('#addNSD.modal').modal('show');
-  }
+ }
 
   // save NSD to server
   $scope.saveNSD = function() {
    NSDServices.saveNSD($scope.currentNSD)
-    .then(function(result) {
-     $rootScope.nSDs.push(result);
-    }, function(error) {
-     alert(error);
-    })
-  }
+   .then(function(result) {
+     $rootScope.nSDs.push(result.data);
+   }, function(error) {
+     $scope.error = angular.copy(JSON.stringify(error.data.message));
+     $('#error.modal').modal('show');   
+   })
+ }
 
-  $scope.openUpdateNSD = function(data) {
+ $scope.openUpdateNSD = function(data) {
    $scope.currentNSD = angular.copy(data);
    $('#updateNSD.modal').modal('show');
    $($(".key.ng-binding.ng-scope")[0]).text("NSD#" + $scope.currentNSD.uuid);
 
    //$(".key.ng-binding.ng-scope").text("NSD")
-  }
+ }
 
-  $scope.openInstantiateNSD = function(data) {
+ $scope.openInstantiateNSD = function(data) {
    $scope.currentNSD = angular.copy(data);
    $('#instantiateNSD.modal').modal('show');
-  }
+ }
 
 
-  $scope.instantiateNSD = function() {
+ $scope.instantiateNSD = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
    NSDServices.instantiateNSD($scope.currentNSD.uuid, ENV)
-    .then(function(result) {
+   .then(function(result) {
      $('#instantiateNSD.modal').modal('hide');	 
-	 $scope.instantiateRequest = result;
-	 $('#instantiateRequest.modal').modal('show');    
-	}, function(error) {
-     alert(error);
-    })
-  }
+     $scope.instantiateRequest = result.data;
+     $('#instantiateRequest.modal').modal('show');    
+   }, function(error) {
+     $scope.error = angular.copy(JSON.stringify(error.data.message));
+     $('#error.modal').modal('show');   
+   })
+ }
 
-  $scope.emptyNSD = function() {
+ $scope.emptyNSD = function() {
    $scope.currentNSD = {};
-  };
-  $scope.showPopover = function(nSD) {
+ };
+ $scope.showPopover = function(nSD) {
    $scope.popoverIsVisible = true;
    $scope.hoveredNSD = nSD;
-  };
+ };
 
-  $scope.hidePopover = function() {
+ $scope.hidePopover = function() {
    $scope.popoverIsVisible = false;
-  };
+ };
 
- }]);
+ $scope.clickPageButton=function(page){
+   //console.log("button navigation clicked (page "+page+")");
+   var offset = page-1;            
+   $scope.retrieveNSDs(offset);
+ }
+
+ $scope.requestLicense = function(data) {
+   $scope.currentNSD = angular.copy(data);
+   $('#getLicense.modal').modal('show');
+ }
+
+
+ $scope.requestLicenseToGatekeeper = function() {
+   //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
+   NSDServices.requestLicense($scope.currentNSD.uuid, ENV)
+   .then(function(result) {
+     $('#getLicense.modal').modal('hide');   
+     $scope.licenseRequest = result.data;
+     $('#getLicenseResponse.modal').modal('show');    
+   }, function(error) {
+     $scope.error = angular.copy(JSON.stringify(error.data.message));
+     $('#error.modal').modal('show');   
+   })
+ }
+}]);

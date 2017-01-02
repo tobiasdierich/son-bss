@@ -26,39 +26,38 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('NSR')
-    .factory('NSRServices',["$http","$q",function ($http,$q) {
-        return {
-            retrieveNSRs:function(ENV){
+ angular.module('NSR')
+ .factory('NSRServices',["$http","$q",function ($http,$q) {
+    return {
+        retrieveNSRs:function(ENV, offset){
 
-                var defer=$q.defer();
-				var maxSafeInteger = Math.pow(2,16) - 1;
-				$http.get(ENV.apiEndpoint+"/records/services?limit="+maxSafeInteger+"&offset=0")
-                    .success(function(result){
-					defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-                return defer.promise;
-            },
-          
-            updateNSR:function(nsrId,nsdId,latestNsdId,ENV){				
-                var defer=$q.defer();
-				var data={"nsd_id":nsdId,"latest_nsd_id":latestNsdId};
-				$http.put(ENV.apiEndpoint+"/records/services/"+nsrId,data)
-                    .success(function(result){defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-											
-                return defer.promise;
-            },
-			
-	    retrieveNSDs:function(ENV){
-                var defer=$q.defer();
-				var maxSafeInteger = Math.pow(2,16) - 1;
-				$http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")
-                    .success(function(result){
-					defer.resolve(result)})
-                    .error(function(error){defer.reject(error)});
-                return defer.promise;
-            }
-	    
+            var defer=$q.defer();				
+            $http.get(ENV.apiEndpoint+"/records/services?limit="+10+"&offset="+offset)
+            .then(function successCallback(result){
+               defer.resolve(result)})
+            .catch(function errorCallback(error){defer.reject(error)});
+            return defer.promise;
+        },
+        
+        updateNSR:function(nsrId,nsdId,latestNsdId,ENV){				
+            var defer=$q.defer();
+            var data={"nsd_id":nsdId,"latest_nsd_id":latestNsdId};
+            $http.put(ENV.apiEndpoint+"/records/services/"+nsrId,data)
+            .then(function successCallback(result){defer.resolve(result)})
+            .catch(function errorCallback(error){defer.reject(error)});
+            
+            return defer.promise;
+        },
+        
+        retrieveNSDs:function(ENV){
+            var defer=$q.defer();
+            var maxSafeInteger = Math.pow(2,16) - 1;
+            $http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")
+            .then(function successCallback(result){
+               defer.resolve(result)})
+            .catch(function errorCallback(error){defer.reject(error)});
+            return defer.promise;
         }
-    }]);
+        
+    }
+}]);
