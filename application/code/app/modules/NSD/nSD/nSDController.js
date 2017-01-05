@@ -158,7 +158,7 @@ $scope.getUserLicenses = function(callback) {
 
  $scope.requestLicenseToGatekeeper = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-   NSDServices.requestLicense($scope.currentNSD.uuid, ENV)
+   NSDServices.requestLicense(ENV, $scope.currentNSD.uuid, $rootScope.username)
    .then(function(result) {
      $('#getLicense.modal').modal('hide');   
      $scope.licenseRequest = result.data;

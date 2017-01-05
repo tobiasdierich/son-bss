@@ -61,10 +61,10 @@
             return defer.promise;  
         },
 
-        requestLicense:function(id,ENV){                
+        requestLicense:function(ENV, id, username){                
             var defer=$q.defer();
-            var data={"service_uuid":id};
-            $http.post(ENV.apiEndpoint+"/licenseRequests",data)
+            var data={"service_uuid":id, "username":username};
+            $http.post(ENV.apiEndpoint+"/licenses",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
             

@@ -32,7 +32,7 @@
                         <th role="columnheader" ng-click="sort='vendor';reverse=!reverse">Vendor</th>
                         <th role="columnheader" ng-click="sort='version';reverse=!reverse">Version</th>
                         <th role="columnheader" ng-click="sort='id';reverse=!reverse">Service Id</th>
-                        <th role="columnheader" ng-click="sort='license';reverse=!reverse">License</th>
+                        <th role="columnheader" ng-click="sort='license';reverse=!reverse">License Type</th>
                         <th role="columnheader" class="actionTH">Actions</th>
                     </tr>
                 </thead>
@@ -45,7 +45,7 @@
                         <td>{{ nSD['vendor'] }}</td>
                         <td>{{ nSD['version'] }}</td>
                         <td>{{ nSD['uuid'] }}</td>
-                        <td>{{ nSD['license'] }}</td>
+                        <td>{{ nSD['license_type'] }}</td>
                         <td>
                             <button class="btn btn-success btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details"
@@ -54,12 +54,12 @@
                             </button>
                             <button class="btn btn-danger btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Instantiate"
-                            ng-click="openInstantiateNSD(nSD)" ng-show="((nSD['license'] | uppercase) == 'PUBLIC') || (nSD['userPermission'] | uppercase) != 'FALSE'">
+                            ng-click="openInstantiateNSD(nSD)" ng-show="((nSD['license_type'] | uppercase) == 'PUBLIC') || (nSD['userPermission'] | uppercase) != 'FALSE'">
                                 <i class="glyphicon glyphicon-play"></i>
                             </button>
                             <button class="btn btn-warning btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Get license"
-                            ng-click="requestLicense(nSD)" ng-show="((nSD['license'] | uppercase) != 'PUBLIC') && (nSD['userPermission'] | uppercase) != 'TRUE'">
+                            ng-click="requestLicense(nSD)" ng-show="((nSD['license_type'] | uppercase) != 'PUBLIC') && (nSD['userPermission'] | uppercase) != 'TRUE'">
                                 <i class="glyphicon glyphicon-alert"></i>
                             </button>
                         </td>

@@ -8,7 +8,7 @@
 	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
 	  "status":"active",
 	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fa",
-	  "license":"public",
+	  "license_type":"public",
 	  "network_functions": [
 		{
 		  "vnf_id": "vnf_firewall",
@@ -156,7 +156,7 @@
 	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
 	  "status":"active",
 	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fb",
-	  "license":"private",
+	  "license_type":"private",
 	  "network_functions": [
 		{
 		  "vnf_id": "vnf_firewall",
@@ -304,7 +304,7 @@
 	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
 	  "status":"active",
 	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fc",
-	  "license":"private",
+	  "license_type":"private",
 	  "network_functions": [
 		{
 		  "vnf_id": "vnf_firewall",
