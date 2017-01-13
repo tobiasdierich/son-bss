@@ -25,42 +25,37 @@
  * acknowledge the contributions of their colleagues of the SONATA 
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
- 
-describe('SonataBSS Updates a Service', function() {
-
-    var requestId;
-	
-    beforeEach(function() {
-        browser.driver.manage().window().maximize();
-        browser.get('http://localhost:1337/#/login');
-        browser.driver.findElement(by.id('username')).sendKeys('sonata');
-        browser.driver.findElement(by.id('password')).sendKeys('sonata');
-        browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
-        browser.driver.findElement(by.xpath("//a[@href='#/nSRs']")).click();
-    });
 
 
-    it('instances list must not be empty', function() {	
-        var count = element.all(by.repeater('nSR in nSRs')).count();
-        expect(count).toBeGreaterThan(0);
-    });
+(function (){
+    'use sctict';
 
-    it('when clicked: "update service" updates the service', function() {
-	
-        var EC = protractor.ExpectedConditions;
-
-        var modal = element.all(by.css('[ng-click="openUpdateNSR(nSR)"]')).get(0).click();
-        browser.wait(EC.visibilityOf(modal), 5000);        
+    angular
+        .module('Login')
+        .controller('LoginController', LoginController);
         
-        modal = element(by.id('updateNSR'));
-        var yes = modal.element(by.css('.btn-success'));
+    function LoginController($rootScope, $location, AuthenticationService, ENV) {
 
-        yes.click();
-        browser.sleep(1500);
+        var vm = this;
+        vm.login = login;
+        $rootScope.username = '';
+        //vm.currentUserSignedIn = false;        
+        AuthenticationService.Logout();
 
-        modal = element(by.id('updateRequest'));
-        expect(modal.isDisplayed()).toBe(true);   
-
-    });
-    
-});
+        function login() {                        
+            //console.log(">>>> vm.username: "+vm.username+", vm.password: "+vm.password);            
+            AuthenticationService.Login(vm.username, vm.password, ENV, function(result) {
+                console.log("result: "+result);
+                if (result === true) {                    
+                    $location.path('nSDs');
+                    $rootScope.username = vm.username;                                                    
+                    vm.currentUserSignedIn = true;
+                    console.log("loginController - currentUserSignedIn: "+vm.currentUserSignedIn+", $rootScope.username: "+$rootScope.username);
+                } else {
+                    vm.error = true;                    
+                    vm.currentUserSignedIn = false;
+                }
+            });
+        };        
+    };    
+})();

@@ -31,42 +31,46 @@ describe('SonataBSS Instantiates a Service', function() {
     var requestId;
 	
     beforeEach(function() {
-        browser.get('http://localhost:1337/#/nSDs');
+        browser.driver.manage().window().maximize();
+        browser.get('http://localhost:1337/#/login');
+        browser.driver.findElement(by.id('username')).sendKeys('sonata');
+        browser.driver.findElement(by.id('password')).sendKeys('sonata');
+        browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
+        browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();
     });
 
 
     it('services list must not be empty', function() {
-
         var count = element.all(by.repeater('nSD in nSDs')).count();
         expect(count).toBeGreaterThan(0);
     });
 
     it('when clicked: "request service instantiation" instantiates a new service', function() {
 
-        var inst_el = element.all(by.css('.btn-danger')).get(0);
+        var EC = protractor.ExpectedConditions;
 
-        inst_el.click();
+        var modal = element.all(by.css('[ng-click="openInstantiateNSD(nSD)"]')).get(0).click();
+        browser.wait(EC.visibilityOf(modal), 5000);        
+        
+        modal = element(by.id('instantiateNSD'));
+        var yes = modal.element(by.css('.btn-success'));
 
-        var parent = element(by.id('instantiateNSD'));
-        var child = parent.element(by.binding('childBinding'));
-
-        var yes_el = parent.element(by.css('.btn-success'));
-
-        yes_el.click();
+        yes.click();
         browser.sleep(1500);
 
-        parent = element(by.id('instantiateRequest'));
-        expect(parent.isDisplayed()).toBe(true);
+        modal = element(by.id('instantiateRequest'));
+        expect(modal.isDisplayed()).toBe(true); 
 
-        parent.element(by.id('requestId')).getText().then(function(text) {
-            requestId = text;
+
+        modal.element(by.id('requestId')).getText().then(function(text) {
+            requestId = text;            
         });
 
     });
 
     it('instantiation request must be in the list', function() {
 
-        browser.get('http://localhost:1337/#/requests');
+        browser.driver.findElement(by.xpath("//a[@href='#/requests']")).click();        
         
         var query = element(by.model('RequestsSearch'));
         query.sendKeys(requestId);

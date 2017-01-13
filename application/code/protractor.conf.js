@@ -32,22 +32,23 @@ var reportName;
 
 exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',
+  seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',    
   //specs: ['E2E_tests/todo-spec.js'],
   suites: {
 	  unitTests: ['E2E_tests/menusNavigation.js', 'E2E_tests/serviceInstantiation.js', 'E2E_tests/serviceUpdate.js'],	  
 	  menus_Navigation: ['E2E_tests/menusNavigation.js'],
 	  service_Instantiation: ['E2E_tests/serviceInstantiation.js'],
 	  service_Update: ['E2E_tests/serviceUpdate.js'],
-	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js']
+	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js']    
   },
   
   capabilities: {
   'browserName': 'phantomjs',
     version: '',
     platform: 'ANY',
-	'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs',
-	'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
+	  'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs',
+	  //'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG', '--logfile=./E2E_tests/ghostdriver.log'],
+    'phantomjs.cli.args': ['--web-security=false', '--ignore-ssl-errors=true'/*, '--webdriver-loglevel=DEBUG', '--webdriver-logfile=./E2E_tests/protractor.log'*/]
   },
      
   

@@ -26,59 +26,79 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
-angular.module('NSR')
- .controller('NSRCtrl', ["$scope", "$rootScope", "NSRServices", "NSDServices", "ENV", function($scope, $rootScope, NSRServices, NSDServices, ENV) {
+ angular.module('NSR')
+ .controller('NSRCtrl', ["$scope", "$rootScope", "NSRServices", "NSDServices", "ENV", "linkHeaderParser", function($scope, $rootScope, NSRServices, NSDServices, ENV, linkHeaderParser) {
+
+  $scope.offset = 0;
+  $scope.limit = 10;
 
   // retrieve NSD to server
   $scope.retrieveNSDs = (function() {
    NSRServices.retrieveNSDs(ENV)
-    .then(function(result) {
-     $rootScope.nSDs = result;
-     $scope.generateNSDMap(result);
-    }, function(error) {
-     alert(error);
+   .then(function(result) {
+     $rootScope.nSDs = result.data;
+     $scope.generateNSDMap(result.data);
+
+    }, function(error) {      
+      if(JSON.stringify(error.data.code).indexOf('401') >= 0) {
+        $rootScope.nSDs = '';
+        $rootScope.nSRs = '';
+      }
+      $scope.error = angular.copy(JSON.stringify(error.data.message));
+      $('#error.modal').modal('show');   
     })
-  });
+ });
   
   $scope.retrieveNSDs();
   
   $scope.currentNSR = {};
 
   $scope.generateNSDMap = (function(obj){
-	  
-	  $rootScope.nSDsMap = new Object(); 	  
-	  $rootScope.activeNSDsMap = new Object(); 	  
-	  var uuid;
-	  var name;
-	  var vendor;
-	  var version;
-	  var status;
-	  
-	  for (var i=0; i<obj.length;i++){
-		  for (var key in obj[i]) {		   
-			if (key == "uuid") uuid=obj[i][key];		
-			if (key == "name") name=obj[i][key];		
-			if (key == "vendor") vendor=obj[i][key];		
-			if (key == "version") version=obj[i][key];
-			if (key == "status") status=obj[i][key];		
-	       }	  	       
-	       $rootScope.nSDsMap[uuid] = name+"//"+vendor+"//"+version;
-	       if (status == "active") $rootScope.activeNSDsMap[name+vendor] = version+"//"+uuid;
-	}
-	//console.log("----------------------"+JSON.stringify($rootScope.nSDsMap));
-	//console.log("----------------------"+JSON.stringify($rootScope.activeNSDsMap));
-	$scope.retrieveNSRs();
-  });
+
+   $rootScope.nSDsMap = new Object(); 	  
+   $rootScope.activeNSDsMap = new Object(); 	  
+   var uuid;
+   var name;
+   var vendor;
+   var version;
+   var status;
+
+   for (var i=0; i<obj.length;i++){
+    for (var key in obj[i]) {		   
+     if (key == "uuid") uuid=obj[i][key];		
+     if (key == "name") name=obj[i][key];		
+     if (key == "vendor") vendor=obj[i][key];		
+     if (key == "version") version=obj[i][key];
+     if (key == "status") status=obj[i][key];		
+   }	  	       
+   $rootScope.nSDsMap[uuid] = name+"//"+vendor+"//"+version;
+   if (status == "active") $rootScope.activeNSDsMap[name+vendor] = version+"//"+uuid;
+ }
+
+ $scope.retrieveNSRs($scope.offset);
+});
   
    // retrieve NSR to server
-  $scope.retrieveNSRs = (function() {
-   NSRServices.retrieveNSRs(ENV)
-    .then(function(result) {
-     $rootScope.nSRs = result;
+   $scope.retrieveNSRs = (function(offset) {
+     NSRServices.retrieveNSRs(ENV, offset)
+     .then(function(result) {
+       $rootScope.nSRs = result.data;
+
+      //pagination
+      var linkHeaderText = result.headers("Link");                    
+      var link = linkHeaderParser.parse(linkHeaderText);                    
+      $scope.totalPages = parseInt(link.last.offset)+1;
+      $scope.limit = parseInt(link.last.limit);
+      $scope.totalRecords = $scope.limit*$scope.totalPages;
+
     }, function(error) {
-     alert(error);
-    })
-  });
+     if(JSON.stringify(error.data.code).indexOf('401') >= 0) {
+      $rootScope.nSRs = '';
+    }
+    $scope.error = angular.copy(JSON.stringify(error.data.message));
+    $('#error.modal').modal('show');   
+  })
+   });
 
   //$scope.retrieveNSRs();
   
@@ -86,32 +106,33 @@ angular.module('NSR')
    $scope.currentNSR = angular.copy(data);
    $('#detailedNSR.modal').modal('show');
    $($(".key.ng-binding.ng-scope")[0]).text("NSR#" + $scope.currentNSR.uuid);   
-  }
+ }
 
-  $scope.openUpdateNSR = function(data) {
+ $scope.openUpdateNSR = function(data) {
    $scope.currentNSR = angular.copy(data);
    $('#updateNSR.modal').modal('show');
-  }
+ }
 
 
-  $scope.updateNSR = function() {
+ $scope.updateNSR = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
    NSRServices.updateNSR($scope.currentNSR.uuid,$scope.currentNSR.descriptor_reference,$scope.actualDescUuid, ENV)
-    .then(function(result) {
+   .then(function(result) {
      $('#updateNSR.modal').modal('hide');	 	 
-	 $('#updateRequest.modal').modal('show');    
-	}, function(error) {		
-     alert(JSON.stringify(error));
-    })
-  }
-  
-  $scope.getNSRDescriptorVersion = function(descriptorReference, nSDsMap ){
-	  var nameVendorVersion = nSDsMap[descriptorReference];
-	  var descriptorVersion = nameVendorVersion.substring(nameVendorVersion.lastIndexOf("//")+2,nameVendorVersion.length);
-	  return descriptorVersion;
-  }
-  
-  $scope.getActualNSDVersion = function(nSR, nSDsMap, activeNSDsMap){
+     $('#updateRequest.modal').modal('show');    
+   }, function(error) {		     
+     $scope.error = angular.copy(JSON.stringify(error.data.message));
+     $('#error.modal').modal('show');   
+   })
+ }
+
+ $scope.getNSRDescriptorVersion = function(descriptorReference, nSDsMap ){
+   var nameVendorVersion = nSDsMap[descriptorReference];
+   var descriptorVersion = nameVendorVersion.substring(nameVendorVersion.lastIndexOf("//")+2,nameVendorVersion.length);
+   return descriptorVersion;
+ }
+
+ $scope.getActualNSDVersion = function(nSR, nSDsMap, activeNSDsMap){
 	  //console.log("descriptor_reference: "+nSR.descriptor_reference);
 	  //console.log("original descriptor version: "+nSR.descriptor_version);
 	  var nameVendorVersion = nSDsMap[nSR.descriptor_reference];	  
@@ -131,51 +152,57 @@ angular.module('NSR')
   
   $scope.compareVersion = function (a, b) {
     if (a === b) {
-       return 0;
-    }
+     return 0;
+   }
 
-    var a_components = a.split(".");
-    var b_components = b.split(".");
+   var a_components = a.split(".");
+   var b_components = b.split(".");
 
-    var len = Math.min(a_components.length, b_components.length);
+   var len = Math.min(a_components.length, b_components.length);
 
     // loop while the components are equal
     for (var i = 0; i < len; i++) {
         // A bigger than B
         if (parseInt(a_components[i]) > parseInt(b_components[i])) {
-            return 1;
+          return 1;
         }
 
         // B bigger than A
         if (parseInt(a_components[i]) < parseInt(b_components[i])) {
-            return -1;
+          return -1;
         }
-    }
+      }
 
     // If one's a prefix of the other, the longer one is greater.
     if (a_components.length > b_components.length) {
-        return 1;
+      return 1;
     }
 
     if (a_components.length < b_components.length) {
-        return -1;
+      return -1;
     }
 
     // Otherwise they are the same.
     return 0;
-};
+  };
 
   $scope.emptyNSR = function() {
    $scope.currentNSR = {};
-  };
-  
-  $scope.showPopover = function(nSR) {
+ };
+
+ $scope.showPopover = function(nSR) {
    $scope.popoverIsVisible = true;
    $scope.hoveredNSR = nSR;
-  };
+ };
 
-  $scope.hidePopover = function() {
+ $scope.hidePopover = function() {
    $scope.popoverIsVisible = false;
-  };
+ };
 
- }]);
+ $scope.clickPageButton=function(page){
+   //console.log("button navigation clicked (page "+page+")");
+   var offset = page-1;            
+   $scope.retrieveNSRs(offset);
+ }
+
+}]);
