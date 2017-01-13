@@ -36,9 +36,8 @@
                         <th role="columnheader" class="actionTH">Actions</th>
                     </tr>
                 </thead>
-                <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">                
-                    <tr ng-repeat="nSD in nSDs" | orderObjectBy:sort:reverse"
-                    ng-animate="''" ng-mouseover="showPopover(nSD)" ng-mouseleave="hidePopover()">		
+                <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">                                    
+                    <tr ng-repeat="nSD in nSDs | searchObject:nSDsSearch" ng-animate="''" ng-mouseover="showPopover(nSD)" ng-mouseleave="hidePopover()">      
 
                         <td>{{ nSD['name'] }}</td>                    
                         <td>{{ nSD['description'] }}</td>

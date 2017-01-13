@@ -111,7 +111,7 @@ var fmock = function (req, res, next) {
 					body = '{"code": "401", "message":"Not Authorized User"}';
 					res.writeHeader(401);
 				} else {
-					body += '{ "id": "8c58b169-7c38-4bcd-9421-a91bd786f100" }';
+					body += '{ "id": "1c58b169-7c38-4bcd-9421-a91bd786f100" }';
 					res.writeHeader(200, {
 						"Content-Type": "application/json"
 					});
@@ -156,31 +156,27 @@ var fmock = function (req, res, next) {
 						    body += JSON.stringify(require('./examples/request2.json'));							
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
-								"Link": "<http://localhost:1338/mock/requests?limit=10&offset=2>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\"",
-								"X-Total-Count": "4"
+								"Link": "<http://localhost:1338/mock/requests?limit=10&offset=2>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 							});
 						} else {
 							if (path.indexOf('/requests?limit=10&offset=2') === 0) {
 								body += JSON.stringify(require('./examples/request3.json'));							
 								res.writeHeader(200, {
 									"Content-Type": "application/json",
-									"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\"",
-									"X-Total-Count": "4"
+									"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 								});
 							} else {
 								if (path.indexOf('/requests?limit=10&offset=3') === 0) {
 									body += JSON.stringify(require('./examples/request4.json'));							
 									res.writeHeader(200, {
 										"Content-Type": "application/json",
-										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\"",
-										"X-Total-Count": "4"
+										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 									});
 								} else {
 									body += JSON.stringify(require('./examples/request.json'));							
 									res.writeHeader(200, {
 										"Content-Type": "application/json",
-										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\"",
-										"X-Total-Count": "4"
+										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 									});
 								}	
 							}
@@ -200,8 +196,6 @@ var fmock = function (req, res, next) {
 									"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
 								});
 							}							
-							res.write(body);
-							res.end();
 						} else {
 							if (path.indexOf('/licenses') === 0) {
 								body += JSON.stringify(require('./examples/userLicenses.json'));							

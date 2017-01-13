@@ -35,9 +35,7 @@
                 </tr>
             </thead>
             <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">
-           <!--tr dir-paginate="Request in Requests | searchObject:RequestsSearch | orderObjectBy:sort:reverse | itemsPerPage:10" ng-animate="''"-->
-               <tr ng-repeat="Request in Requests" | orderObjectBy:sort:reverse"
-                ng-animate="''" ng-mouseover="showPopover(Request)" ng-mouseleave="hidePopover()">
+                <tr ng-repeat="Request in Requests | searchObject:RequestsSearch" ng-animate="''" ng-mouseover="showPopover(nSD)" ng-mouseleave="hidePopover()">
 
                    <td>{{ Request['id'] }}</td>
                    <td>{{ Request['request_type'] }}</td>
@@ -46,10 +44,8 @@
                    <td>{{ Request['service_uuid'] }}</td>
                    <td>{{ Request['status'] }}</td>
                    <td>
-                        <button class="btn btn-success btn-xs" tooltip-init
-                        data-toggle="tooltip" data-placement="top" title="Update"
-                        ng-click="openUpdateRequests(Request)">
-                        <i class="glyphicon glyphicon-search"></i>
+                        <button class="btn btn-success btn-xs" tooltip-init data-toggle="tooltip" data-placement="top" title="Show details" ng-click="openDetailedRequest(Request)">
+                            <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </td>
                 </tr>
@@ -73,7 +69,7 @@
     </div>
 
     <ng-include src="'modules/Requests/Requests/views/addRequests.html'"></ng-include>
-    <ng-include src="'modules/Requests/Requests/views/updateRequests.html'"></ng-include>
+    <ng-include src="'modules/Requests/Requests/views/detailedRequest.html'"></ng-include>
     <ng-include src="'modules/Requests/Requests/views/deleteRequests.html'"></ng-include>
     <ng-include src="'modules/common/error.html'"></ng-include>
     <script>

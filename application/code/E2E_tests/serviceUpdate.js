@@ -31,7 +31,12 @@ describe('SonataBSS Updates a Service', function() {
     var requestId;
 	
     beforeEach(function() {
-        browser.get('http://localhost:1337/#/nSRs');
+        browser.driver.manage().window().maximize();
+        browser.get('http://localhost:1337/#/login');
+        browser.driver.findElement(by.id('username')).sendKeys('sonata');
+        browser.driver.findElement(by.id('password')).sendKeys('sonata');
+        browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
+        browser.driver.findElement(by.xpath("//a[@href='#/nSRs']")).click();
     });
 
 
@@ -42,20 +47,19 @@ describe('SonataBSS Updates a Service', function() {
 
     it('when clicked: "update service" updates the service', function() {
 	
-        var inst_el = element.all(by.css('.btn-danger')).get(0);
+        var EC = protractor.ExpectedConditions;
 
-        inst_el.click();
+        var modal = element.all(by.css('[ng-click="openUpdateNSR(nSR)"]')).get(0).click();
+        browser.wait(EC.visibilityOf(modal), 5000);        
+        
+        modal = element(by.id('updateNSR'));
+        var yes = modal.element(by.css('.btn-success'));
 
-        var parent = element(by.id('updateNSR'));
-        var child = parent.element(by.binding('childBinding'));
-
-        var yes_el = parent.element(by.css('.btn-success'));
-
-        yes_el.click();
+        yes.click();
         browser.sleep(1500);
 
-        parent = element(by.id('updateRequest'));
-        expect(parent.isDisplayed()).toBe(true);        
+        modal = element(by.id('updateRequest'));
+        expect(modal.isDisplayed()).toBe(true);   
 
     });
     

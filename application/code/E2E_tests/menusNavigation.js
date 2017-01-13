@@ -25,103 +25,107 @@
  * acknowledge the contributions of their colleagues of the SONATA 
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
- 
-describe('SonataBSS Retrieves Available Services, Instantiation Requests and Service Instances', function() {
 
-    beforeEach(function() {
-        browser.get('http://localhost:1337');
-    });
+ describe('SonataBSS Retrieves Available Services, Instantiation Requests and Service Instances.', function() {
 
+    describe('Login View:', function(){
+    
+        beforeEach(function() {
+            browser.driver.manage().window().maximize();
+            browser.get('http://localhost:1337');
+        });
+        
+        it('title must be SonataBSS', function() {
+            expect(browser.getTitle()).toEqual('SonataBSS');
+        });
 
-    it('title must be SonataBSS', function() {
-        expect(browser.getTitle()).toEqual('SonataBSS');
-    });
+        it('redirection to login page', function() {        
+            expect(browser.getCurrentUrl()).toBe('http://localhost:1337/#/login');
+        });        
 
-    it('default url is NSDs', function() {
-        expect(browser.getCurrentUrl()).toBe('http://localhost:1337/#/nSDs');
-    });
+        it('login successful; redirection to NSDs page', function() {            
+            browser.driver.findElement(by.id('username')).sendKeys('sonata');
+            browser.driver.findElement(by.id('password')).sendKeys('sonata');
+            browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
+            expect(browser.getCurrentUrl()).toBe('http://localhost:1337/#/nSDs');
+        });
+    });    
 
-
-
-    describe('NSDs View', function() {
+    describe('NSDs View:', function() {
 
         beforeEach(function() {
-            browser.get('http://localhost:1337/#/NSDs');
+            browser.driver.manage().window().maximize();
+            browser.get('http://localhost:1337/#/login');
+            browser.driver.findElement(by.id('username')).sendKeys('sonata');
+            browser.driver.findElement(by.id('password')).sendKeys('sonata');
+            browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
+            browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();
         });
 
 
         it('services list must not be empty', function() {
-
             var count = element.all(by.repeater('nSD in nSDs')).count();
             expect(count).toBeGreaterThan(0);
         });
 
         it('when clicked: "service details" shows the service descriptor details', function() {
-
-            var el = element.all(by.css('.btn-success')).get(0);
-
-            el.click();
-
+            element.all(by.css('.btn-success')).get(0).click();
+            browser.waitForAngular();
             var tree_el = element(by.tagName('json-tree'));
-
-
             expect(tree_el.getAttribute('object')).toBe('currentNSD');
         });
 
     });
 
-    describe('Requests View', function() {
+    describe('Requests View:', function() {
 
         beforeEach(function() {
-            browser.get('http://localhost:1337/#/requests');
+            browser.driver.manage().window().maximize();
+            browser.get('http://localhost:1337/#/login');
+            browser.driver.findElement(by.id('username')).sendKeys('sonata');
+            browser.driver.findElement(by.id('password')).sendKeys('sonata');
+            browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
+            browser.driver.findElement(by.xpath("//a[@href='#/requests']")).click();
         });
 
 
-        it('requests list must not be empty', function() {
-
+        it('services list must not be empty', function() {
             var count = element.all(by.repeater('Request in Requests')).count();
             expect(count).toBeGreaterThan(0);
         });
 
         it('when clicked: "request details" shows the request details', function() {
-
-            var el = element.all(by.css('.btn-success')).get(0);
-
-            el.click();
-
+            element.all(by.css('.btn-success')).get(0).click();
+            browser.waitForAngular();
             var tree_el = element(by.tagName('json-tree'));
-
-
-            expect(tree_el.getAttribute('object')).toBe('currentRequests');
+            expect(tree_el.getAttribute('object')).toBe('currentRequest');
         });
 
     });
 
-    describe('Service Instances View', function() {
+    describe('NSRs View:', function() {
 
         beforeEach(function() {
-            browser.get('http://localhost:1337/#/nSRs');
+            browser.driver.manage().window().maximize();
+            browser.get('http://localhost:1337/#/login');
+            browser.driver.findElement(by.id('username')).sendKeys('sonata');
+            browser.driver.findElement(by.id('password')).sendKeys('sonata');
+            browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
+            browser.driver.findElement(by.xpath("//a[@href='#/nSRs']")).click();
         });
 
 
         it('service instances list must not be empty', function() {
-
             var count = element.all(by.repeater('nSR in nSRs')).count();
             expect(count).toBeGreaterThan(0);
         });
 
-        it('when clicked: "request details" shows the instantiation request details', function() {
-
-            var el = element.all(by.css('.btn-success')).get(0);
-
-            el.click();
-
+        it('when clicked: "service instance details" shows the service instance details', function() {
+            element.all(by.css('.btn-success')).get(0).click();
+            browser.waitForAngular();
             var tree_el = element(by.tagName('json-tree'));
-
-
             expect(tree_el.getAttribute('object')).toBe('currentNSR');
         });
 
     });
-
 });
