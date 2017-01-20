@@ -294,13 +294,17 @@ The installation of this component can be done using the [son-install](https://g
 ## Usage
 
 The GUI has a principal page with an upper menu that shows the following sections:
-* **Network Services**. In this section is possible:
+* **Available Network Services**. In this section is possible:
 1. to retrieve a list of Network services availables to be instantiated ("get" operation)
 2. to view the NSD details (tree view)
 3. to instantiate an specific NSD ("post" operation)
-* **Instantiation Requests**. In this section is possible
+4. to get a private license to allow the instantiation process
+* **Requests**. In this section is possible
 1. to retrieve a list of Instantiation Orders ("get" operation)
 2. to view the Request details
+* **Network Service Instances**. In this section is possible
+1. to retrieve a list of Service instances
+2. to update an instance to the latest service version
 
 ## License
 

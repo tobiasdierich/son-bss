@@ -36,7 +36,7 @@
 
     AuthenticationService.$inject = ['$http', '$localStorage', 'ENV'];
     function AuthenticationService($http, $localStorage, $rootScope) {
-        var service = {};
+        var service = {};        
 
         service.Login = Login;
         service.Logout = Logout;
@@ -45,30 +45,39 @@
 
         function Login(username, password, ENV, callback) {
 
-            //console.log("http://"+ENV.apiEndpoint+"/authenticate params {username: "+username+", password: "+password+"}");
-            var data = {"username": username, "password": password};
-            $http.post(ENV.apiEndpoint+'/authenticate', data)
-            .then(function successCallback(response){
+            if (ENV.userManagementEnabled == 'false') {                
                 
-                // login successful if there's a token in the response                
-                if (response.data.token) {
-                    
-                    // store username and token in local storage to keep user logged in between page refreshes
-                    $localStorage.currentUser = { username: username, token: response.data.token };
-                    
-                    // add jwt token to auth header for all requests made by the $http service
-                    //$http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-                    $http.defaults.headers.common.Authorization = response.data.token;
+                var fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo';
 
-                    // execute callback with true to indicate successful login                    
-                    callback(true);
-                } else {
-                    // execute callback with false to indicate failed login                    
+                $localStorage.currentUser = { username: 'sonata', token: fakeToken };
+                $http.defaults.headers.common.Authorization = fakeToken;
+                callback(true);
+            } else {
+                //console.log("http://"+ENV.apiEndpoint+"/authenticate params {username: "+username+", password: "+password+"}");
+                var data = {"username": username, "password": password};
+                $http.post(ENV.apiEndpoint+'/authenticate', data)
+                .then(function successCallback(response){
+                
+                    // login successful if there's a token in the response                
+                    if (response.data.token) {
+                    
+                        // store username and token in local storage to keep user logged in between page refreshes                    
+                        $localStorage.currentUser = { username: username, token: response.data.token };
+                    
+                        // add jwt token to auth header for all requests made by the $http service
+                        //$http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+                        $http.defaults.headers.common.Authorization = response.data.token;
+
+                        // execute callback with true to indicate successful login                    
+                        callback(true);
+                    } else {
+                        // execute callback with false to indicate failed login                    
+                        callback(false);
+                    }})
+                .catch(function errorCallback(error){
                     callback(false);
-                }})
-            .catch(function errorCallback(error){
-                callback(false);
-            });
+                });
+            }            
         }
 
         function Logout() {  

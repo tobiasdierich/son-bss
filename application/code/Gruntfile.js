@@ -31,7 +31,7 @@
 	var jwt = require('jsonwebtoken');
 	var token = req.headers.authorization;
 	//console.log("token: "+ token);
-	var decoded = jwt.decode(token);	
+	var decoded = jwt.decode(token);
 
 	if ((decoded != null) && (validUsername === decoded.name)) {
 		return true;
@@ -267,7 +267,8 @@ module.exports = function(grunt) {
 		  	constants: {
 		  		ENV: {
 		  			name: 'development',
-		  			apiEndpoint: [grunt.option('gkApiUrl')]
+		  			apiEndpoint: [grunt.option('gkApiUrl')],
+		  			userManagementEnabled: [grunt.option('userManagementEnabled')]
 		  		}
 		  	}
 		  },
@@ -278,7 +279,8 @@ module.exports = function(grunt) {
 		  	constants: {
 		  		ENV: {
 		  			name: 'integration',
-		  			apiEndpoint: [grunt.option('gkApiUrl')]
+		  			apiEndpoint: [grunt.option('gkApiUrl')],
+		  			userManagementEnabled: [grunt.option('userManagementEnabled')]
 		  		}
 		  	}
 		  },
@@ -289,7 +291,8 @@ module.exports = function(grunt) {
 		  	constants: {
 		  		ENV: {
 		  			name: 'qualification',
-		  			apiEndpoint: [grunt.option('gkApiUrl')]
+		  			apiEndpoint: [grunt.option('gkApiUrl')],
+		  			userManagementEnabled: [grunt.option('userManagementEnabled')]
 		  		}
 		  	}
 		  }
