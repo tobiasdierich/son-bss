@@ -301,8 +301,8 @@ module.exports = function(grunt) {
 			dist: {				
 				options: {
 					protocol: 'https',
-					key: grunt.file.read('E2E_tests/certs/dev_domain.key').toString(),
-					cert: grunt.file.read('E2E_tests/certs/dev_domain.crt').toString(),					
+					key: grunt.file.read('app/certs/dev_domain.key').toString(),
+					cert: grunt.file.read('app/certs/dev_domain.crt').toString(),					
 					port: 1337,
 					base: 'app'
 				}
@@ -319,16 +319,16 @@ module.exports = function(grunt) {
 			int: {
 				options: {
 					protocol: 'https',
-					key: grunt.file.read('E2E_tests/certs/int_domain.key').toString(),
-					cert: grunt.file.read('E2E_tests/certs/int_domain.crt').toString(),					
+					key: grunt.file.read('app/certs/int_domain.key').toString(),
+					cert: grunt.file.read('app/certs/int_domain.crt').toString(),					
 					port: 1337,
 					base: 'app'
 				}				
 			},
 			qualif: {
 				protocol: 'https',
-				key: grunt.file.read('E2E_tests/certs/qual_domain.key').toString(),
-				cert: grunt.file.read('E2E_tests/certs/qual_domain.crt').toString(),
+				key: grunt.file.read('app/certs/qual_domain.key').toString(),
+				cert: grunt.file.read('app/certs/qual_domain.crt').toString(),
 				options: {
 					port: 1337,
 					base: 'app'
