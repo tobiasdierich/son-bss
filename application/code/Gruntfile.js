@@ -300,15 +300,15 @@ module.exports = function(grunt) {
 		connect: {			
 			dist: {				
 				options: {
+					protocol: 'https',
+					key: grunt.file.read('E2E_tests/certs/dev_domain.key').toString(),
+					cert: grunt.file.read('E2E_tests/certs/dev_domain.crt').toString(),					
 					port: 1337,
 					base: 'app'
 				}
 			},
 			mock: {								
 				options: {
-					protocol: 'https',
-					key: grunt.file.read('E2E_tests/certs/mock.key').toString(),
-					cert: grunt.file.read('E2E_tests/certs/mock.crt').toString(),
 					port: 1338,
 					base: 'app',
 					middleware: [
@@ -318,11 +318,17 @@ module.exports = function(grunt) {
 			},									
 			int: {
 				options: {
+					protocol: 'https',
+					key: grunt.file.read('E2E_tests/certs/int_domain.key').toString(),
+					cert: grunt.file.read('E2E_tests/certs/int_domain.crt').toString(),					
 					port: 1337,
 					base: 'app'
 				}				
 			},
 			qualif: {
+				protocol: 'https',
+				key: grunt.file.read('E2E_tests/certs/qual_domain.key').toString(),
+				cert: grunt.file.read('E2E_tests/certs/qual_domain.crt').toString(),
 				options: {
 					port: 1337,
 					base: 'app'
