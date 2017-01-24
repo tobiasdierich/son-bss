@@ -327,8 +327,8 @@ module.exports = function(grunt) {
 			},
 			qualif: {
 				protocol: 'https',
-				key: grunt.file.read('app/certs/qual_domain.key').toString(),
-				cert: grunt.file.read('app/certs/qual_domain.crt').toString(),
+				key: grunt.file.read('app/certs/demo_domain.key').toString(),
+				cert: grunt.file.read('app/certs/demo_domain.crt').toString(),
 				options: {
 					port: 1337,
 					base: 'app'
