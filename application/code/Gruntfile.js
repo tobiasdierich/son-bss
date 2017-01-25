@@ -309,6 +309,9 @@ module.exports = function(grunt) {
 			},
 			mock: {								
 				options: {
+					protocol: 'https',
+					key: grunt.file.read('app/certs/localhost.key').toString(),
+					cert: grunt.file.read('app/certs/localhost.crt').toString(),					
 					port: 1338,
 					base: 'app',
 					middleware: [
