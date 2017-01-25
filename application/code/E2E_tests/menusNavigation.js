@@ -40,7 +40,7 @@
         });
 
         it('redirection to login page', function() {        
-            expect(browser.getCurrentUrl()).toBe('http://localhosts:1337/#/login');
+            expect(browser.getCurrentUrl()).toBe('https://localhost:1337/#/login');
         });        
 
         it('login successful; redirection to NSDs page', function() {            
