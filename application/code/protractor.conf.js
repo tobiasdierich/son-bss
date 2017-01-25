@@ -42,9 +42,9 @@ exports.config = {
 	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js'],
     service_License_Update: ['E2E_tests/serviceLicenseUpdate.js']    
   },
-  params: {
-    hostname: 'localhost'
-  },
+  /*params: {
+    hostname: 'localhosttttttttttttttt'
+  },*/
   
   capabilities: {
   'browserName': 'phantomjs',

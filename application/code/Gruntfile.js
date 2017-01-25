@@ -338,7 +338,12 @@ module.exports = function(grunt) {
 			options: {
 				configFile: "protractor.conf.js",		 
 				noColor: false,
-				keepAlive: true
+				keepAlive: true,
+				args: {
+					params: {
+						hostname: [grunt.option('hostname')]
+					}
+				}
 			},		  
 			run: {},
 			auto: {
@@ -346,9 +351,6 @@ module.exports = function(grunt) {
 				options: {
 					args: {
 						seleniumPort: 4444			
-					},
-					parameters: {
-						hostname: [grunt.option('userManagementEnabled')]
 					}
 				}
 			}
