@@ -32,7 +32,7 @@ describe('SonataBSS Updates a Service', function() {
 	
     beforeEach(function() {
         browser.driver.manage().window().maximize();
-        browser.get('https://localhost:1337/#/login');
+        browser.get('https://'+browser.params.hostname+':1337/#/login');
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
         browser.driver.findElement(by.id('password')).sendKeys('sonata');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();

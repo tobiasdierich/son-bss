@@ -240,11 +240,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
 			options: {
-				livereload: true//{
-        			//port: 9000,
-        			//key: grunt.file.read('E2E_tests/certs/mock.key'),
-        			//cert: grunt.file.read('E2E_tests/certs/mock.crt')
-        		//}
+				livereload: true
         	},      
         	protractor: {        
         		files: ['E2E_tests/todo*.js'],
@@ -349,7 +345,10 @@ module.exports = function(grunt) {
 				keepAlive: true,
 				options: {
 					args: {
-						seleniumPort: 4444					
+						seleniumPort: 4444			
+					},
+					parameters: {
+						hostname: [grunt.option('userManagementEnabled')]
 					}
 				}
 			}
@@ -360,7 +359,6 @@ module.exports = function(grunt) {
 					path: './node_modules/protractor/bin/',
 					keepAlive: true,
 					command: 'webdriver-manager start'
-					//command: 'webdriver-manager start --standalone'
 				}
 			}
 		}

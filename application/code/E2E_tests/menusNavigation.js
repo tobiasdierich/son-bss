@@ -31,8 +31,8 @@
     describe('Login View:', function(){
     
         beforeEach(function() {
-            browser.driver.manage().window().maximize();
-            browser.get('https://localhost:1337');
+            browser.driver.manage().window().maximize();                
+            browser.get('https://'+browser.params.hostname+':1337');
         });
         
         it('title must be SonataBSS', function() {
@@ -40,14 +40,14 @@
         });
 
         it('redirection to login page', function() {        
-            expect(browser.getCurrentUrl()).toBe('https://localhost:1337/#/login');
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.hostname+':1337/#/login');
         });        
 
         it('login successful; redirection to NSDs page', function() {            
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
-            expect(browser.getCurrentUrl()).toBe('https://localhost:1337/#/nSDs');
+            expect(browser.getCurrentUrl()).toBe('https://'+browser.params.hostname+':1337/#/nSDs');
         });
     });    
 
@@ -55,7 +55,7 @@
 
         beforeEach(function() {
             browser.driver.manage().window().maximize();
-            browser.get('https://localhost:1337/#/login');
+            browser.get('https://'+browser.params.hostname+':1337/#/login');
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
@@ -81,7 +81,7 @@
 
         beforeEach(function() {
             browser.driver.manage().window().maximize();
-            browser.get('https://localhost:1337/#/login');
+            browser.get('https://'+browser.params.hostname+':1337/#/login');
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
@@ -107,7 +107,7 @@
 
         beforeEach(function() {
             browser.driver.manage().window().maximize();
-            browser.get('https://localhost:1337/#/login');
+            browser.get('https://'+browser.params.hostname+':1337/#/login');
             browser.driver.findElement(by.id('username')).sendKeys('sonata');
             browser.driver.findElement(by.id('password')).sendKeys('sonata');
             browser.driver.findElement(by.xpath('//button[. = "Login"]')).click();
