@@ -299,7 +299,8 @@ module.exports = function(grunt) {
 					protocol: 'https',
 					key: grunt.file.read('app/certs/domain.key').toString(),
 					cert: grunt.file.read('app/certs/domain.crt').toString(),
-					hostname: [grunt.option('hostname')],					
+					hostname: grunt.option('hostname'),
+					open: true,					
 					port: 1337,
 					base: 'app'
 				}
@@ -309,7 +310,7 @@ module.exports = function(grunt) {
 					protocol: 'https',
 					key: grunt.file.read('app/certs/domain.key').toString(),
 					cert: grunt.file.read('app/certs/domain.crt').toString(),
-					hostname: [grunt.option('hostname')],					
+					hostname: grunt.option('hostname'),
 					port: 1338,
 					base: 'app',
 					middleware: [
@@ -322,7 +323,7 @@ module.exports = function(grunt) {
 					protocol: 'https',
 					key: grunt.file.read('app/certs/domain.key').toString(),
 					cert: grunt.file.read('app/certs/domain.crt').toString(),					
-					hostname: [grunt.option('hostname')],
+					hostname: grunt.option('hostname'),
 					port: 1337,
 					base: 'app'
 				}				
@@ -331,7 +332,7 @@ module.exports = function(grunt) {
 				protocol: 'https',
 				key: grunt.file.read('app/certs/domain.key').toString(),
 				cert: grunt.file.read('app/certs/domain.crt').toString(),
-				hostname: [grunt.option('hostname')],
+				hostname: grunt.option('hostname'),
 				options: {
 					port: 1337,
 					base: 'app'
