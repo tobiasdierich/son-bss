@@ -297,8 +297,8 @@ module.exports = function(grunt) {
 			dist: {				
 				options: {
 					protocol: 'https',
-					key: grunt.file.read('app/certs/domain.key').toString(),
-					cert: grunt.file.read('app/certs/domain.crt').toString(),
+					key: grunt.file.read('app/certs/sonata.key').toString(),
+					cert: grunt.file.read('app/certs/sonata.crt').toString(),
 					hostname: grunt.option('hostname'),
 					open: true,					
 					port: 1337,
@@ -308,8 +308,8 @@ module.exports = function(grunt) {
 			mock: {								
 				options: {
 					protocol: 'https',
-					key: grunt.file.read('app/certs/domain.key').toString(),
-					cert: grunt.file.read('app/certs/domain.crt').toString(),
+					key: grunt.file.read('app/certs/sonata.key').toString(),
+					cert: grunt.file.read('app/certs/sonata.crt').toString(),
 					hostname: grunt.option('hostname'),
 					port: 1338,
 					base: 'app',
@@ -321,8 +321,8 @@ module.exports = function(grunt) {
 			int: {
 				options: {
 					protocol: 'https',
-					key: grunt.file.read('app/certs/domain.key').toString(),
-					cert: grunt.file.read('app/certs/domain.crt').toString(),					
+					key: grunt.file.read('app/certs/sonata.key').toString(),
+					cert: grunt.file.read('app/certs/sonata.crt').toString(),					
 					hostname: grunt.option('hostname'),
 					port: 1337,
 					base: 'app'
@@ -330,8 +330,8 @@ module.exports = function(grunt) {
 			},
 			qualif: {
 				protocol: 'https',
-				key: grunt.file.read('app/certs/domain.key').toString(),
-				cert: grunt.file.read('app/certs/domain.crt').toString(),
+				key: grunt.file.read('app/certs/sonata.key').toString(),
+				cert: grunt.file.read('app/certs/sonata.crt').toString(),
 				hostname: grunt.option('hostname'),
 				options: {
 					port: 1337,
