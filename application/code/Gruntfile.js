@@ -295,49 +295,95 @@ module.exports = function(grunt) {
 		},
 		connect: {			
 			dist: {				
-				options: {
-					protocol: 'https',
-					key: grunt.file.read('app/certs/sonata.key').toString(),
-					cert: grunt.file.read('app/certs/sonata.crt').toString(),
-					hostname: grunt.option('hostname'),
-					open: true,					
-					port: 1337,
-					base: 'app'
-				}
+				options: (function() { 
+    				if (grunt.option('protocol')=='https') {
+      					return {
+      						protocol: 'https',
+							key: grunt.file.read('app/certs/sonata.key').toString(),
+							cert: grunt.file.read('app/certs/sonata.crt').toString(),
+							hostname: grunt.option('hostname'),
+							open: true,					
+							port: 1337,
+							base: 'app'	
+      					};
+    				} else {
+      					return {
+							protocol: 'http',
+							hostname: grunt.option('hostname'),
+							open: true,					
+							port: 1337,
+							base: 'app'
+      					};
+    				}
+  				}())
 			},
-			mock: {								
-				options: {
-					protocol: 'https',
-					key: grunt.file.read('app/certs/sonata.key').toString(),
-					cert: grunt.file.read('app/certs/sonata.crt').toString(),
-					hostname: grunt.option('hostname'),
-					port: 1338,
-					base: 'app',
-					middleware: [
-					fmock
-					],
-				},
+			mock: {
+				options: (function() { 
+    				if (grunt.option('protocol')=='https') {
+      					return {
+      						protocol: 'https',
+							key: grunt.file.read('app/certs/sonata.key').toString(),
+							cert: grunt.file.read('app/certs/sonata.crt').toString(),
+							hostname: grunt.option('hostname'),
+							port: 1338,
+							base: 'app',
+							middleware: [
+							fmock
+							],	
+      					};
+    				} else {
+      					return {
+							protocol: 'http',
+							hostname: grunt.option('hostname'),
+							port: 1338,
+							base: 'app',
+							middleware: [
+							fmock
+							],
+      					};
+    				}
+  				}())
 			},									
 			int: {
-				options: {
-					protocol: 'https',
-					key: grunt.file.read('app/certs/sonata.key').toString(),
-					cert: grunt.file.read('app/certs/sonata.crt').toString(),					
-					hostname: grunt.option('hostname'),
-					port: 1337,
-					base: 'app'
-				}				
+				options: (function() { 
+    				if (grunt.option('protocol')=='https') {
+      					return {
+      						protocol: 'https',
+							key: grunt.file.read('app/certs/sonata.key').toString(),
+							cert: grunt.file.read('app/certs/sonata.crt').toString(),
+							hostname: grunt.option('hostname'),
+							port: 1337,
+							base: 'app'	
+      					};
+    				} else {
+      					return {
+							protocol: 'http',
+							hostname: grunt.option('hostname'),
+							port: 1337,
+							base: 'app'
+      					};
+    				}
+  				}())				
 			},
-			qualif: {
-				protocol: 'https',
-				key: grunt.file.read('app/certs/sonata.key').toString(),
-				cert: grunt.file.read('app/certs/sonata.crt').toString(),
-				hostname: grunt.option('hostname'),
-				options: {
-					port: 1337,
-					base: 'app'
-				}				
-			}
+			qualif: (function() { 
+    			if (grunt.option('protocol')=='https') {
+      				return {
+      					protocol: 'https',
+						key: grunt.file.read('app/certs/sonata.key').toString(),
+						cert: grunt.file.read('app/certs/sonata.crt').toString(),
+						hostname: grunt.option('hostname'),
+						port: 1337,
+						base: 'app'	
+      				};
+    			} else {
+      				return {
+						protocol: 'http',
+						hostname: grunt.option('hostname'),
+						port: 1337,
+						base: 'app'
+      				};
+    			}
+  			}())
 		},
 		protractor: {
 			options: {
