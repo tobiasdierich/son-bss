@@ -240,11 +240,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		watch: {
 			options: {
-				livereload: true//{
-        			//port: 9000,
-        			//key: grunt.file.read('E2E_tests/certs/mock.key'),
-        			//cert: grunt.file.read('E2E_tests/certs/mock.crt')
-        		//}
+				livereload: true
         	},      
         	protractor: {        
         		files: ['E2E_tests/todo*.js'],
@@ -300,6 +296,11 @@ module.exports = function(grunt) {
 		connect: {			
 			dist: {				
 				options: {
+					protocol: 'https',
+					key: grunt.file.read('app/certs/sonata.key').toString(),
+					cert: grunt.file.read('app/certs/sonata.crt').toString(),
+					hostname: grunt.option('hostname'),
+					open: true,					
 					port: 1337,
 					base: 'app'
 				}
@@ -307,8 +308,9 @@ module.exports = function(grunt) {
 			mock: {								
 				options: {
 					protocol: 'https',
-					key: grunt.file.read('E2E_tests/certs/mock.key').toString(),
-					cert: grunt.file.read('E2E_tests/certs/mock.crt').toString(),
+					key: grunt.file.read('app/certs/sonata.key').toString(),
+					cert: grunt.file.read('app/certs/sonata.crt').toString(),
+					hostname: grunt.option('hostname'),
 					port: 1338,
 					base: 'app',
 					middleware: [
@@ -318,11 +320,19 @@ module.exports = function(grunt) {
 			},									
 			int: {
 				options: {
+					protocol: 'https',
+					key: grunt.file.read('app/certs/sonata.key').toString(),
+					cert: grunt.file.read('app/certs/sonata.crt').toString(),					
+					hostname: grunt.option('hostname'),
 					port: 1337,
 					base: 'app'
 				}				
 			},
 			qualif: {
+				protocol: 'https',
+				key: grunt.file.read('app/certs/sonata.key').toString(),
+				cert: grunt.file.read('app/certs/sonata.crt').toString(),
+				hostname: grunt.option('hostname'),
 				options: {
 					port: 1337,
 					base: 'app'
@@ -333,14 +343,19 @@ module.exports = function(grunt) {
 			options: {
 				configFile: "protractor.conf.js",		 
 				noColor: false,
-				keepAlive: true
+				keepAlive: true,
+				args: {
+					params: {
+						hostname: [grunt.option('hostname')]
+					}
+				}
 			},		  
 			run: {},
 			auto: {
 				keepAlive: true,
 				options: {
 					args: {
-						seleniumPort: 4444					
+						seleniumPort: 4444			
 					}
 				}
 			}
@@ -351,7 +366,6 @@ module.exports = function(grunt) {
 					path: './node_modules/protractor/bin/',
 					keepAlive: true,
 					command: 'webdriver-manager start'
-					//command: 'webdriver-manager start --standalone'
 				}
 			}
 		}

@@ -31,7 +31,7 @@ var HtmlScreenshotReporter = require('protractor-jasmine2-html-reporter');
 var reportName;
 
 exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
+  seleniumAddress: 'http://localhost:4444/wd/hub',  
   seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',    
   //specs: ['E2E_tests/todo-spec.js'],
   suites: {
@@ -42,6 +42,9 @@ exports.config = {
 	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js'],
     service_License_Update: ['E2E_tests/serviceLicenseUpdate.js']    
   },
+  /*params: {
+    hostname: 'localhosttttttttttttttt'
+  },*/
   
   capabilities: {
   'browserName': 'phantomjs',
