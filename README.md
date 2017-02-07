@@ -291,20 +291,39 @@ You may contribute to the editor similar to other SONATA (sub-) projects, i.e. b
 
 The installation of this component can be done using the [son-install](https://github.com/sonata-nfv/son-install) script.
 
+Grunt command line options are:
+
+options		  			| Required		| Default value 	| Description
+----------------------- | ------------- | ----------------- | --------------------
+gkApiUrl	  			| Yes 			| 					| Gatekeeper REST API Url
+suite		  			| No			|					| Testing purpose: select the test suite
+hostname	  			| No			| localhost			| Testing purpose: set the test hostname
+protocol	  			| No			| http				| http/https selection
+userManagementEnabled	| No 			| true				| Enables de use of Gatekeeper's User Management module
+
 ## Usage
 
 The GUI has a principal page with an upper menu that shows the following sections:
-* **Available Network Services**. In this section is possible:
-1. to retrieve a list of Network services availables to be instantiated ("get" operation)
-2. to view the NSD details (tree view)
-3. to instantiate an specific NSD ("post" operation)
-4. to get a private license to allow the instantiation process
-* **Requests**. In this section is possible
-1. to retrieve a list of Instantiation Orders ("get" operation)
-2. to view the Request details
-* **Network Service Instances**. In this section is possible
-1. to retrieve a list of Service instances
-2. to update an instance to the latest service version
+
+**Available Network Services** 
+
+In this section is possible:
+* to retrieve a list of Network services availables to be instantiated ("get" operation)
+* to view the NSD details (tree view)
+* to instantiate an specific NSD ("post" operation)
+* to get a private license to allow the instantiation process
+
+**Requests** 
+
+In this section is possible:
+* to retrieve a list of Instantiation Orders ("get" operation)
+* to view the Request details
+
+**Network Service Instances** 
+
+In this section is possible:
+* to retrieve a list of Service instances
+* to update an instance to the latest service version
 
 ## License
 
