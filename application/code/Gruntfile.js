@@ -296,6 +296,12 @@ module.exports = function(grunt) {
 		connect: {			
 			dist: {				
 				options: (function() { 
+					if ( !grunt.option( 'protocol' ) ) {   						
+    					grunt.option( 'protocol', 'http' );
+  					}
+  					if ( !grunt.option( 'hostname' ) ) {   						
+    					grunt.option( 'hostname', 'localhost' );
+  					}
     				if (grunt.option('protocol')=='https') {
       					return {
       						protocol: 'https',
@@ -319,6 +325,12 @@ module.exports = function(grunt) {
 			},
 			mock: {
 				options: (function() { 
+					if ( !grunt.option( 'protocol' ) ) {   						
+    					grunt.option( 'protocol', 'http' );
+  					}
+  					if ( !grunt.option( 'hostname' ) ) {   						
+    					grunt.option( 'hostname', 'localhost' );
+  					}
     				if (grunt.option('protocol')=='https') {
       					return {
       						protocol: 'https',
@@ -346,6 +358,12 @@ module.exports = function(grunt) {
 			},									
 			int: {
 				options: (function() { 
+					if ( !grunt.option( 'protocol' ) ) {   						
+    					grunt.option( 'protocol', 'http' );
+  					}
+  					if ( !grunt.option( 'hostname' ) ) {   						
+    					grunt.option( 'hostname', 'localhost' );
+  					}
     				if (grunt.option('protocol')=='https') {
       					return {
       						protocol: 'https',
@@ -366,6 +384,12 @@ module.exports = function(grunt) {
   				}())				
 			},
 			qualif: (function() { 
+				if ( !grunt.option( 'protocol' ) ) {   						
+    				grunt.option( 'protocol', 'http' );
+  				}
+  				if ( !grunt.option( 'hostname' ) ) {   						
+    				grunt.option( 'hostname', 'localhost' );
+  				}
     			if (grunt.option('protocol')=='https') {
       				return {
       					protocol: 'https',
