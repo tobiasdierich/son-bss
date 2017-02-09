@@ -293,13 +293,14 @@ The installation of this component can be done using the [son-install](https://g
 
 Grunt command line options are:
 
-options		  			| Required		| Default value 	| Description
------------------------ | ------------- | ----------------- | --------------------
-gkApiUrl	  			| Yes 			| 					| Gatekeeper REST API Url
-suite		  			| No			|					| Testing purpose: select the test suite
-hostname	  			| No			| localhost			| Testing purpose: set the test hostname
-protocol	  			| No			| http				| http/https selection
-userManagementEnabled	| No 			| true				| Enables de use of Gatekeeper's User Management module
+options		  				| Required		| Default value 	| Description
+--------------------------- | ------------- | ----------------- | --------------------
+gkApiUrl	  				| Yes 			| 					| Gatekeeper REST API Url
+suite		  				| No			|					| Testing purpose: select the test suite
+hostname	  				| No			| localhost			| Testing purpose: set the test hostname
+protocol	  				| No			| http				| http/https selection
+userManagementEnabled		| No 			| true				| Enables de use of Gatekeeper's User Management module
+licenseManagementEnabled	| No 			| true				| Enables de use of Gatekeeper's License Management module
 
 ## Usage
 

@@ -51,9 +51,14 @@
         },
 
         getUserLicenses:function(ENV, username){
-            var defer=$q.defer();               
+            var defer=$q.defer();
+                           
             if (ENV.licenseManagementEnabled == 'false') { 
-                defer.resolve(true);
+                var fakeResponse = {
+                  data: ''
+                };
+
+                defer.resolve(fakeResponse);
             } else {
                 var maxSafeInteger = Math.pow(2,16) - 1;            
                 $http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")
