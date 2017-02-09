@@ -264,7 +264,8 @@ module.exports = function(grunt) {
 		  		ENV: {
 		  			name: 'development',
 		  			apiEndpoint: [grunt.option('gkApiUrl')],
-		  			userManagementEnabled: [grunt.option('userManagementEnabled')]
+		  			userManagementEnabled: [grunt.option('userManagementEnabled')],
+		  			licenseManagementEnabled: [grunt.option('licenseManagementEnabled')]
 		  		}
 		  	}
 		  },
@@ -276,7 +277,8 @@ module.exports = function(grunt) {
 		  		ENV: {
 		  			name: 'integration',
 		  			apiEndpoint: [grunt.option('gkApiUrl')],
-		  			userManagementEnabled: [grunt.option('userManagementEnabled')]
+		  			userManagementEnabled: [grunt.option('userManagementEnabled')],
+		  			licenseManagementEnabled: [grunt.option('licenseManagementEnabled')]
 		  		}
 		  	}
 		  },
@@ -288,7 +290,8 @@ module.exports = function(grunt) {
 		  		ENV: {
 		  			name: 'qualification',
 		  			apiEndpoint: [grunt.option('gkApiUrl')],
-		  			userManagementEnabled: [grunt.option('userManagementEnabled')]
+		  			userManagementEnabled: [grunt.option('userManagementEnabled')],
+		  			licenseManagementEnabled: [grunt.option('licenseManagementEnabled')]
 		  		}
 		  	}
 		  }
