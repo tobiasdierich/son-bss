@@ -52,8 +52,7 @@
         retrieveNSDs:function(ENV){
             var defer=$q.defer();
             var maxSafeInteger = Math.pow(2,16) - 1;
-            //$http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")
-            $http.get(ENV.apiEndpoint+"/services")
+            $http.get(ENV.apiEndpoint+"/services?limit="+maxSafeInteger+"&offset=0")            
             .then(function successCallback(result){
                defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
