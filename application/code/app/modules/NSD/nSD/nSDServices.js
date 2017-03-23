@@ -57,7 +57,8 @@
                 defer.resolve(true);
             } else {
                 var maxSafeInteger = Math.pow(2,16) - 1;            
-                $http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")                
+                //$http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")
+                $http.get(ENV.apiEndpoint+"/licenses?username="+username)
                 .then(function successCallback(result){                
                     defer.resolve(result)})
                 .catch(function errorCallback(error){                

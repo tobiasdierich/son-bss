@@ -29,10 +29,10 @@
  var isAuthorizedUser = function (req, validUsername) {
 
 	var jwt = require('jsonwebtoken');
-	var token = req.headers.authorization;
-	//console.log("token: "+ token);
+	var bearer = "Bearer ";
+	var token = req.headers.authorization.substring(bearer.length);	
 	var decoded = jwt.decode(token);
-
+	
 	if ((decoded != null) && (validUsername === decoded.name)) {
 		return true;
 	} else {
@@ -40,7 +40,11 @@
 	}
 }
 
-var fmock = function (req, res, next) {
+var fmock = function (req, res, next) {	
+
+	//var Base64 = require('js-base64');
+	var Base64 = require('js-base64').Base64;
+
 	var authorizedUser = {
 		"username": "sonata",
 		"password": "sonata"
@@ -73,51 +77,69 @@ var fmock = function (req, res, next) {
 			break;
 		case 'POST':
 			//console.log('POST...');
-			//authentication
-			if (path.indexOf('/authenticate') === 0) {
-				//console.log(req);
-				var body = "";
-				req.on('data', function (data) {
-					body += data;
-				});
-				req.on('end', function () {
-					var params = JSON.parse(body);
+			//login
+			switch (true) {
+				case /^\/sessions/.test(path):
+					body = "";
+					req.on('data', function (data) {
+						body += data;
+					});
+					req.on('end', function () {
+						var params = JSON.parse(body);
 
-					if (params.username === authorizedUser.username && params.password === authorizedUser.password) {
-						//console.log("Authenticated and Authorizated usr");
-						body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}';
-						res.writeHeader(200, {
-							"Content-Type": "application/json"
-						});						
-					} else {
-						if (params.username === notAuthorizedUser.username && params.password === notAuthorizedUser.password) {
-							// not AuthorizedUser: user is authenticated but token doesn't allow it to retrieve platform information
-							//console.log("Authenticated but not Authorizated usr");
-							body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InRlc3QiLCJhZG1pbiI6ZmFsc2V9.ysMOZXnPs4VXMhgwhJmSPWjKW2trpjA8Ym-X4plfVrY"}';
+						if (params.username === authorizedUser.username && params.secret === Base64.encode(authorizedUser.username+":"+authorizedUser.password)) {
+							//console.log("Authenticated and Authorizated usr");
+							body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}';
 							res.writeHeader(200, {
 								"Content-Type": "application/json"
-							});							
+							});						
 						} else {
-							//console.log("not valid usr/pwd");							
-							body = '{"code": "401", "message":"Not valid user/password"}';
-							res.writeHeader(401);							
+							if (params.username === notAuthorizedUser.username && params.secret === Base64.encode(notAuthorizedUser.username+":"+notAuthorizedUser.password)) {
+								// not AuthorizedUser: user is authenticated but token doesn't allow it to retrieve platform information
+								//console.log("Authenticated but not Authorizated usr");
+								body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InRlc3QiLCJhZG1pbiI6ZmFsc2V9.ysMOZXnPs4VXMhgwhJmSPWjKW2trpjA8Ym-X4plfVrY"}';
+								res.writeHeader(200, {
+									"Content-Type": "application/json"
+								});							
+							} else {
+								//console.log("not valid usr/pwd");							
+								body = '{"code": "401", "message":"Not valid user/password"}';
+								res.writeHeader(401);							
+							}
 						}
+						res.write(body);
+						res.end();
+					});
+					break;
+				case /^\/users/.test(path):
+					// registering
+					body = "";
+					req.on('data', function (data) {
+						body += data;
+					});
+					req.on('end', function () {
+						var params = JSON.parse(body);
+
+						res.writeHeader(200, {
+							"Content-Type": "application/json"
+						});	
+						res.write(body);
+						res.end();											
+					});
+					break;
+				default:								
+					if (isAuthorizedUser(req, authorizedUser.username) === false) {
+						body = '{"code": "401", "message":"Not Authorized User"}';
+						res.writeHeader(401);
+					} else {
+						body += '{ "id": "1c58b169-7c38-4bcd-9421-a91bd786f100" }';
+						res.writeHeader(200, {
+							"Content-Type": "application/json"
+						});
 					}
 					res.write(body);
 					res.end();
-				});
-			} else {				
-				if (isAuthorizedUser(req, authorizedUser.username) === false) {
-					body = '{"code": "401", "message":"Not Authorized User"}';
-					res.writeHeader(401);
-				} else {
-					body += '{ "id": "1c58b169-7c38-4bcd-9421-a91bd786f100" }';
-					res.writeHeader(200, {
-						"Content-Type": "application/json"
-					});
-				}
-				res.write(body);
-				res.end();
+					break;				
 			}
 			break;
 		case 'GET':
@@ -126,33 +148,34 @@ var fmock = function (req, res, next) {
 				body = '{"code": "401", "message":"Not Authorized User"}';
 				res.writeHeader(401);
 			} else {
-				if (path.indexOf('/services') === 0) {
-					if (path.indexOf('/services?status=active') === 0) {
-						//console.log("GET /services");
-						//body response
-						body += JSON.stringify(require('./examples/activeNSD.json'));
-						//body response
-						//res.setHeader('Access-Control-Allow-Origin', '*');
-						res.writeHeader(200, {
-							"Content-Type": "application/json",
-							"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
-						});
-						res.writeHead['content-type'] = 'application/json';
-					} else {
-						//console.log("GET /services");
-						//body response
-						body += JSON.stringify(require('./examples/allNSD.json'));
-						//body response
-						//res.setHeader('Access-Control-Allow-Origin', '*');
-						res.writeHeader(200, {
-							"Content-Type": "application/json",
-							"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
-						});
-						res.writeHead['content-type'] = 'application/json';
-					};
-				} else {
-					if (path.indexOf('/requests') === 0) {
-					    if (path.indexOf('/requests?limit=10&offset=1') === 0) {
+				switch (true){
+					case /^\/services/.test(path):
+						if (path.indexOf('/services?status=active') === 0) {
+							//console.log("GET /services");
+							//body response
+							body += JSON.stringify(require('./examples/activeNSD.json'));
+							//body response
+							//res.setHeader('Access-Control-Allow-Origin', '*');
+							res.writeHeader(200, {
+								"Content-Type": "application/json",
+								"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
+							});
+							res.writeHead['content-type'] = 'application/json';
+						} else {
+							//console.log("GET /services");
+							//body response
+							body += JSON.stringify(require('./examples/allNSD.json'));
+							//body response
+							//res.setHeader('Access-Control-Allow-Origin', '*');
+							res.writeHeader(200, {
+								"Content-Type": "application/json",
+								"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
+							});
+							res.writeHead['content-type'] = 'application/json';
+						};
+						break;
+					case /^\/requests/.test(path):
+						if (path.indexOf('/requests?limit=10&offset=1') === 0) {
 						    body += JSON.stringify(require('./examples/request2.json'));							
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
@@ -181,37 +204,36 @@ var fmock = function (req, res, next) {
 								}	
 							}
 						}
-					} else {
-						if (path.indexOf('/records/services') === 0) {							
-							if (path.indexOf('/records/services?limit=10&offset=1') === 0) {
-								body += JSON.stringify(require('./examples/NSR2.json'));							
-								res.writeHeader(200, {
-									"Content-Type": "application/json",
-									"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
-								});
-							} else {
-								body += JSON.stringify(require('./examples/NSR.json'));							
-								res.writeHeader(200, {
-									"Content-Type": "application/json",
-									"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
-								});
-							}							
+						break;
+					case /^\/records\/services/.test(path):
+						if (path.indexOf('/records/services?limit=10&offset=1') === 0) {
+							body += JSON.stringify(require('./examples/NSR2.json'));							
+							res.writeHeader(200, {
+								"Content-Type": "application/json",
+								"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
+							});
 						} else {
-							if (path.indexOf('/licenses') === 0) {
-								body += JSON.stringify(require('./examples/userLicenses.json'));							
-								res.writeHeader(200, {
-									"Content-Type": "application/json",									
-								});
-							} else {
-							//console.log("GET others");
-							//res.setHeader('Access-Control-Allow-Origin', '*');
-								res.writeHeader(200, {
-									"Content-Type": "application/json",
-									"Link": "<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\"",
-								});
-							}
+							body += JSON.stringify(require('./examples/NSR.json'));							
+							res.writeHeader(200, {
+								"Content-Type": "application/json",
+								"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
+							});
 						}
-					}
+						break;
+					case /^\/licenses/.test(path):
+						if (path.indexOf('/licenses') === 0) {
+							body += JSON.stringify(require('./examples/userLicenses.json'));							
+							res.writeHeader(200, {
+								"Content-Type": "application/json",									
+							});
+						}
+						break;
+					default:
+						res.writeHeader(200, {
+							"Content-Type": "application/json",
+							"Link": "<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\"",
+						});
+						break;
 				}
 			}
 			res.write(body);
@@ -230,6 +252,16 @@ var fmock = function (req, res, next) {
 			res.write(body);
 			res.end();
 			break;
+		case 'DELETE':
+			//console.log('DELETE...');
+			if (path.indexOf('/sessions') === 0) {
+				res.writeHeader(200, {
+					"Content-Type": "application/json"
+				});
+				res.write(body);
+				res.end();
+				break;
+			}
 		}
 	}
 };

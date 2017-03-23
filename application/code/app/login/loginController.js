@@ -34,17 +34,20 @@
         .module('Login')
         .controller('LoginController', LoginController);
         
-    function LoginController($rootScope, $location, AuthenticationService, ENV) {
+    function LoginController($rootScope, $location, $base64, AuthenticationService, ENV) {
 
         var vm = this;
         vm.login = login;
+        vm.register = register;
         $rootScope.username = '';        
-        //vm.currentUserSignedIn = false;        
-        AuthenticationService.Logout();
+        logout();
 
         function login() {                        
-            //console.log(">>>> vm.username: "+vm.username+", vm.password: "+vm.password);            
-            AuthenticationService.Login(vm.username, vm.password, ENV, function(result) {
+            //console.log(">>>> vm.username: "+vm.username+", vm.password: "+vm.password); 
+            var secret = $base64.encode(vm.username+":"+vm.password);
+            var data = { "username": vm.username , "secret": secret };
+
+            AuthenticationService.Login(vm.username, secret, ENV, function(result) {
                 //console.log("result: "+result);
                 if (result === true) {                    
                     $location.path('nSDs');
@@ -57,5 +60,36 @@
                 }
             });
         };        
+
+        function logout() {                        
+            
+            var secret = $base64.encode(vm.username+":"+vm.password);
+            var data = { "username": vm.username , "secret": secret };
+
+            AuthenticationService.Logout(vm.username, secret, ENV, function(result) {                
+                if (result === false) {                                        
+                    vm.error = true;                    
+                    vm.currentUserSignedIn = false;
+                }
+            });
+        };        
+
+        function register() {
+
+            var secret = $base64.encode(vm.username+":"+vm.password);
+            var data = { "username": vm.username , "secret": secret };
+
+            AuthenticationService.Register(vm.username, secret, ENV, function(result) {
+                if (result === true) {
+                    $('#success.modal').modal('show');
+                } else {
+                    console.log("Registration error");
+                    $scope.error = angular.copy(JSON.stringify(error.data.message));
+                    $('#error.modal').modal('show');
+                }
+            });
+        };
     };    
+
+
 })();

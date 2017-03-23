@@ -40,12 +40,13 @@
 
         service.Login = Login;
         service.Logout = Logout;
+        service.Register = Register;
 
         return service;
 
-        function Login(username, password, ENV, callback) {
+        function Login(username, secret, ENV, callback) {
 
-            if (ENV.userManagementEnabled == 'false') {                
+           if (ENV.userManagementEnabled == 'false') {                
                 
                 var fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo';
 
@@ -53,9 +54,10 @@
                 $http.defaults.headers.common.Authorization = fakeToken;
                 callback(true);
             } else {
-                //console.log("http://"+ENV.apiEndpoint+"/authenticate params {username: "+username+", password: "+password+"}");
-                var data = {"username": username, "password": password};
-                $http.post(ENV.apiEndpoint+'/authenticate', data)
+                
+                var data = { "username": username , "secret": secret };
+
+                $http.post(ENV.apiEndpoint+'/sessions', data)
                 .then(function successCallback(response){
                 
                     // login successful if there's a token in the response                
@@ -66,7 +68,7 @@
                     
                         // add jwt token to auth header for all requests made by the $http service
                         //$http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-                        $http.defaults.headers.common.Authorization = response.data.token;
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
 
                         // execute callback with true to indicate successful login                    
                         callback(true);
@@ -80,14 +82,59 @@
             }            
         }
 
-        function Logout() {  
-            // remove user from local storage and clear http auth header
-            delete $localStorage.currentUser;
-            delete $rootScope.username;  
-            delete $rootScope.nSDs;
-            delete $rootScope.nSRs;
-            delete $rootScope.Requests;          
-            $http.defaults.headers.common.Authorization = '';          
+        function Logout(username, secret, ENV, callback) {              
+
+            if (ENV.userManagementEnabled == 'false') {                
+                // remove user from local storage and clear http auth header
+                delete $localStorage.currentUser;
+                delete $rootScope.username;  
+                delete $rootScope.nSDs;
+                delete $rootScope.nSRs;
+                delete $rootScope.Requests;          
+                $http.defaults.headers.common.Authorization = '';                
+                callback(true);
+            } else {                
+                var data = { "username": username , "secret": secret };
+                $http.delete(ENV.apiEndpoint+'/sessions', data)
+                .then(function successCallback(response){
+                
+                    // remove user from local storage and clear http auth header
+                    delete $localStorage.currentUser;
+                    delete $rootScope.username;  
+                    delete $rootScope.nSDs;
+                    delete $rootScope.nSRs;
+                    delete $rootScope.Requests;          
+                    $http.defaults.headers.common.Authorization = ''; 
+
+                    callback(true);
+                    })                    
+                .catch(function errorCallback(error){
+                    callback(false);
+                });            
+            }            
+        }
+
+        function Register(username, secret, ENV, callback) {
+
+            if (ENV.userManagementEnabled == 'false') {                
+                
+                callback(true);
+
+            } else {
+                                
+                var data = { "username": username , "secret": secret };
+                
+                $http.post(ENV.apiEndpoint+'/users', data)
+                .then(function successCallback(response){                
+
+                    // execute callback with true to indicate successful registration                    
+                    callback(true);
+                    
+                    })
+                .catch(function errorCallback(error){
+                    callback(error);
+                });
+            }            
         }
     }
 })();
