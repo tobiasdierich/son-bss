@@ -72,14 +72,14 @@
                     vm.currentUserSignedIn = false;
                 }
             });
-        };        
+        };
 
         function register() {
 
-            var secret = $base64.encode(vm.username+":"+vm.password);
-            var data = { "username": vm.username , "secret": secret };
+            var secret = $base64.encode(vm.user.username+":"+vm.user.password);
+            var data = { "username": vm.user.username , "secret": secret , "firstName": vm.user.firstName, "lastName": vm.user.lastName, "email": vm.user.userEmail, "phone": vm.user.phoneNumber};
 
-            AuthenticationService.Register(vm.username, secret, ENV, function(result) {
+            AuthenticationService.Register(data, ENV, function(result) {
                 if (result === true) {
                     $('#success.modal').modal('show');
                 } else {
@@ -88,7 +88,10 @@
                     $('#error.modal').modal('show');
                 }
             });
-        };
+            if ($('#success.modal').is(':hidden')) {
+                $location.path('/login')
+            }
+        };        
     };    
 
 
