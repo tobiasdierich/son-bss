@@ -18,7 +18,8 @@
                     <div ng-messages="form.$submitted && form.password.$error" class="help-block"></div>
                 </div>                         
                     <button class="btn btn-primary" ng-click="vm.login()">Login</button>
-                    <button class="btn btn-primary" ng-click="vm.register()">Register</button>
+                    <!--button class="btn btn-primary" ng-click="vm.register()">Register</button-->
+                    <a href="#/register" class="btn btn-link" ng-class="{'active':currentState.name=='Register'}">Register</a>
                 </div>                
             </form>
         </div>

@@ -114,27 +114,19 @@
             }            
         }
 
-        function Register(username, secret, ENV, callback) {
-
-            if (ENV.userManagementEnabled == 'false') {                
+        function Register(data, ENV, callback) {
                 
+            $http.post(ENV.apiEndpoint+'/users', data)
+            .then(function successCallback(response){                
+
+                // execute callback with true to indicate successful registration                    
                 callback(true);
-
-            } else {
-                                
-                var data = { "username": username , "secret": secret };
-                
-                $http.post(ENV.apiEndpoint+'/users', data)
-                .then(function successCallback(response){                
-
-                    // execute callback with true to indicate successful registration                    
-                    callback(true);
                     
-                    })
-                .catch(function errorCallback(error){
-                    callback(error);
-                });
-            }            
+            })
+            .catch(function errorCallback(error){
+                callback(error);
+            });
+  
         }
     }
 })();
