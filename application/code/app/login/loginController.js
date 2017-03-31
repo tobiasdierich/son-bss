@@ -47,31 +47,28 @@
             var secret = $base64.encode(vm.username+":"+vm.password);
             var data = { "username": vm.username , "secret": secret };
 
-            AuthenticationService.Login(vm.username, secret, ENV, function(result) {
-                //console.log("result: "+result);
-                if (result === true) {                    
-                    $location.path('nSDs');
-                    $rootScope.username = vm.username;                                                    
-                    vm.currentUserSignedIn = true;
-                    console.log("loginController - currentUserSignedIn: "+vm.currentUserSignedIn+", $rootScope.username: "+$rootScope.username);
-                } else {
-                    vm.error = true;                    
-                    vm.currentUserSignedIn = false;
-                }
-            });
-        };        
+            AuthenticationService.Login(vm.username, secret, ENV)
+            .then(function(result) {
+                $location.path('nSDs');
+                $rootScope.username = vm.username;                                                    
+                vm.currentUserSignedIn = true;
+                //console.log("loginController - currentUserSignedIn: "+vm.currentUserSignedIn+", $rootScope.username: "+$rootScope.username);
+            },function(error) {
+                vm.error = true;                    
+                vm.currentUserSignedIn = false;   
+            })
+        };       
 
         function logout() {                        
             
             var secret = $base64.encode(vm.username+":"+vm.password);
             var data = { "username": vm.username , "secret": secret };
 
-            AuthenticationService.Logout(vm.username, secret, ENV, function(result) {                
-                if (result === false) {                                        
-                    vm.error = true;                    
-                    vm.currentUserSignedIn = false;
-                }
-            });
+            AuthenticationService.Logout(vm.username, secret, ENV)
+            .then(function(result) {
+            }, function(error) {
+                vm.currentUserSignedIn = false;
+            })                
         };
 
         function register() {
@@ -79,20 +76,18 @@
             var secret = $base64.encode(vm.user.username+":"+vm.user.password);
             var data = { "username": vm.user.username , "secret": secret , "firstName": vm.user.firstName, "lastName": vm.user.lastName, "email": vm.user.userEmail, "phone": vm.user.phoneNumber};
 
-            AuthenticationService.Register(data, ENV, function(result) {
-                if (result === true) {
-                    $('#success.modal').modal('show');
-                } else {
-                    console.log("Registration error");
-                    $scope.error = angular.copy(JSON.stringify(error.data.message));
-                    $('#error.modal').modal('show');
-                }
-            });
-            if ($('#success.modal').is(':hidden')) {
-                $location.path('/login')
-            }
-        };        
+            AuthenticationService.Register(data, ENV)
+            .then(function(result) {                
+                $('#success.modal').modal('show').on('hidden.bs.modal', function(e) {
+                    $rootScope.$apply(function() {
+                        $location.path('/login');                        
+                    });                    
+                });                                                
+                
+            }, function(error) {
+                $rootScope.error = angular.copy(JSON.stringify(error.data.message));                                
+                $('#error.modal').modal('show');     
+            })             
+        }      
     };    
-
-
 })();

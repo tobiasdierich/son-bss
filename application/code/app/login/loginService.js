@@ -27,39 +27,27 @@
  */
 
 
-(function () {
-    'use strict';
+angular.module('Login')
+.factory('AuthenticationService', ["$http", "$localStorage", "$q",function ($http,$localStorage,$q) {
+    return {
+        Login:function(username, secret, ENV, callback) {
 
-    angular
-        .module('Login')
-        .factory('AuthenticationService', AuthenticationService);
-
-    AuthenticationService.$inject = ['$http', '$localStorage', 'ENV'];
-    function AuthenticationService($http, $localStorage, $rootScope) {
-        var service = {};        
-
-        service.Login = Login;
-        service.Logout = Logout;
-        service.Register = Register;
-
-        return service;
-
-        function Login(username, secret, ENV, callback) {
-
-           if (ENV.userManagementEnabled == 'false') {                
-                
+            var defer=$q.defer();
+            
+            if (ENV.userManagementEnabled == 'false') {                
+            
                 var fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo';
 
                 $localStorage.currentUser = { username: 'sonata', token: fakeToken };
                 $http.defaults.headers.common.Authorization = fakeToken;
-                callback(true);
+                defer.resolve(true);
             } else {
                 
                 var data = { "username": username , "secret": secret };
 
                 $http.post(ENV.apiEndpoint+'/sessions', data)
                 .then(function successCallback(response){
-                
+
                     // login successful if there's a token in the response                
                     if (response.data.token) {
                     
@@ -71,18 +59,24 @@
                         $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
 
                         // execute callback with true to indicate successful login                    
-                        callback(true);
+                        defer.resolve(response);
                     } else {
-                        // execute callback with false to indicate failed login                    
-                        callback(false);
-                    }})
+                        // execute callback with false to indicate failed login
+                        error='{"code": "401", "message":"Response does not contain token"}';                    
+                        defer.reject(error);
+                    }
+                })
                 .catch(function errorCallback(error){
-                    callback(false);
-                });
-            }            
-        }
+                    defer.reject(error)
+                });                
+            }
 
-        function Logout(username, secret, ENV, callback) {              
+            return defer.promise;            
+        },
+
+        Logout:function(username, secret, ENV, callback) {              
+
+            var defer=$q.defer();
 
             if (ENV.userManagementEnabled == 'false') {                
                 // remove user from local storage and clear http auth header
@@ -92,7 +86,7 @@
                 delete $rootScope.nSRs;
                 delete $rootScope.Requests;          
                 $http.defaults.headers.common.Authorization = '';                
-                callback(true);
+                defer.resolve(true);
             } else {                
                 var data = { "username": username , "secret": secret };
                 $http.delete(ENV.apiEndpoint+'/sessions', data)
@@ -106,27 +100,32 @@
                     delete $rootScope.Requests;          
                     $http.defaults.headers.common.Authorization = ''; 
 
-                    callback(true);
-                    })                    
+                    defer.resolve(response);
+                })                    
                 .catch(function errorCallback(error){
-                    callback(false);
+                    defer.reject(error)
                 });            
+            }
+
+            return defer.promise;            
+        },
+
+        Register:function(data, ENV, callback) {
+        
+            var defer=$q.defer();
+
+            if (ENV.userManagementEnabled == 'false') {
+                defer.resolve(true);
+            } else {
+                $http.post(ENV.apiEndpoint+'/users', data)
+                .then(function successCallback(response){                                    
+                    defer.resolve(response)                    
+                })
+                .catch(function errorCallback(error){                                        
+                    defer.reject(error)                  
+                });
             }            
-        }
-
-        function Register(data, ENV, callback) {
-                
-            $http.post(ENV.apiEndpoint+'/users', data)
-            .then(function successCallback(response){                
-
-                // execute callback with true to indicate successful registration                    
-                callback(true);
-                    
-            })
-            .catch(function errorCallback(error){
-                callback(error);
-            });
-  
+            return defer.promise;
         }
     }
-})();
+}]);
