@@ -78,28 +78,12 @@ angular.module('Login')
 
             var defer=$q.defer();
 
-            if (ENV.userManagementEnabled == 'false') {                
-                // remove user from local storage and clear http auth header
-                delete $localStorage.currentUser;
-                delete $rootScope.username;  
-                delete $rootScope.nSDs;
-                delete $rootScope.nSRs;
-                delete $rootScope.Requests;          
-                $http.defaults.headers.common.Authorization = '';                
+            if (ENV.userManagementEnabled == 'false') {                                               
                 defer.resolve(true);
             } else {                
                 var data = { "username": username , "secret": secret };
                 $http.delete(ENV.apiEndpoint+'/sessions', data)
                 .then(function successCallback(response){
-                
-                    // remove user from local storage and clear http auth header
-                    delete $localStorage.currentUser;
-                    delete $rootScope.username;  
-                    delete $rootScope.nSDs;
-                    delete $rootScope.nSRs;
-                    delete $rootScope.Requests;          
-                    $http.defaults.headers.common.Authorization = ''; 
-
                     defer.resolve(response);
                 })                    
                 .catch(function errorCallback(error){
