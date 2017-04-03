@@ -120,9 +120,15 @@ var fmock = function (req, res, next) {
 					req.on('end', function () {
 						var params = JSON.parse(body);
 
-						res.writeHeader(200, {
-							"Content-Type": "application/json"
-						});	
+						if (params.username === authorizedUser.username) {
+								res.writeHeader(200, {
+									"Content-Type": "application/json"
+								});							
+							} else {
+								//console.log("not valid usr/pwd");							
+								body = '{"code": "401", "message":"Not valid user/password"}';
+								res.writeHeader(401);							
+							}
 						res.write(body);
 						res.end();											
 					});
