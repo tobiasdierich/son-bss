@@ -66,6 +66,13 @@
 
             AuthenticationService.Logout(vm.username, secret, ENV)
             .then(function(result) {
+                // remove user from local storage and clear http auth header
+                delete $localStorage.currentUser;
+                delete $rootScope.username;  
+                delete $rootScope.nSDs;
+                delete $rootScope.nSRs;
+                delete $rootScope.Requests;          
+                $http.defaults.headers.common.Authorization = ''; 
             }, function(error) {
                 vm.currentUserSignedIn = false;
             })                
