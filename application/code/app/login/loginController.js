@@ -81,7 +81,7 @@
         function register() {
 
             var secret = $base64.encode(vm.user.username+":"+vm.user.password);
-            var data = { "username": vm.user.username , "secret": secret , "firstName": vm.user.firstName, "lastName": vm.user.lastName, "email": vm.user.userEmail, "phone": vm.user.phoneNumber};
+            var data = { "username": vm.user.username , "secret": secret , "firstName": vm.user.firstName, "lastName": vm.user.lastName, "email": vm.user.userEmail, "phone": vm.user.phoneNumber, "user_type": "customer"};
 
             AuthenticationService.Register(data, ENV)
             .then(function(result) {                
