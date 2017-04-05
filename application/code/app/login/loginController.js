@@ -79,9 +79,8 @@
         };
 
         function register() {
-
-            var secret = $base64.encode(vm.user.username+":"+vm.user.password);
-            var data = { "username": vm.user.username , "secret": secret , "firstName": vm.user.firstName, "lastName": vm.user.lastName, "email": vm.user.userEmail, "phone": vm.user.phoneNumber, "user_type": "customer"};
+            
+            var data = { "username": vm.user.username , "password": vm.user.password , "first_name": vm.user.firstName, "last_name": vm.user.lastName, "email": vm.user.userEmail, "phone_number": vm.user.phoneNumber, "user_type": "customer"};
 
             AuthenticationService.Register(data, ENV)
             .then(function(result) {                
