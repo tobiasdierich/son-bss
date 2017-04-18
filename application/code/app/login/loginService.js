@@ -30,7 +30,7 @@
 angular.module('Login')
 .factory('AuthenticationService', ["$http", "$localStorage", "$q",function ($http,$localStorage,$q) {
     return {
-        Login:function(username, secret, ENV, callback) {
+        Login:function(data, ENV, callback) {
 
             var defer=$q.defer();
             
@@ -43,8 +43,6 @@ angular.module('Login')
                 defer.resolve(true);
             } else {
                 
-                var data = { "username": username , "secret": secret };
-
                 $http.post(ENV.apiEndpoint+'/sessions', data)
                 .then(function successCallback(response){
 
@@ -74,14 +72,13 @@ angular.module('Login')
             return defer.promise;            
         },
 
-        Logout:function(username, secret, ENV, callback) {              
+        Logout:function(data, ENV, callback) {              
 
             var defer=$q.defer();
 
             if (ENV.userManagementEnabled == 'false') {                                               
                 defer.resolve(true);
             } else {                
-                var data = { "username": username , "secret": secret };
                 $http.delete(ENV.apiEndpoint+'/sessions', data)
                 .then(function successCallback(response){
                     defer.resolve(response);

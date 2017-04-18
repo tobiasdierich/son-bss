@@ -42,8 +42,7 @@
 
 var fmock = function (req, res, next) {	
 
-	//var Base64 = require('js-base64');
-	var Base64 = require('js-base64').Base64;
+	//var Base64 = require('js-base64').Base64;
 
 	var authorizedUser = {
 		"username": "sonata",
@@ -87,14 +86,14 @@ var fmock = function (req, res, next) {
 					req.on('end', function () {
 						var params = JSON.parse(body);
 
-						if (params.username === authorizedUser.username && params.secret === Base64.encode(authorizedUser.username+":"+authorizedUser.password)) {
+						if (params.username === authorizedUser.username && params.password === authorizedUser.password) {
 							//console.log("Authenticated and Authorizated usr");
 							body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}';
 							res.writeHeader(200, {
 								"Content-Type": "application/json"
 							});						
 						} else {
-							if (params.username === notAuthorizedUser.username && params.secret === Base64.encode(notAuthorizedUser.username+":"+notAuthorizedUser.password)) {
+							if (params.username === notAuthorizedUser.username && params.password === notAuthorizedUser.password) {
 								// not AuthorizedUser: user is authenticated but token doesn't allow it to retrieve platform information
 								//console.log("Authenticated but not Authorizated usr");
 								body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InRlc3QiLCJhZG1pbiI6ZmFsc2V9.ysMOZXnPs4VXMhgwhJmSPWjKW2trpjA8Ym-X4plfVrY"}';

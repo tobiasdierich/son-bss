@@ -43,11 +43,10 @@
         logout();
 
         function login() {                        
-            //console.log(">>>> vm.username: "+vm.username+", vm.password: "+vm.password); 
-            var secret = $base64.encode(vm.username+":"+vm.password);
-            var data = { "username": vm.username , "secret": secret };
 
-            AuthenticationService.Login(vm.username, secret, ENV)
+            var data = { "username": vm.username , "password": vm.password };
+
+            AuthenticationService.Login(data, ENV)
             .then(function(result) {
                 $location.path('nSDs');
                 $rootScope.username = vm.username;                                                    
@@ -61,10 +60,9 @@
 
         function logout() {                        
             
-            var secret = $base64.encode(vm.username+":"+vm.password);
-            var data = { "username": vm.username , "secret": secret };
+            var data = { "username": vm.username , "password": vm.password };
 
-            AuthenticationService.Logout(vm.username, secret, ENV)
+            AuthenticationService.Logout(data, ENV)
             .then(function(result) {
                 // remove user from local storage and clear http auth header
                 delete $localStorage.currentUser;
