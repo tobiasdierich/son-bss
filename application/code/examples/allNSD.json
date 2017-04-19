@@ -1,593 +1,557 @@
 [
-	{
-	  "descriptor_version": "0.0",
-	  "vendor": "eu.sonata-nfv.service-descriptor",
-	  "name": "sonata-demo",
-	  "version": "0.4",
-	  "author": "Michael Bredel, NEC Labs Europe",
-	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
-	  "status":"active",
-	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fa",
-	  "license_type":"public",
-	  "network_functions": [
-		{
-		  "vnf_id": "vnf_firewall",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "firewall-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_iperf",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "iperf-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_tcpdump",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "tcpdump-vnf",
-		  "vnf_version": "0.2"
-		}
-	  ],
-	  "connection_points": [
-		{
-		  "id": "ns:mgmt",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:input",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:output",
-		  "type": "interface"
-		}
-	  ],
-	  "virtual_links": [
-		{
-		  "id": "mgmt",
-		  "connectivity_type": "E-LAN",
-		  "connection_points_reference": [
-			"vnf_iperf:mgmt",
-			"vnf_firewall:mgmt",
-			"vnf_tcpdump:mgmt",
-			"ns:mgmt"
-		  ]
-		},
-		{
-		  "id": "input-2-iperf",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"ns:input",
-			"vnf_iperf:input"
-		  ]
-		},
-		{
-		  "id": "iperf-2-firewall",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_iperf:output",
-			"vnf_firewall:input"
-		  ]
-		},
-		{
-		  "id": "firewall-2-tcpdump",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_firewall:output",
-			"vnf_tcpdump:input"
-		  ]
-		},
-		{
-		  "id": "tcpdump-2-output",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_tcpdump:output",
-			"ns:output"
-		  ]
-		}
-	  ],
-	  "forwarding_graphs": [
-		{
-		  "fg_id": "ns:fg01",
-		  "number_of_endpoints": 2,
-		  "number_of_virtual_links": 4,
-		  "constituent_virtual_links": [
-			"mgmt",
-			"input-2-iperf",
-			"iperf-2-firewall",
-			"firewall-2-tcpdump",
-			"tcpdump-2-output"
-		  ],
-		  "constituent_vnfs": [
-			"vnf_iperf",
-			"vnf_firewall",
-			"vnf_tcpdump"
-		  ],
-		  "network_forwarding_paths": [
-			{
-			  "fp_id": "ns:fg01:fp01",
-			  "policy": "none",
-			  "connection_points": [
-				{
-				  "connection_point_ref": "ns:input",
-				  "position": 1
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:input",
-				  "position": 2
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:output",
-				  "position": 3
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:input",
-				  "position": 4
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:output",
-				  "position": 5
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:input",
-				  "position": 6
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:output",
-				  "position": 7
-				},
-				{
-				  "connection_point_ref": "ns:output",
-				  "position": 8
-				}
-			  ]
-			}
-		  ]
-		}
-	  ]
-	},
-	{
-	  "descriptor_version": "0.0",
-	  "vendor": "eu.sonata-nfv.service-descriptor",
-	  "name": "sonata-demo-2",
-	  "version": "0.4",
-	  "author": "Michael Bredel, NEC Labs Europe",
-	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
-	  "status":"active",
-	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fb",
-	  "license_type":"private",
-	  "network_functions": [
-		{
-		  "vnf_id": "vnf_firewall",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "firewall-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_iperf",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "iperf-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_tcpdump",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "tcpdump-vnf",
-		  "vnf_version": "0.2"
-		}
-	  ],
-	  "connection_points": [
-		{
-		  "id": "ns:mgmt",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:input",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:output",
-		  "type": "interface"
-		}
-	  ],
-	  "virtual_links": [
-		{
-		  "id": "mgmt",
-		  "connectivity_type": "E-LAN",
-		  "connection_points_reference": [
-			"vnf_iperf:mgmt",
-			"vnf_firewall:mgmt",
-			"vnf_tcpdump:mgmt",
-			"ns:mgmt"
-		  ]
-		},
-		{
-		  "id": "input-2-iperf",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"ns:input",
-			"vnf_iperf:input"
-		  ]
-		},
-		{
-		  "id": "iperf-2-firewall",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_iperf:output",
-			"vnf_firewall:input"
-		  ]
-		},
-		{
-		  "id": "firewall-2-tcpdump",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_firewall:output",
-			"vnf_tcpdump:input"
-		  ]
-		},
-		{
-		  "id": "tcpdump-2-output",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_tcpdump:output",
-			"ns:output"
-		  ]
-		}
-	  ],
-	  "forwarding_graphs": [
-		{
-		  "fg_id": "ns:fg01",
-		  "number_of_endpoints": 2,
-		  "number_of_virtual_links": 4,
-		  "constituent_virtual_links": [
-			"mgmt",
-			"input-2-iperf",
-			"iperf-2-firewall",
-			"firewall-2-tcpdump",
-			"tcpdump-2-output"
-		  ],
-		  "constituent_vnfs": [
-			"vnf_iperf",
-			"vnf_firewall",
-			"vnf_tcpdump"
-		  ],
-		  "network_forwarding_paths": [
-			{
-			  "fp_id": "ns:fg01:fp01",
-			  "policy": "none",
-			  "connection_points": [
-				{
-				  "connection_point_ref": "ns:input",
-				  "position": 1
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:input",
-				  "position": 2
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:output",
-				  "position": 3
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:input",
-				  "position": 4
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:output",
-				  "position": 5
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:input",
-				  "position": 6
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:output",
-				  "position": 7
-				},
-				{
-				  "connection_point_ref": "ns:output",
-				  "position": 8
-				}
-			  ]
-			}
-		  ]
-		}
-	  ]
-	},
-{
-	  "descriptor_version": "0.0",
-	  "vendor": "eu.sonata-nfv.service-descriptor",
-	  "name": "sonata-demo-3",
-	  "version": "0.4",
-	  "author": "Michael Bredel, NEC Labs Europe",
-	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
-	  "status":"active",
-	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fc",
-	  "license_type":"private",
-	  "network_functions": [
-		{
-		  "vnf_id": "vnf_firewall",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "firewall-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_iperf",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "iperf-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_tcpdump",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "tcpdump-vnf",
-		  "vnf_version": "0.2"
-		}
-	  ],
-	  "connection_points": [
-		{
-		  "id": "ns:mgmt",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:input",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:output",
-		  "type": "interface"
-		}
-	  ],
-	  "virtual_links": [
-		{
-		  "id": "mgmt",
-		  "connectivity_type": "E-LAN",
-		  "connection_points_reference": [
-			"vnf_iperf:mgmt",
-			"vnf_firewall:mgmt",
-			"vnf_tcpdump:mgmt",
-			"ns:mgmt"
-		  ]
-		},
-		{
-		  "id": "input-2-iperf",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"ns:input",
-			"vnf_iperf:input"
-		  ]
-		},
-		{
-		  "id": "iperf-2-firewall",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_iperf:output",
-			"vnf_firewall:input"
-		  ]
-		},
-		{
-		  "id": "firewall-2-tcpdump",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_firewall:output",
-			"vnf_tcpdump:input"
-		  ]
-		},
-		{
-		  "id": "tcpdump-2-output",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_tcpdump:output",
-			"ns:output"
-		  ]
-		}
-	  ],
-	  "forwarding_graphs": [
-		{
-		  "fg_id": "ns:fg01",
-		  "number_of_endpoints": 2,
-		  "number_of_virtual_links": 4,
-		  "constituent_virtual_links": [
-			"mgmt",
-			"input-2-iperf",
-			"iperf-2-firewall",
-			"firewall-2-tcpdump",
-			"tcpdump-2-output"
-		  ],
-		  "constituent_vnfs": [
-			"vnf_iperf",
-			"vnf_firewall",
-			"vnf_tcpdump"
-		  ],
-		  "network_forwarding_paths": [
-			{
-			  "fp_id": "ns:fg01:fp01",
-			  "policy": "none",
-			  "connection_points": [
-				{
-				  "connection_point_ref": "ns:input",
-				  "position": 1
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:input",
-				  "position": 2
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:output",
-				  "position": 3
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:input",
-				  "position": 4
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:output",
-				  "position": 5
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:input",
-				  "position": 6
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:output",
-				  "position": 7
-				},
-				{
-				  "connection_point_ref": "ns:output",
-				  "position": 8
-				}
-			  ]
-			}
-		  ]
-		}
-	  ]
-	},
-	{
-	  "descriptor_version": "0.0",
-	  "vendor": "eu.sonata-nfv.service-descriptor",
-	  "name": "sonata-demo",
-	  "version": "0.1",
-	  "author": "Michael Bredel, NEC Labs Europe",
-	  "description": "\"The network service descriptor for the SONATA demo,  comprising iperf, a firewall, and tcpump.\"\n",
-	  "status":"inactive",
-	  "uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1ea",
-	  "network_functions": [
-		{
-		  "vnf_id": "vnf_firewall",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "firewall-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_iperf",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "iperf-vnf",
-		  "vnf_version": "0.2"
-		},
-		{
-		  "vnf_id": "vnf_tcpdump",
-		  "vnf_vendor": "eu.sonata-nfv",
-		  "vnf_name": "tcpdump-vnf",
-		  "vnf_version": "0.2"
-		}
-	  ],
-	  "connection_points": [
-		{
-		  "id": "ns:mgmt",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:input",
-		  "type": "interface"
-		},
-		{
-		  "id": "ns:output",
-		  "type": "interface"
-		}
-	  ],
-	  "virtual_links": [
-		{
-		  "id": "mgmt",
-		  "connectivity_type": "E-LAN",
-		  "connection_points_reference": [
-			"vnf_iperf:mgmt",
-			"vnf_firewall:mgmt",
-			"vnf_tcpdump:mgmt",
-			"ns:mgmt"
-		  ]
-		},
-		{
-		  "id": "input-2-iperf",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"ns:input",
-			"vnf_iperf:input"
-		  ]
-		},
-		{
-		  "id": "iperf-2-firewall",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_iperf:output",
-			"vnf_firewall:input"
-		  ]
-		},
-		{
-		  "id": "firewall-2-tcpdump",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_firewall:output",
-			"vnf_tcpdump:input"
-		  ]
-		},
-		{
-		  "id": "tcpdump-2-output",
-		  "connectivity_type": "E-Line",
-		  "connection_points_reference": [
-			"vnf_tcpdump:output",
-			"ns:output"
-		  ]
-		}
-	  ],
-	  "forwarding_graphs": [
-		{
-		  "fg_id": "ns:fg01",
-		  "number_of_endpoints": 2,
-		  "number_of_virtual_links": 4,
-		  "constituent_virtual_links": [
-			"mgmt",
-			"input-2-iperf",
-			"iperf-2-firewall",
-			"firewall-2-tcpdump",
-			"tcpdump-2-output"
-		  ],
-		  "constituent_vnfs": [
-			"vnf_iperf",
-			"vnf_firewall",
-			"vnf_tcpdump"
-		  ],
-		  "network_forwarding_paths": [
-			{
-			  "fp_id": "ns:fg01:fp01",
-			  "policy": "none",
-			  "connection_points": [
-				{
-				  "connection_point_ref": "ns:input",
-				  "position": 1
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:input",
-				  "position": 2
-				},
-				{
-				  "connection_point_ref": "vnf_iperf:output",
-				  "position": 3
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:input",
-				  "position": 4
-				},
-				{
-				  "connection_point_ref": "vnf_firewall:output",
-				  "position": 5
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:input",
-				  "position": 6
-				},
-				{
-				  "connection_point_ref": "vnf_tcpdump:output",
-				  "position": 7
-				},
-				{
-				  "connection_point_ref": "ns:output",
-				  "position": 8
-				}
-			  ]
-			}
-		  ]
-		}
-	  ]
-	}
+  {
+    "created_at": "2017-04-19T11:04:06.136+00:00",
+    "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
+    "nsd": {
+      "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
+      "license_type":"public",
+      "connection_points": [
+        {
+          "id": "ns:mgmt",
+          "interface": "ipv4",
+          "type": "management"
+        },
+        {
+          "id": "ns:input",
+          "interface": "ipv4",
+          "type": "external"
+        },
+        {
+          "id": "ns:output",
+          "interface": "ipv4",
+          "type": "external"
+        }
+      ],
+      "description": "\"The network service descriptor for the SONATA demo,\n comprising a Virtual Traffic Classifier\"\n",
+      "descriptor_version": "1.0",
+      "forwarding_graphs": [
+        {
+          "constituent_vnfs": [
+            "vnf_vtc"
+          ],
+          "fg_id": "ns:fg01",
+          "network_forwarding_paths": [
+            {
+              "connection_points": [
+                {
+                  "connection_point_ref": "ns:input",
+                  "position": 1
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:input",
+                  "position": 2
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:output",
+                  "position": 3
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:input",
+                  "position": 4
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:output",
+                  "position": 5
+                },
+                {
+                  "connection_point_ref": "ns:output",
+                  "position": 6
+                }
+              ],
+              "fp_id": "ns:fg01:fp01",
+              "policy": "none"
+            }
+          ],
+          "number_of_endpoints": 2,
+          "number_of_virtual_links": 3
+        }
+      ],
+      "name": "sonata-demo-1",
+      "network_functions": [
+        {
+          "vnf_id": "vnf_vtc",
+          "vnf_name": "vtc-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        },
+        {
+          "vnf_id": "vnf_firewall",
+          "vnf_name": "fw-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        }
+      ],
+      "service_specific_managers": [
+        {
+          "description": "An empty example SSM.",
+          "id": "ssmdumb",
+          "image": "sonatanfv\/ssmdumb",
+          "options": [
+            {
+              "key": "myKey",
+              "value": "myValue"
+            }
+          ]
+        }
+      ],
+      "vendor": "eu.sonata-nfv.service-descriptor",
+      "version": "0.4",
+      "virtual_links": [
+        {
+          "connection_points_reference": [
+            "vnf_vtc:mgmt",
+            "vnf_firewall:mgmt",
+            "ns:mgmt"
+          ],
+          "connectivity_type": "E-LAN",
+          "id": "mgmt"
+        },
+        {
+          "connection_points_reference": [
+            "ns:input",
+            "vnf_firewall:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "input-2-fw"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_firewall:output",
+            "vnf_vtc:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "fw-2-vtc"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_vtc:output",
+            "ns:output"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "vtc-2-output"
+        }
+      ]
+    },
+    "signature": null,
+    "status": "active",
+    "updated_at": "2017-04-19T11:04:06.136+00:00",
+    "username": null,
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fa"
+  },
+  {
+    "created_at": "2017-04-19T11:04:06.136+00:00",
+    "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
+    "nsd": {
+      "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
+      "license_type":"private",
+      "connection_points": [
+        {
+          "id": "ns:mgmt",
+          "interface": "ipv4",
+          "type": "management"
+        },
+        {
+          "id": "ns:input",
+          "interface": "ipv4",
+          "type": "external"
+        },
+        {
+          "id": "ns:output",
+          "interface": "ipv4",
+          "type": "external"
+        }
+      ],
+      "description": "\"The network service descriptor for the SONATA demo,\n comprising a Virtual Traffic Classifier\"\n",
+      "descriptor_version": "1.0",
+      "forwarding_graphs": [
+        {
+          "constituent_vnfs": [
+            "vnf_vtc"
+          ],
+          "fg_id": "ns:fg01",
+          "network_forwarding_paths": [
+            {
+              "connection_points": [
+                {
+                  "connection_point_ref": "ns:input",
+                  "position": 1
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:input",
+                  "position": 2
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:output",
+                  "position": 3
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:input",
+                  "position": 4
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:output",
+                  "position": 5
+                },
+                {
+                  "connection_point_ref": "ns:output",
+                  "position": 6
+                }
+              ],
+              "fp_id": "ns:fg01:fp01",
+              "policy": "none"
+            }
+          ],
+          "number_of_endpoints": 2,
+          "number_of_virtual_links": 3
+        }
+      ],
+      "name": "sonata-demo-1",
+      "network_functions": [
+        {
+          "vnf_id": "vnf_vtc",
+          "vnf_name": "vtc-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        },
+        {
+          "vnf_id": "vnf_firewall",
+          "vnf_name": "fw-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        }
+      ],
+      "service_specific_managers": [
+        {
+          "description": "An empty example SSM.",
+          "id": "ssmdumb",
+          "image": "sonatanfv\/ssmdumb",
+          "options": [
+            {
+              "key": "myKey",
+              "value": "myValue"
+            }
+          ]
+        }
+      ],
+      "vendor": "eu.sonata-nfv.service-descriptor",
+      "version": "0.4",
+      "virtual_links": [
+        {
+          "connection_points_reference": [
+            "vnf_vtc:mgmt",
+            "vnf_firewall:mgmt",
+            "ns:mgmt"
+          ],
+          "connectivity_type": "E-LAN",
+          "id": "mgmt"
+        },
+        {
+          "connection_points_reference": [
+            "ns:input",
+            "vnf_firewall:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "input-2-fw"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_firewall:output",
+            "vnf_vtc:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "fw-2-vtc"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_vtc:output",
+            "ns:output"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "vtc-2-output"
+        }
+      ]
+    },
+    "signature": null,
+    "status": "active",
+    "updated_at": "2017-04-19T11:04:06.136+00:00",
+    "username": null,
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fb"
+  },
+  {
+    "created_at": "2017-04-19T11:04:06.136+00:00",
+    "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
+    "nsd": {
+      "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
+      "license_type":"private",
+      "connection_points": [
+        {
+          "id": "ns:mgmt",
+          "interface": "ipv4",
+          "type": "management"
+        },
+        {
+          "id": "ns:input",
+          "interface": "ipv4",
+          "type": "external"
+        },
+        {
+          "id": "ns:output",
+          "interface": "ipv4",
+          "type": "external"
+        }
+      ],
+      "description": "\"The network service descriptor for the SONATA demo,\n comprising a Virtual Traffic Classifier\"\n",
+      "descriptor_version": "1.0",
+      "forwarding_graphs": [
+        {
+          "constituent_vnfs": [
+            "vnf_vtc"
+          ],
+          "fg_id": "ns:fg01",
+          "network_forwarding_paths": [
+            {
+              "connection_points": [
+                {
+                  "connection_point_ref": "ns:input",
+                  "position": 1
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:input",
+                  "position": 2
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:output",
+                  "position": 3
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:input",
+                  "position": 4
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:output",
+                  "position": 5
+                },
+                {
+                  "connection_point_ref": "ns:output",
+                  "position": 6
+                }
+              ],
+              "fp_id": "ns:fg01:fp01",
+              "policy": "none"
+            }
+          ],
+          "number_of_endpoints": 2,
+          "number_of_virtual_links": 3
+        }
+      ],
+      "name": "sonata-demo-1",
+      "network_functions": [
+        {
+          "vnf_id": "vnf_vtc",
+          "vnf_name": "vtc-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        },
+        {
+          "vnf_id": "vnf_firewall",
+          "vnf_name": "fw-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        }
+      ],
+      "service_specific_managers": [
+        {
+          "description": "An empty example SSM.",
+          "id": "ssmdumb",
+          "image": "sonatanfv\/ssmdumb",
+          "options": [
+            {
+              "key": "myKey",
+              "value": "myValue"
+            }
+          ]
+        }
+      ],
+      "vendor": "eu.sonata-nfv.service-descriptor",
+      "version": "0.4",
+      "virtual_links": [
+        {
+          "connection_points_reference": [
+            "vnf_vtc:mgmt",
+            "vnf_firewall:mgmt",
+            "ns:mgmt"
+          ],
+          "connectivity_type": "E-LAN",
+          "id": "mgmt"
+        },
+        {
+          "connection_points_reference": [
+            "ns:input",
+            "vnf_firewall:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "input-2-fw"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_firewall:output",
+            "vnf_vtc:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "fw-2-vtc"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_vtc:output",
+            "ns:output"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "vtc-2-output"
+        }
+      ]
+    },
+    "signature": null,
+    "status": "active",
+    "updated_at": "2017-04-19T11:04:06.136+00:00",
+    "username": null,
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fc"
+  },
+  {
+    "created_at": "2017-04-19T11:04:06.136+00:00",
+    "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
+    "nsd": {
+      "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
+      "connection_points": [
+        {
+          "id": "ns:mgmt",
+          "interface": "ipv4",
+          "type": "management"
+        },
+        {
+          "id": "ns:input",
+          "interface": "ipv4",
+          "type": "external"
+        },
+        {
+          "id": "ns:output",
+          "interface": "ipv4",
+          "type": "external"
+        }
+      ],
+      "description": "\"The network service descriptor for the SONATA demo,\n comprising a Virtual Traffic Classifier\"\n",
+      "descriptor_version": "1.0",
+      "forwarding_graphs": [
+        {
+          "constituent_vnfs": [
+            "vnf_vtc"
+          ],
+          "fg_id": "ns:fg01",
+          "network_forwarding_paths": [
+            {
+              "connection_points": [
+                {
+                  "connection_point_ref": "ns:input",
+                  "position": 1
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:input",
+                  "position": 2
+                },
+                {
+                  "connection_point_ref": "vnf_firewall:output",
+                  "position": 3
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:input",
+                  "position": 4
+                },
+                {
+                  "connection_point_ref": "vnf_vtc:output",
+                  "position": 5
+                },
+                {
+                  "connection_point_ref": "ns:output",
+                  "position": 6
+                }
+              ],
+              "fp_id": "ns:fg01:fp01",
+              "policy": "none"
+            }
+          ],
+          "number_of_endpoints": 2,
+          "number_of_virtual_links": 3
+        }
+      ],
+      "name": "sonata-demo-1",
+      "network_functions": [
+        {
+          "vnf_id": "vnf_vtc",
+          "vnf_name": "vtc-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        },
+        {
+          "vnf_id": "vnf_firewall",
+          "vnf_name": "fw-vnf",
+          "vnf_vendor": "eu.sonata-nfv",
+          "vnf_version": "0.1"
+        }
+      ],
+      "service_specific_managers": [
+        {
+          "description": "An empty example SSM.",
+          "id": "ssmdumb",
+          "image": "sonatanfv\/ssmdumb",
+          "options": [
+            {
+              "key": "myKey",
+              "value": "myValue"
+            }
+          ]
+        }
+      ],
+      "vendor": "eu.sonata-nfv.service-descriptor",
+      "version": "0.1",
+      "virtual_links": [
+        {
+          "connection_points_reference": [
+            "vnf_vtc:mgmt",
+            "vnf_firewall:mgmt",
+            "ns:mgmt"
+          ],
+          "connectivity_type": "E-LAN",
+          "id": "mgmt"
+        },
+        {
+          "connection_points_reference": [
+            "ns:input",
+            "vnf_firewall:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "input-2-fw"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_firewall:output",
+            "vnf_vtc:input"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "fw-2-vtc"
+        },
+        {
+          "connection_points_reference": [
+            "vnf_vtc:output",
+            "ns:output"
+          ],
+          "connectivity_type": "E-Line",
+          "id": "vtc-2-output"
+        }
+      ]
+    },
+    "signature": null,
+    "status": "inactive",
+    "updated_at": "2017-04-19T11:04:06.136+00:00",
+    "username": null,
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1ea"
+  }
 ]
