@@ -456,7 +456,8 @@ module.exports = function(grunt) {
 				keepAlive: true,
 				args: {
 					params: {
-						hostname: [grunt.option('hostname')]
+						hostname: [grunt.option('hostname')],
+						protocol: [grunt.option('protocol')]
 					}
 				}
 			},		  
