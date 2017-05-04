@@ -50,11 +50,11 @@ angular.module('Login')
                     if (response.data.token) {
                     
                         // store username and token in local storage to keep user logged in between page refreshes                    
-                        $localStorage.currentUser = { username: username, token: response.data.token };
+                        $localStorage.currentUser = { username: username, token: response.data.token.access_token };
                     
                         // add jwt token to auth header for all requests made by the $http service
                         //$http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token.access_token;
 
                         // execute callback with true to indicate successful login                    
                         defer.resolve(response);

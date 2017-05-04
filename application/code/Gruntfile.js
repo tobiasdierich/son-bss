@@ -88,7 +88,7 @@ var fmock = function (req, res, next) {
 
 						if (params.username === authorizedUser.username && params.password === authorizedUser.password) {
 							//console.log("Authenticated and Authorizated usr");
-							body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}';
+							body = '{"token": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}}';
 							res.writeHeader(200, {
 								"Content-Type": "application/json"
 							});						
@@ -96,7 +96,7 @@ var fmock = function (req, res, next) {
 							if (params.username === notAuthorizedUser.username && params.password === notAuthorizedUser.password) {
 								// not AuthorizedUser: user is authenticated but token doesn't allow it to retrieve platform information
 								//console.log("Authenticated but not Authorizated usr");
-								body = '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InRlc3QiLCJhZG1pbiI6ZmFsc2V9.ysMOZXnPs4VXMhgwhJmSPWjKW2trpjA8Ym-X4plfVrY"}';
+								body = '{"token": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InRlc3QiLCJhZG1pbiI6ZmFsc2V9.ysMOZXnPs4VXMhgwhJmSPWjKW2trpjA8Ym-X4plfVrY"}}';
 								res.writeHeader(200, {
 									"Content-Type": "application/json"
 								});							
