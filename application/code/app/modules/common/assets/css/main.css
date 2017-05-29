@@ -1,5 +1,5 @@
 .mediumModal{
-    width:100%
+    width:100%;
 }
 .actionTH{
     width:125px;
@@ -28,7 +28,11 @@
 .modal-content{
     background: rgba(15, 15, 15, 0.8);
     color:white;
-    width:500px;
+    width:940px;
+    /*position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0%);*/
 }
 
 json-tree ul {

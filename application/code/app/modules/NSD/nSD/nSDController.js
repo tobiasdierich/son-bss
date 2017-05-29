@@ -32,6 +32,8 @@
   $scope.currentNSD = {};
   $scope.offset = 0;
   $scope.limit = 10;
+  $scope.ingresses = [{}];
+  $scope.egresses = [{}];
 
 $scope.getUserLicenses = function(callback) {
   //console.log("-------------- getUserLicenses");
@@ -121,7 +123,7 @@ $scope.getUserLicenses = function(callback) {
 
  $scope.instantiateNSD = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-   NSDServices.instantiateNSD($scope.currentNSD.uuid, ENV)
+   NSDServices.instantiateNSD($scope.currentNSD.uuid, $scope.ingresses, $scope.egresses, ENV)
    .then(function(result) {
      $('#instantiateNSD.modal').modal('hide');	 
      $scope.instantiateRequest = result.data;
@@ -130,10 +132,14 @@ $scope.getUserLicenses = function(callback) {
      $scope.error = angular.copy(JSON.stringify(error.data.message));
      $('#error.modal').modal('show');   
    })
+
+   $scope.cleanInstantiationIngressEgress();
+
  }
 
  $scope.emptyNSD = function() {
    $scope.currentNSD = {};
+   $scope.cleanInstantiationIngressEgress();
  };
  $scope.showPopover = function(nSD) {
    $scope.popoverIsVisible = true;
@@ -168,4 +174,10 @@ $scope.getUserLicenses = function(callback) {
      $('#error.modal').modal('show');   
    })
  }
+
+ $scope.cleanInstantiationIngressEgress = function() {
+   $scope.ingresses = [{}];
+   $scope.egresses = [{}];
+ }
+
 }]);
