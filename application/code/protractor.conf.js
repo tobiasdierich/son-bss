@@ -42,17 +42,13 @@ exports.config = {
 	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js'],
     service_License_Update: ['E2E_tests/serviceLicenseUpdate.js']    
   },
-  /*params: {
-    hostname: 'localhosttttttttttttttt'
-  },*/
   
   capabilities: {
   'browserName': 'phantomjs',
     version: '',
     platform: 'ANY',
 	  'phantomjs.binary.path': './node_modules/phantomjs-prebuilt/bin/phantomjs',
-	  //'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG', '--logfile=./E2E_tests/ghostdriver.log'],
-    'phantomjs.cli.args': ['--web-security=false', '--ignore-ssl-errors=true'/*, '--webdriver-loglevel=DEBUG', '--webdriver-logfile=./E2E_tests/protractor.log'*/]
+    'phantomjs.cli.args': ['--web-security=false', '--ignore-ssl-errors=true']
   },
      
   

@@ -40,9 +40,26 @@
             return defer.promise;
         },
         
-        instantiateNSD:function(id,ENV){				
+        instantiateNSD:function(id, ingresses, egresses, ENV){				
             var defer=$q.defer();
-            var data={"service_uuid":id};
+
+            /* check for empty ingress/egress */
+
+            if (Object.keys(ingresses).length > 1) {
+                var element = ingresses.pop();
+                if ( angular.toJson(element) != "{}") {
+                    ingresses.push(element);
+                }
+            }
+
+            if (Object.keys(egresses).length > 1) {
+                var element = egresses.pop();
+                if ( angular.toJson(element) != "{}") {
+                    egresses.push(element);
+                }
+            }
+
+            var data={"service_uuid":id, "ingress": ingresses, "egress":egresses};
             $http.post(ENV.apiEndpoint+"/requests",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
