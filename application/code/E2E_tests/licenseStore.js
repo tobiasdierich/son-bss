@@ -26,7 +26,7 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
  
-describe('SonataBSS Updates a Service License', function() {
+describe('SonataBSS License Store', function() {
 
     var requestId;
 	
@@ -36,20 +36,23 @@ describe('SonataBSS Updates a Service License', function() {
         browser.driver.findElement(by.id('username')).sendKeys('sonata');
         browser.driver.findElement(by.id('password')).sendKeys('sonata');
         browser.driver.findElement(by.xpath('//button[. = "Login"]')).click(); 
-        browser.driver.findElement(by.xpath("//a[@href='#/nSDs']")).click();       
+        browser.driver.findElement(by.xpath("//a[@href='#/licenses']")).click();       
     });
 
 
-    it('services list must not be empty', function() {
-        var count = element.all(by.repeater('nSD in nSDs')).count();
+    it('licenses list', function() {
+        //element(by.repeater('tab in tabs').row(0)).click();
+        element(by.xpath("//*[contains(text(),'Service Licenses')]")).click()
+        var count = element.all(by.repeater('license in pagedLicenses')).count();
         expect(count).toBeGreaterThan(0);
     });
+  
 
-    it('when clicked: "Get license" gets the service license', function() {
+    it('license request', function() {
 	
         var EC = protractor.ExpectedConditions;
 
-        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(nSD[\'uuid\'])"]')).get(1).click();
+        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(license[\'service_id\'])"]')).get(1).click();
         browser.wait(EC.visibilityOf(modal), 5000);        
         
         modal = element(by.id('getLicense'));
@@ -61,6 +64,14 @@ describe('SonataBSS Updates a Service License', function() {
         modal = element(by.id('getLicenseResponse'));
         expect(modal.isDisplayed()).toBe(true);   
 
+    });
+
+    it('user licenses list', function() {
+        //element(by.repeater('tab in tabs').row(2)).click();
+        //element(by.cssContainingText('.userLicenses', 'User Licenses')).click();
+        element(by.xpath("//*[contains(text(),'User Licenses')]")).click()
+        var count = element.all(by.repeater('userLicense in userLicenses')).count();
+        expect(count).toBeGreaterThan(0);
     });
     
 });

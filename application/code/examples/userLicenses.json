@@ -1,14 +1,38 @@
 [
-	{
-	  "username": "sonata",
-	  "service":"8c58b169-7c38-4bcd-9421-a91bd786f1fc"
-	},
-	{
-	  "username": "sonata",
-	  "service":"8c58b169-7c38-4bcd-9421-a91bd786f1fd"
-	},
-	{
-	  "username": "sonata",
-	  "service":"8c58b169-7c38-4bcd-9421-a91bd786f1fe"
-	}
+    {
+        "user": "Sonata",
+        "license_id": "a4711437-10ce-3e06-845f-3710909184de",
+        "service_name": "sonata-demo-1",
+        "service_id": "8c58b169-7c38-4bcd-9421-a91bd786f1fa",
+        "license_type": "Public",
+        "license_use": "Instantiation",
+        "valid_until": "2017-08-23T07:28:44.099Z" 
+    },
+    {
+        "user": "Sonata",
+        "license_id": "a4711437-10ce-3e06-845f-3710909184dg",
+        "service_name": "sonata-demo-3",
+        "service_id": "8c58b169-7c38-4bcd-9421-a91bd786f1fc",
+        "license_type": "Private",
+        "license_use": "Instantiation",
+        "valid_until": "2017-08-23T07:28:44.099Z" 
+    },
+    {
+        "user": "Sonata",
+        "license_id": "a4711437-10ce-3e06-845f-371090918412",
+        "service_name": "sonata-demo-5",
+        "service_id": "8c58b169-7c38-4bcd-9421-a91bd786f1fe",
+        "license_type": "Private",
+        "license_use": "Package Creation",
+        "valid_until": "2017-08-23T07:28:44.099Z" 
+    },
+    {
+        "user": "Sonata",
+        "license_id": "a4711437-10ce-3e06-845f-371090918445",
+        "service_name": "sonata-demo-7",
+        "service_id": "8c58b169-7c38-4bcd-9421-a91bd786f1fg",
+        "license_type": "Private",
+        "license_use": "Instantiation",
+        "valid_until": "2016-08-23T07:28:44.099Z" 
+    }
 ]

@@ -37,11 +37,13 @@ angular.module("Login",["config"]);
 
 angular.module("Register",["config"]);  
 
-angular.module("Logout",["config"]);   
+angular.module("Logout",["config"]);
+
+angular.module("Licenses",["config"]);   
 
 angular.module("SonataBSS", ["angular-json-tree", "ui.router", "formly", "formlyBootstrap", "ngAnimate", "ig.linkHeaderParser"
 
-    ,"ngStorage", "bw.paging", "base64"
+    ,"ngStorage", "bw.paging", "base64", "ui.bootstrap"
 
     ,"NSD"
 
@@ -54,6 +56,8 @@ angular.module("SonataBSS", ["angular-json-tree", "ui.router", "formly", "formly
     ,"Register"
 
     ,"Logout"
+
+    ,"Licenses"
 
     ])    
     .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$qProvider", function ($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
@@ -68,29 +72,34 @@ angular.module("SonataBSS", ["angular-json-tree", "ui.router", "formly", "formly
                 url: "/requests",
                 templateUrl: "modules/Requests/Requests/views/requests.html",
                 controller: "RequestsCtrl"
-                })
+            })
             .state("NSR",{
                 url: "/nSRs",
                 templateUrl: "modules/NSR/nSR/views/nSRs.html",
                 controller: "NSRCtrl"
-                })
+            })
             .state("Login",{
                 url: "/login",
                 templateUrl:"login/login.html",
                 controller: "LoginController",
                 controllerAs: "vm"
-                })   
+            })   
             .state("Logout",{
                 url: "/login",
                 templateUrl:"login/login.html",
                 controller: "LoginController"
-                })
+            })
             .state("Register",{
                 url: "/register",
                 templateUrl:"login/register.html",
                 controller: "LoginController",
                 controllerAs: "vm"
-                })
+            })
+            .state("Licenses",{
+                url: "/licenses",
+                templateUrl:"modules/Licenses/views/licensesIndex.html",
+                controller: "LicensesTabsCtrl"
+            })
 
         $urlRouterProvider.otherwise("/login");
         $locationProvider.hashPrefix('');

@@ -1,5 +1,4 @@
-<div class="modal fade" id="instantiateNSD" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="instantiateNSD" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="InstNSDCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,7 +21,7 @@
                 </div>                
                 <div class="row">
                     <form name="instantiationForm">
-                        <div class="col-md-4" ng-controller="InstNSDCtrl">                                               
+                        <div class="col-md-4">                                               
                             <fieldset  data-ng-repeat="ingress in ingresses">
                                 <ng-form name='ingressForm'>
                                     <p style="color:red" ng-show='ingressForm.$error.required'>
@@ -30,12 +29,8 @@
                                     </p>                           
                                     <label for="username">Location</label>
                                     <input list="locations" name="ingressLocation" id="ingressLocation" class="form-control" ng-model="ingress.location" placeholder="-- Location --" ng-required='ingress.nap'/>
-                                        <datalist id="locations">                                        
-                                            <option value="Athens">
-                                            <option value="Aveiro">
-                                            <option value="Paderborn">
-                                            <option value="London">
-                                            <option value="Telaviv">
+                                        <datalist id="locations"> 
+                                            <option ng-repeat="location in locations" value="{{location}}"/> 
                                         </datalist>                           
                                     <label for="username">Network Attachment Point (NAP)</label>
                                     <input type="text" name="ingressNap" id="ingressNap" class="form-control" ng-model="ingress.nap" placeholder="Enter Network Attachment Point" placeholder='xxx.xxx.xxx.xxx' ng-required='ingress.location' ng-pattern="/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"/>
@@ -52,7 +47,7 @@
                         </div>
                         <div class="col-md-4">
                         </div>                                        
-                        <div class="col-md-4" ng-controller="InstNSDCtrl">                         
+                        <div class="col-md-4">                         
                             <fieldset  data-ng-repeat="egress in egresses">
                                 <ng-form name='egressForm'>
                                     <p style="color:red" ng-show='egressForm.$error.required'>
@@ -61,11 +56,7 @@
                                     <label for="username">Location</label>
                                     <input list="locations" name="egressLocation" id="egressLocation" class="form-control" ng-model="egress.location" placeholder="-- Location --" ng-required='egress.nap'/>
                                         <datalist id="locations">                                        
-                                            <option value="Athens">
-                                            <option value="Aveiro">
-                                            <option value="Paderborn">
-                                            <option value="London">
-                                            <option value="Telaviv">
+                                            <option ng-repeat="location in locations" value="{{location}}"/> 
                                         </datalist>                            
                                     <label for="username">Network Attachment Point (NAP)</label>
                                     <input type="text" name="egressNap" id="egressNap" class="form-control" ng-model="egress.nap" placeholder="Enter Network Attachment Point" ng-required='egress.location' ng-pattern="/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))?$/"/>

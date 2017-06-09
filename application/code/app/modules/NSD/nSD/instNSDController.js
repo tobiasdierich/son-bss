@@ -27,7 +27,10 @@
  */
 
 angular.module('NSD')
- .controller('InstNSDCtrl', ["$scope", function($scope) {
+ .controller('InstNSDCtrl', ["$scope", "NSDServices", "ENV", function($scope, NSDServices, ENV) {
+
+  
+  $scope.locations = [];  
 
   $scope.addNewIngress = function() {    
     $scope.ingresses.push({});
@@ -50,5 +53,31 @@ angular.module('NSD')
       $scope.egresses.splice(lastItem);
     }    
   };
+
+  $scope.getLocations = function() {
+    NSDServices.getVimRequests(ENV)
+    .then(function(result) {         
+      var vimRequests = result.data;      
+      for (var i in vimRequests) { 
+        NSDServices.getVims(ENV, vimRequests[i]["items"]["request_uuid"])
+        .then(function(res){
+          vim = res.data;
+          if ($scope.locations.indexOf(vim["vim_city"]) === -1) {
+            $scope.locations.push(vim["vim_city"]);
+          }
+          callback(res.data);
+        }, function(err) {
+          $scope.error = angular.copy(JSON.stringify(err.data.message));
+          $('#error.modal').modal('show');   
+        })        
+      }
+      callback($scope.locations);
+    }, function(error) {
+      $scope.error = angular.copy(JSON.stringify(error.data.message));
+      $('#error.modal').modal('show');   
+    })
+  };
+
+  $scope.getLocations();  
 
 }]);

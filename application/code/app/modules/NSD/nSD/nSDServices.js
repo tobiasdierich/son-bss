@@ -27,7 +27,7 @@
  */
 
  angular.module('NSD')
- .factory('NSDServices',["$http","$q",function ($http,$q) {
+ .factory('NSDServices',["$http","$q","$localStorage", function ($http,$q,$localStorage) {
     return {
         retrieveNSDs:function(ENV, offset){
 
@@ -45,21 +45,21 @@
 
             /* check for empty ingress/egress */
 
-            if (Object.keys(ingresses).length > 1) {
+            if (Object.keys(ingresses).length > 0) {
                 var element = ingresses.pop();
                 if ( angular.toJson(element) != "{}") {
                     ingresses.push(element);
                 }
             }
 
-            if (Object.keys(egresses).length > 1) {
+            if (Object.keys(egresses).length > 0) {
                 var element = egresses.pop();
                 if ( angular.toJson(element) != "{}") {
                     egresses.push(element);
                 }
             }
 
-            var data={"service_uuid":id, "ingress": ingresses, "egress":egresses};
+            var data={"service_uuid":id, "ingress": ingresses, "egress":egresses, "user_id": $localStorage.currentUser.user_id};
             $http.post(ENV.apiEndpoint+"/requests",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
@@ -75,7 +75,7 @@
             } else {
                 var maxSafeInteger = Math.pow(2,16) - 1;            
                 //$http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")
-                $http.get(ENV.apiEndpoint+"/licenses?username="+username)
+                $http.get(ENV.apiEndpoint+"/licenses/user/"+$localStorage.currentUser.user_id+"?limit="+maxSafeInteger+"&offset=0")
                 .then(function successCallback(result){                
                     defer.resolve(result)})
                 .catch(function errorCallback(error){                
@@ -84,13 +84,38 @@
             return defer.promise;
         },
 
-        requestLicense:function(ENV, id, username){                
+        requestLicense:function(ENV, id){                
             var defer=$q.defer();
-            var data={"service_uuid":id, "username":username};
+            var data={"service_uuid":id, "user_id":$localStorage.currentUser.user_id, "user_role":$localStorage.currentUser.user_role};
             $http.post(ENV.apiEndpoint+"/licenses",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
             
+            return defer.promise;
+        },
+
+        getVimRequests:function(ENV){
+            var defer=$q.defer();            
+            $http.get(ENV.apiEndpoint+"/vims")
+            .then(function successCallback(result){
+                //console.log("getVimRequests result: "+JSON.stringify(result));
+                defer.resolve(result);
+            })
+            .catch(function errorCallback(error){defer.reject(error)});
+
+            return defer.promise;
+        },
+
+        getVims:function(ENV, vimRequest){
+            var defer=$q.defer();
+            var data;
+            $http.get(ENV.apiEndpoint+"/vims/"+vimRequest)
+            .then(function successCallback(result){
+                //console.log("getVims result: "+JSON.stringify(result));
+                defer.resolve(result);
+            })
+            .catch(function errorCallback(error){defer.reject(error)});
+
             return defer.promise;
         }
     }
