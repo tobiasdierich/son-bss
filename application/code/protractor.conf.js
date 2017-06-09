@@ -40,7 +40,8 @@ exports.config = {
 	  service_Instantiation: ['E2E_tests/serviceInstantiation.js'],
 	  service_Update: ['E2E_tests/serviceUpdate.js'],
 	  service_Instantiation_E2E: ['E2E_tests/serviceInstantiationE2E.js'],
-    service_License_Update: ['E2E_tests/serviceLicenseUpdate.js']    
+    service_License_Update: ['E2E_tests/serviceLicenseUpdate.js'],
+    license_store: ['E2E_tests/licenseStore.js']    
   },
   
   capabilities: {

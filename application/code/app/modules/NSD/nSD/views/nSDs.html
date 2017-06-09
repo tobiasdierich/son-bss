@@ -57,8 +57,8 @@
                                 <i class="glyphicon glyphicon-play"></i>
                             </button>
                             <button class="btn btn-warning btn-xs" tooltip-init
-                            data-toggle="tooltip" data-placement="top" title="Get license"
-                            ng-click="requestLicense(nSD)" ng-show="((nSD['nsd']['license_type'] | uppercase) != 'PUBLIC') && nSD['nsd']['license_type'].length > 0 && (nSD['userPermission'] | uppercase) != 'TRUE'">
+                            data-toggle="tooltip" data-placement="top" title="Get license {{nSD['comment']}}"
+                            ng-click="showModalRequestingLicense(nSD['uuid'])" ng-show="((nSD['nsd']['license_type'] | uppercase) != 'PUBLIC') && nSD['nsd']['license_type'].length > 0 && (nSD['userPermission'] | uppercase) != 'TRUE'">
                                 <i class="glyphicon glyphicon-alert"></i>
                             </button>
                         </td>
@@ -67,7 +67,7 @@
             </table>	 
             <div class="descriptionpopup" ng-show="popoverIsVisible"  style="clear:both;">
                 <b><u>Description:</b></u>
-                <i>{{hoveredNSD['description']}}</i>
+                <i>{{hoveredNSD['nsd']['description']}}</i>
             </div>         
         </div>
         <div paging

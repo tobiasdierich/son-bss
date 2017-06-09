@@ -88,7 +88,7 @@ var fmock = function (req, res, next) {
 
 						if (params.username === authorizedUser.username && params.password === authorizedUser.password) {
 							//console.log("Authenticated and Authorizated usr");
-							body = '{"token": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}}';
+							body = '{"token": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}, "user_id": "123-456", "user_role": "customer"}';
 							res.writeHeader(200, {
 								"Content-Type": "application/json"
 							});						
@@ -165,7 +165,7 @@ var fmock = function (req, res, next) {
 								"Content-Type": "application/json",
 								"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
 							});
-							res.writeHead['content-type'] = 'application/json';
+							//res.writeHead['content-type'] = 'application/json';
 						} else {
 							//console.log("GET /services");
 							//body response
@@ -176,7 +176,7 @@ var fmock = function (req, res, next) {
 								"Content-Type": "application/json",
 								"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
 							});
-							res.writeHead['content-type'] = 'application/json';
+							//res.writeHead['content-type'] = 'application/json';
 						};
 						break;
 					case /^\/requests/.test(path):
@@ -226,12 +226,51 @@ var fmock = function (req, res, next) {
 						}
 						break;
 					case /^\/licenses/.test(path):
-						if (path.indexOf('/licenses') === 0) {
-							body += JSON.stringify(require('./examples/userLicenses.json'));							
-							res.writeHeader(200, {
-								"Content-Type": "application/json",									
-							});
+						body += JSON.stringify(require('./examples/userLicenses.json'));
+						res.writeHeader(200, {
+							"Content-Type": "application/json",
+							"Link": "<http://localhost:1338/mock/licenses/user/1234?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/licenses/user/1234?limit=10&offset=0>; rel=\"last\""
+						});							
+						break;
+					case /^\/vims/.test(path):
+						if (path.indexOf('/vims/') === 0) {
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a61') === 0) {
+								body += JSON.stringify(require('./examples/vimAthens.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a62') === 0) {
+								body += JSON.stringify(require('./examples/vimAveiro.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a63') === 0) {
+								body += JSON.stringify(require('./examples/vimLondon.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a64') === 0) {
+								body += JSON.stringify(require('./examples/vimPaderborn.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a65') === 0) {
+								body += JSON.stringify(require('./examples/vimTelAviv.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a66') === 0) {
+								body += JSON.stringify(require('./examples/vimAthens.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a67') === 0) {
+								body += JSON.stringify(require('./examples/vimAveiro.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a68') === 0) {
+								body += JSON.stringify(require('./examples/vimPaderborn.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a69') === 0) {
+								body += JSON.stringify(require('./examples/vimLondon.json'));
+							}
+							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a60') === 0) {
+								body += JSON.stringify(require('./examples/vimTelAviv.json'));
+							}
+						} else {
+							body += JSON.stringify(require('./examples/vimRequests.json'));
 						}
+						res.writeHeader(200, {
+							"Content-Type": "application/json",
+							"Link": "<http://localhost:1338/mock/vims/1234?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\""
+						})
 						break;
 					default:
 						res.writeHeader(200, {

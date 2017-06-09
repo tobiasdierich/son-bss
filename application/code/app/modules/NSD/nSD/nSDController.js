@@ -56,13 +56,26 @@ $scope.getUserLicenses = function(callback) {
       .then(function(result) {
 
        var nSDs = result.data;
-       var licenses = $rootScope.userLicenses;     
+       var licenses = $rootScope.userLicenses;
+       var today = new Date();
+       var validityDate;     
 
        for (x in nSDs) {      
         nSDs[x].userPermission="false";
-        for (y in licenses) {        
-          if (licenses[y].service === nSDs[x].uuid) {
+        nSDs[x].comment="";
+        for (y in licenses) {     
+          validityDate = new Date(licenses[y].valid_until);   
+          if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate > today)) {
             nSDs[x].userPermission="true";
+            nSDs[x].comment="";
+            break;
+          }else{
+            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Package Creation")) {
+              nSDs[x].comment=". Instantiation License Required"; 
+            }
+            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate <= today)) {
+              nSDs[x].comment=". Instantiation License Expired";
+            }
           }
         }
       }
@@ -141,6 +154,7 @@ $scope.getUserLicenses = function(callback) {
    $scope.currentNSD = {};
    $scope.cleanInstantiationIngressEgress();
  };
+ 
  $scope.showPopover = function(nSD) {
    $scope.popoverIsVisible = true;
    $scope.hoveredNSD = nSD;
@@ -156,15 +170,15 @@ $scope.getUserLicenses = function(callback) {
    $scope.retrieveNSDs(offset);
  }
 
- $scope.requestLicense = function(data) {
-   $scope.currentNSD = angular.copy(data);
+ $scope.showModalRequestingLicense = function(data) {
+   $scope.service_id = angular.copy(data);
    $('#getLicense.modal').modal('show');
  }
 
 
- $scope.requestLicenseToGatekeeper = function() {
+ $scope.requestLicense = function(service_id) {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-   NSDServices.requestLicense(ENV, $scope.currentNSD.uuid, $rootScope.username)
+   NSDServices.requestLicense(ENV, service_id)
    .then(function(result) {
      $('#getLicense.modal').modal('hide');   
      $scope.licenseRequest = result.data;

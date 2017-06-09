@@ -34,11 +34,18 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 
-                <li ng-class="{'active':currentState.name=='NSD'}" ><a href="#/nSDs">Available Network Services</a></li>
-				
-                <li ng-class="{'active':currentState.name=='Requests'}" ><a href="#/requests">Requests</a></li>
-
-                <li ng-class="{'active':currentState.name=='NSR'}" ><a href="#/nSRs">Network Services Instances</a></li>
+                <li ng-class="{'active':currentState.name=='NSD'}" >
+                    <a href="#/nSDs">Available Network Services</a>
+                </li>
+				<li ng-class="{'active':currentState.name=='Requests'}" >
+                    <a href="#/requests">Requests</a>
+                </li>
+                <li ng-class="{'active':currentState.name=='NSR'}" >
+                    <a href="#/nSRs">Network Services Instances</a>
+                </li>
+                <li ng-class="{'active':currentState.name=='Licenses'}" >
+                    <a href="#/licenses">License Store</a>
+                </li>
 
             </ul>
         </div><!-- /.navbar-collapse --> 
@@ -60,7 +67,8 @@
 <script src="vendor/angular-formly/dist/formly.js"></script>
 <script src="vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js"></script>
 <script src="utils/angular-json-tree/dist/angular-json-tree.js"></script>
-
+<script src="vendor/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
 <script src="app.js"></script>
 <script src="config/config.js" />
@@ -78,6 +86,12 @@
 
 <script src="modules/NSR/nSR/nSRController.js"></script>
 <script src="modules/NSR/nSR/nSRServices.js"></script>
+
+<script src="modules/Licenses/licensesController.js"></script>
+<script src="modules/Licenses/licensesServices.js"></script>
+<script src="modules/Licenses/userLicensesController.js"></script>
+<script src="modules/Licenses/userLicensesServices.js"></script>
+<script src="modules/Licenses/licensesTabsController.js"></script>
 
 <!-- authentication -->
 
