@@ -41,7 +41,6 @@ describe('SonataBSS License Store', function() {
 
 
     it('licenses list', function() {
-        //element(by.repeater('tab in tabs').row(0)).click();
         element(by.xpath("//*[contains(text(),'Service Licenses')]")).click()
         var count = element.all(by.repeater('license in pagedLicenses')).count();
         expect(count).toBeGreaterThan(0);
@@ -67,8 +66,6 @@ describe('SonataBSS License Store', function() {
     });
 
     it('user licenses list', function() {
-        //element(by.repeater('tab in tabs').row(2)).click();
-        //element(by.cssContainingText('.userLicenses', 'User Licenses')).click();
         element(by.xpath("//*[contains(text(),'User Licenses')]")).click()
         var count = element.all(by.repeater('userLicense in userLicenses')).count();
         expect(count).toBeGreaterThan(0);
