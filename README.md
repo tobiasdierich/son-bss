@@ -167,7 +167,7 @@ Npm dependencies:
 * [jodid25519](https://github.com/meganz/jodid25519) >=1.0.2 (MIT)
 * [js-yaml](https://github.com/nodeca/js-yaml) >=2.0.5 (MIT)
 * [jsbn](https://github.com/andyperlitch/jsbn) >=0.1.0 (BSD)
-* [json-schema](AFLv2.1¦BSD) >=0.2.2 (licenses¦  )
+* [json-schema](AFLv2.1Â¦BSD) >=0.2.2 (licensesÂ¦  )
 * [json-stringify-safe](https://github.com/isaacs/json-stringify-safe) >=5.0.1 (ISC)
 * [jsonfile](https://github.com/jprichardson/node-jsonfile) >=2.3.1 (MIT)
 * [jsonpointer](https://github.com/janl/node-jsonpointer) >=2.0.0 (MIT)
@@ -299,8 +299,8 @@ gkApiUrl	  				| Yes 			| 					| Gatekeeper REST API Url
 suite		  				| No			|					| Testing purpose: select the test suite
 hostname	  				| No			| localhost			| Testing purpose: set the test hostname
 protocol	  				| No			| http				| http/https selection
-userManagementEnabled		| No 			| true				| Enables de use of Gatekeeper's User Management module
-licenseManagementEnabled	| No 			| true				| Enables de use of Gatekeeper's License Management module
+userManagementEnabled		| No 			| true				| Enables the use of Gatekeeper's User Management module
+licenseManagementEnabled	| No 			| true				| Enables the use of Gatekeeper's License Management module
 
 ## Usage
 
