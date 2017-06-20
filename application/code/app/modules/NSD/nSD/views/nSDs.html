@@ -32,7 +32,7 @@
                         <th role="columnheader" ng-click="sort='vendor';reverse=!reverse">Vendor</th>
                         <th role="columnheader" ng-click="sort='version';reverse=!reverse">Version</th>
                         <th role="columnheader" ng-click="sort='id';reverse=!reverse">Service Id</th>
-                        <th role="columnheader" ng-click="sort='license';reverse=!reverse">License Type</th>
+                        <th role="columnheader" ng-click="sort='license';reverse=!reverse">Licence Type</th>
                         <th role="columnheader" class="actionTH">Actions</th>
                     </tr>
                 </thead>
@@ -57,7 +57,7 @@
                                 <i class="glyphicon glyphicon-play"></i>
                             </button>
                             <button class="btn btn-warning btn-xs" tooltip-init
-                            data-toggle="tooltip" data-placement="top" title="Get license {{nSD['comment']}}"
+                            data-toggle="tooltip" data-placement="top" title="Get licence {{nSD['comment']}}"
                             ng-click="showModalRequestingLicense(nSD['uuid'])" ng-show="((nSD['nsd']['license_type'] | uppercase) != 'PUBLIC') && nSD['nsd']['license_type'].length > 0 && (nSD['userPermission'] | uppercase) != 'TRUE'">
                                 <i class="glyphicon glyphicon-alert"></i>
                             </button>
