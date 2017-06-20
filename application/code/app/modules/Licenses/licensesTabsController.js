@@ -35,8 +35,8 @@ angular.module('Licenses')
         /***************************************  TABS **********************************************/
 
         $scope.tabs = [
-            { title:'Service Licenses', content:'modules/Licenses/views/licenses.html', scope: 'licenses' },
-            { title:'User Licenses', content:'modules/Licenses/views/userLicenses.html', scope: 'userLicenses' }
+            { title:'Service Licences', content:'modules/Licenses/views/licenses.html', scope: 'licenses' },
+            { title:'User Licences', content:'modules/Licenses/views/userLicenses.html', scope: 'userLicenses' }
         ];
 
         $scope.reload = function(scope) {

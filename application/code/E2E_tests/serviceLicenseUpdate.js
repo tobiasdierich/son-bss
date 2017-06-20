@@ -26,7 +26,7 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
  
-describe('SonataBSS Updates a Service License', function() {
+describe('SonataBSS Updates a Service Licence', function() {
 
     var requestId;
 	
@@ -45,7 +45,7 @@ describe('SonataBSS Updates a Service License', function() {
         expect(count).toBeGreaterThan(0);
     });
 
-    it('when clicked: "Get license" gets the service license', function() {
+    it('when clicked: "Get licence" gets the service licence', function() {
 	
         var EC = protractor.ExpectedConditions;
 

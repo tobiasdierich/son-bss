@@ -35,7 +35,7 @@ exports.config = {
   seleniumServerJar: './node_modules/protractor/selenium/selenium-server-standalone-2.52.0.jar',    
   //specs: ['E2E_tests/todo-spec.js'],
   suites: {
-	  unitTests: ['E2E_tests/menusNavigation.js', 'E2E_tests/serviceInstantiation.js', 'E2E_tests/serviceUpdate.js', 'E2E_tests/serviceLicenseUpdate.js'],	  
+	  unitTests: ['E2E_tests/menusNavigation.js', 'E2E_tests/serviceInstantiation.js', 'E2E_tests/serviceUpdate.js', 'E2E_tests/serviceLicenseUpdate.js', 'E2E_tests/licenseStore.js'],	  
 	  menus_Navigation: ['E2E_tests/menusNavigation.js'],
 	  service_Instantiation: ['E2E_tests/serviceInstantiation.js'],
 	  service_Update: ['E2E_tests/serviceUpdate.js'],

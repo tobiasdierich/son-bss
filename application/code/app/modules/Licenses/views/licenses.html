@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h2 class="moduleHeader">
-                Service Licenses 
+                Service Licences 
             </h2>
             <h4>that can be acquired by the "{{user_name}}" user</h4>           
         </div>
@@ -15,15 +15,15 @@
              <div ng-if="!pagedLicenses.length" class="alert alert-block alert-info">
                 <span class="pull-right close" data-dismiss="alert"></span>
                 <h4 class="alert-heading">INFO</h4>
-                There are no Licenses here!
+                There are no Licences here!
             </div>      
 
             <table class="table table-striped table-hover table-bordered dataTable">
             <thead>
                 <tr role="row">                    
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Name</th>
-                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">License Type</th>
-                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">License Use</th>                    
+                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Licence Type</th>
+                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Licence Use</th>                    
                     <th role="columnheader" ng-click="sort='instanceId';reverse=!reverse">Already Acquired</th>
                     <th role="columnheader" class="actionTH">Actions</th>
                 </tr>
@@ -40,7 +40,7 @@
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
                             <button class="btn btn-danger btn-xs" tooltip-init
-                            data-toggle="tooltip" data-placement="top" title="Request License"
+                            data-toggle="tooltip" data-placement="top" title="Request Licence"
                             ng-click="showModalRequestingLicense(license['service_id'])" ng-show="((license['already_purchased'] | uppercase) == 'NO')">
                                 <i class="glyphicon glyphicon-play"></i>
                             </button>
