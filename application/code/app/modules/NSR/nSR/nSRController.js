@@ -86,6 +86,10 @@
      .then(function(result) {
        $rootScope.nSRs = result.data;
 
+       if (JSON.stringify($rootScope.nSRs) == "[{}]"){
+        $rootScope.nSRs = [];
+       }
+
       //pagination
       var linkHeaderText = result.headers("Link");                    
       var link = linkHeaderParser.parse(linkHeaderText);                    
@@ -115,6 +119,11 @@
    $('#updateNSR.modal').modal('show');
  }
 
+ $scope.openStopNSR = function(data) {
+  $scope.currentNSR = angular.copy(data);
+  $('#stopNSR.modal').modal('show');
+ }
+
 
  $scope.updateNSR = function() {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
@@ -123,6 +132,18 @@
      $('#updateNSR.modal').modal('hide');	 	 
      $('#updateRequest.modal').modal('show');    
    }, function(error) {		     
+     $scope.error = angular.copy(JSON.stringify(error.data.message));
+     $('#error.modal').modal('show');   
+   })
+ }
+
+  $scope.stopNSR = function() {
+   //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
+   NSRServices.stopNSR($scope.currentNSR.uuid, ENV)
+   .then(function(result) {
+     $('#stopNSR.modal').modal('hide');    
+     $('#stopRequest.modal').modal('show');    
+   }, function(error) {        
      $scope.error = angular.copy(JSON.stringify(error.data.message));
      $('#error.modal').modal('show');   
    })

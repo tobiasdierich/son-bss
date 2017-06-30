@@ -44,7 +44,7 @@
                    <td>{{ Request['service_uuid'] }}</td>
                    <td>{{ Request['status'] }}</td>
                    <td>
-                        <button class="btn btn-success btn-xs" tooltip-init data-toggle="tooltip" data-placement="top" title="Show details" ng-click="openDetailedRequest(Request)">
+                        <button class="btn btn-primary btn-xs" tooltip-init data-toggle="tooltip" data-placement="top" title="Show details" ng-click="openDetailedRequest(Request)">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </td>
@@ -64,7 +64,8 @@
             text-prev-class="glyphicon glyphicon-chevron-left"
             text-first-class="glyphicon glyphicon-backward"
             text-last-class="glyphicon glyphicon-forward"
-            paging-action="clickPageButton(page)">
+            paging-action="clickPageButton(page)"
+            ng-if="Requests.length">
         </div>             
     </div>
 

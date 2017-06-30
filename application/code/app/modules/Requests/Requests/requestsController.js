@@ -38,6 +38,11 @@ angular.module('Requests')
             RequestsServices.retrieveRequests(ENV, offset)
             .then(function (result) {
                 $rootScope.Requests = result.data;
+
+                if (JSON.stringify($rootScope.Requests) == "[{}]"){
+                    $rootScope.Requests = [];
+                }
+
                 //pagination
                 var linkHeaderText = result.headers("Link");
                 var link = linkHeaderParser.parse(linkHeaderText);

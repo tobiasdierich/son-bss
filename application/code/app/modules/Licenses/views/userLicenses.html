@@ -19,7 +19,7 @@
                 There are no User Licences here!
             </div> 
 
-            <table class="table table-striped table-hover table-bordered dataTable">
+            <table class="table table-striped table-hover table-bordered dataTable" ng-if="userLicenses.length">
             <thead>
                 <tr role="row">                    
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Name</th>
@@ -35,7 +35,7 @@
                         <td>{{ userLicense['license_type'] }}</td>
                         <td>{{ userLicense['license_use'] }}</td>
                         <td>
-                            <button class="btn btn-success btn-xs" tooltip-init
+                            <button class="btn btn-primary btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details" ng-click="openDetailedUserLicense(userLicense)">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
@@ -56,7 +56,8 @@
             text-prev-class="glyphicon glyphicon-chevron-left"
             text-first-class="glyphicon glyphicon-backward"
             text-last-class="glyphicon glyphicon-forward"
-            paging-action="clickUserLicPageButton(page)">
+            paging-action="clickUserLicPageButton(page)"
+            ng-if="userLicenses.length">
         </div>             
     </div>
 

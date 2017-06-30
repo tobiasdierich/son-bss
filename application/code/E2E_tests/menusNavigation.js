@@ -69,7 +69,7 @@
         });
 
         it('when clicked: "service details" shows the service descriptor details', function() {
-            element.all(by.css('.btn-success')).get(0).click();
+            element.all(by.css('.btn-primary')).get(0).click();
             browser.waitForAngular();
             var tree_el = element(by.tagName('json-tree'));
             expect(tree_el.getAttribute('object')).toBe('currentNSD');
@@ -95,7 +95,7 @@
         });
 
         it('when clicked: "request details" shows the request details', function() {
-            element.all(by.css('.btn-success')).get(0).click();
+            element.all(by.css('.btn-primary')).get(0).click();
             browser.waitForAngular();
             var tree_el = element(by.tagName('json-tree'));
             expect(tree_el.getAttribute('object')).toBe('currentRequest');
@@ -121,7 +121,7 @@
         });
 
         it('when clicked: "service instance details" shows the service instance details', function() {
-            element.all(by.css('.btn-success')).get(0).click();
+            element.all(by.css('.btn-primary')).get(0).click();
             browser.waitForAngular();
             var tree_el = element(by.tagName('json-tree'));
             expect(tree_el.getAttribute('object')).toBe('currentNSR');

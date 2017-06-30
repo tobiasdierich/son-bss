@@ -62,7 +62,7 @@ var fmock = function (req, res, next) {
 		var body = '';
 
 		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
+		res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT, PATCH');
 		res.setHeader('Access-Control-Allow-Headers', 'Authorization, Origin, X-Requested-With, Content-Type, Accept');
 		res.setHeader('Access-Control-Expose-Headers', 'Link, X-Total-Count');	
 
@@ -304,8 +304,17 @@ var fmock = function (req, res, next) {
 				});
 				res.write(body);
 				res.end();
-				break;
 			}
+			break;
+		case 'PATCH':
+			if (path.indexOf('/records/services') === 0) {
+				res.writeHeader(200, {
+					"Content-Type": "application/json"
+				});
+				res.write(body);
+				res.end();
+			}
+			break;
 		}
 	}
 };

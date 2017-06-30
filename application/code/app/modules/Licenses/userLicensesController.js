@@ -40,6 +40,11 @@ angular.module('Licenses')
             UserLicensesServices.retrieveUserLicenses(ENV, offset)
             .then(function (result) {
                 $scope.userLicenses = result.data;
+
+                if (JSON.stringify($scope.userLicenses) == "[{}]"){
+                    $scope.userLicenses = [];
+                }
+
                 //pagination
                 var linkHeaderText = result.headers("Link");
                 var link = linkHeaderParser.parse(linkHeaderText);

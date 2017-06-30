@@ -58,6 +58,15 @@
                defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
             return defer.promise;
+        },
+        
+        stopNSR:function(nsrId,ENV){                
+            var defer=$q.defer();
+            $http.patch(ENV.apiEndpoint+"/records/services/"+nsrId+"/stop")
+            .then(function successCallback(result){defer.resolve(result)})
+            .catch(function errorCallback(error){defer.reject(error)});
+            
+            return defer.promise;
         }
         
     }

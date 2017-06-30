@@ -39,7 +39,7 @@ angular.module('Login')
                 var fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo';
 
                 $localStorage.currentUser = { username: 'sonata', token: fakeToken , user_id:'1234', user_role:'customer'};
-                $http.defaults.headers.common.Authorization = fakeToken;
+                $http.defaults.headers.common.Authorization = 'Bearer ' + fakeToken;
                 defer.resolve(true);
             } else {
                 
