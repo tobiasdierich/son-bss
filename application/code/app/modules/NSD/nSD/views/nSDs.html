@@ -14,7 +14,6 @@
     </div>
 
     <div class="col-md-12 m-t-20" >
-
         <div class="row moduleContainer" >
             <div ng-if="!(nSDs | searchObject: nSDsSearch).length"
             class="alert alert-block alert-info">
@@ -46,12 +45,12 @@
                         <td>{{ nSD['uuid'] }}</td>
                         <td>{{ nSD['nsd']['license_type'] }}<div ng-if="!nSD['nsd']['license_type']">public</div></td>
                         <td>
-                            <button class="btn btn-success btn-xs" tooltip-init
+                            <button class="btn btn-primary btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details"
                             ng-click="openUpdateNSD(nSD)">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
-                            <button class="btn btn-danger btn-xs" tooltip-init
+                            <button class="btn btn-success btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Instantiate"
                             ng-click="openInstantiateNSD(nSD)" ng-show="((nSD['nsd']['license_type'] | uppercase) == 'PUBLIC') || !nSD['nsd']['license_type'].length > 0 || (nSD['userPermission'] | uppercase) != 'FALSE'">
                                 <i class="glyphicon glyphicon-play"></i>
@@ -81,7 +80,8 @@
             text-prev-class="glyphicon glyphicon-chevron-left"
             text-first-class="glyphicon glyphicon-backward"
             text-last-class="glyphicon glyphicon-forward"
-            paging-action="clickPageButton(page)">
+            paging-action="clickPageButton(page)"
+            ng-if="nSDs.length">
         </div>  
     </div>
 

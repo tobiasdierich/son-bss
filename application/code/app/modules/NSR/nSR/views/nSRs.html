@@ -40,12 +40,17 @@
                         <td>{{ getNSRDescriptorVersion(nSR['descriptor_reference'], nSDsMap) }}</td>
                         <td>{{ getActualNSDVersion(nSR, nSDsMap, activeNSDsMap )}}</td>
                         <td>
-                            <button class="btn btn-success btn-xs" tooltip-init
+                            <button class="btn btn-primary btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details"
                             ng-click="openDetailedNSR(nSR)">
                                 <i class="glyphicon glyphicon-search"></i>
-                            </button>						
+                            </button>
                             <button class="btn btn-danger btn-xs" tooltip-init
+                            data-toggle="tooltip" data-placement="top" title="Stop"
+                            ng-click="openStopNSR(nSR)" ng-show="(nSR['status'] | uppercase) == 'NORMAL OPERATION'"">
+                                <i class="glyphicon glyphicon-stop"></i>
+                            </button>   						
+                            <button class="btn btn-warning btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Update"
                             ng-click="openUpdateNSR(nSR)" ng-show="compareVersion(getNSRDescriptorVersion(nSR['descriptor_reference'], nSDsMap), actualDescVersion) < 0 && (nSR['status'] | uppercase) != 'UPDATING'">
                                 <i class="glyphicon glyphicon-repeat"></i>			    
@@ -66,13 +71,16 @@
             text-prev-class="glyphicon glyphicon-chevron-left"
             text-first-class="glyphicon glyphicon-backward"
             text-last-class="glyphicon glyphicon-forward"
-            paging-action="clickPageButton(page)">
+            paging-action="clickPageButton(page)"
+            ng-if="nSRs.length">
         </div> 
     </div>
 
     <ng-include src="'modules/NSR/nSR/views/updateNSR.html'"></ng-include>    
     <ng-include src="'modules/NSR/nSR/views/detailedNSR.html'"></ng-include>
     <ng-include src="'modules/NSR/nSR/views/updateRequest.html'"></ng-include>
+    <ng-include src="'modules/NSR/nSR/views/stopNSR.html'"></ng-include>
+    <ng-include src="'modules/NSR/nSR/views/stopRequest.html'"></ng-include>
     <ng-include src="'modules/common/error.html'"></ng-include>
 
     <script>

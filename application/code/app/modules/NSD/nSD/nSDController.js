@@ -60,21 +60,25 @@ $scope.getUserLicenses = function(callback) {
        var today = new Date();
        var validityDate;     
 
-       for (x in nSDs) {      
-        nSDs[x].userPermission="false";
-        nSDs[x].comment="";
-        for (y in licenses) {     
-          validityDate = new Date(licenses[y].valid_until);   
-          if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate > today)) {
-            nSDs[x].userPermission="true";
-            nSDs[x].comment="";
-            break;
-          }else{
-            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Package Creation")) {
-              nSDs[x].comment=". Instantiation License Required"; 
-            }
-            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate <= today)) {
-              nSDs[x].comment=". Instantiation License Expired";
+       if (JSON.stringify(nSDs) == "[{}]") {
+         nSDs = [];
+       } else {
+         for (x in nSDs) {      
+          nSDs[x].userPermission="false";
+          nSDs[x].comment="";
+          for (y in licenses) {     
+            validityDate = new Date(licenses[y].valid_until);   
+            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate > today)) {
+              nSDs[x].userPermission="true";
+              nSDs[x].comment="";
+              break;
+            }else{
+              if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Package Creation")) {
+                nSDs[x].comment=". Instantiation License Required"; 
+              }
+              if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate <= today)) {
+                nSDs[x].comment=". Instantiation License Expired";
+              }
             }
           }
         }
