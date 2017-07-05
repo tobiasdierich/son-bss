@@ -51,14 +51,14 @@ angular.module('Licenses')
                     for (x in nSDs) {
                         if ($localStorage.currentUser.user_role === "customer") {
                             //customer license
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.license_type, "license_use":"Instantiation"}); 
+                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Instantiation"}); 
                         } else if ($localStorage.currentUser.user_role === "developer"){
                             //developer license
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.license_type, "license_use":"Package Creation"});
+                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Package Creation"});
                         } else {
                             //both customer and developer licenses
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.license_type, "license_use":"Instantiation"});
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.license_type, "license_use":"Package Creation"});
+                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Instantiation"});
+                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Package Creation"});
                         }
                     }
 
