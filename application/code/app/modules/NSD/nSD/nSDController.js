@@ -57,8 +57,8 @@ $scope.getUserLicenses = function(callback) {
 
        var nSDs = result.data;
        var licenses = $rootScope.userLicenses;
-       var today = new Date();
-       var validityDate;     
+       /*var today = new Date();
+       var validityDate;*/     
 
        if (JSON.stringify(nSDs) == "[{}]") {
          nSDs = [];
@@ -67,8 +67,8 @@ $scope.getUserLicenses = function(callback) {
           nSDs[x].userPermission="false";
           nSDs[x].comment="";
           for (y in licenses) {     
-            validityDate = new Date(licenses[y].valid_until);   
-            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate > today)) {
+            /*validityDate = new Date(licenses[y].valid_until);*/   
+            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")/*&&(validityDate > today)*/) {
               nSDs[x].userPermission="true";
               nSDs[x].comment="";
               break;
@@ -76,7 +76,7 @@ $scope.getUserLicenses = function(callback) {
               if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Package Creation")) {
                 nSDs[x].comment=". Instantiation License Required"; 
               }
-              if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")&&(validityDate <= today)) {
+              if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")/*&&(validityDate <= today)*/) {
                 nSDs[x].comment=". Instantiation License Expired";
               }
             }

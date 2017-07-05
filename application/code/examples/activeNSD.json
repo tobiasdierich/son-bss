@@ -4,7 +4,11 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"public",
+      "licenses": [
+        {
+          "type":"public"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",
@@ -143,7 +147,12 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"private",
+      "licenses": [
+        {
+          "type":"private",
+          "url":"http://localhost:1337"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",
@@ -282,7 +291,12 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"private",
+      "licenses": [
+        {
+          "type":"private",
+          "url":"http://localhost:1337"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",
@@ -421,7 +435,12 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"private",
+      "licenses": [
+        {
+          "type":"private",
+          "url":"http://localhost:1337"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",
@@ -560,7 +579,12 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"private",
+      "licenses": [
+        {
+          "type":"private",
+          "url":"http://localhost:1337"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",
@@ -699,7 +723,12 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"private",
+      "licenses": [
+        {
+          "type":"private",
+          "url":"http://localhost:1337"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",
@@ -838,7 +867,12 @@
     "md5": "ab0d9a2a6ed9392124afff79a73ba8f2",
     "nsd": {
       "author": "Felipe Vicens, Atos IT Solutions and Services Iberia",
-      "license_type":"private",
+      "licenses": [
+        {
+          "type":"private",
+          "url":"http://localhost:1337"
+        }
+      ],
       "connection_points": [
         {
           "id": "ns:mgmt",

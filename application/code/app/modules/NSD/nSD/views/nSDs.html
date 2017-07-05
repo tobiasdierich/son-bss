@@ -43,7 +43,7 @@
                         <td>{{ nSD['nsd']['vendor'] }}</td>
                         <td>{{ nSD['nsd']['version'] }}</td>
                         <td>{{ nSD['uuid'] }}</td>
-                        <td>{{ nSD['nsd']['license_type'] }}<div ng-if="!nSD['nsd']['license_type']">public</div></td>
+                        <td>{{ nSD['nsd']['licenses'][0]['type'] }}<div ng-if="!nSD['nsd']['licenses'][0]['type']">public</div></td>
                         <td>
                             <button class="btn btn-primary btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details"
@@ -52,12 +52,12 @@
                             </button>
                             <button class="btn btn-success btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Instantiate"
-                            ng-click="openInstantiateNSD(nSD)" ng-show="((nSD['nsd']['license_type'] | uppercase) == 'PUBLIC') || !nSD['nsd']['license_type'].length > 0 || (nSD['userPermission'] | uppercase) != 'FALSE'">
+                            ng-click="openInstantiateNSD(nSD)" ng-show="((nSD['nsd']['licenses'][0]['type'] | uppercase) == 'PUBLIC') || !nSD['nsd']['licenses'][0]['type'].length > 0 || (nSD['userPermission'] | uppercase) != 'FALSE'">
                                 <i class="glyphicon glyphicon-play"></i>
                             </button>
                             <button class="btn btn-warning btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Get licence {{nSD['comment']}}"
-                            ng-click="showModalRequestingLicense(nSD['uuid'])" ng-show="((nSD['nsd']['license_type'] | uppercase) != 'PUBLIC') && nSD['nsd']['license_type'].length > 0 && (nSD['userPermission'] | uppercase) != 'TRUE'">
+                            ng-click="showModalRequestingLicense(nSD['uuid'])" ng-show="((nSD['nsd']['licenses'][0]['type'] | uppercase) != 'PUBLIC') && nSD['nsd']['licenses'][0]['type'].length > 0 && (nSD['userPermission'] | uppercase) != 'TRUE'">
                                 <i class="glyphicon glyphicon-alert"></i>
                             </button>
                         </td>
