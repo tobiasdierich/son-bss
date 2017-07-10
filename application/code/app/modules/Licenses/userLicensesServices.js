@@ -32,7 +32,7 @@ angular.module('Licenses')
             retrieveUserLicenses:function(ENV, offset){
 
                 var defer=$q.defer();
-                $http.get(ENV.apiEndpoint+"/licenses/user/"+$localStorage.currentUser.user_id+"?limit="+10+"&offset="+offset)      
+                $http.get(ENV.apiEndpoint+"/licences?limit="+10+"&offset="+offset)      
                     .then(function successCallback(response){                        
                         defer.resolve(response)
                     })

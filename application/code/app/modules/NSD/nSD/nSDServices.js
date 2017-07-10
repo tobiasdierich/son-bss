@@ -59,7 +59,7 @@
                 }
             }
 
-            var data={"service_uuid":id, "ingress": ingresses, "egress":egresses, "user_id": $localStorage.currentUser.user_id};
+            var data={"service_uuid":id, "ingress": ingresses, "egress":egresses};
             $http.post(ENV.apiEndpoint+"/requests",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
@@ -75,7 +75,7 @@
             } else {
                 var maxSafeInteger = Math.pow(2,16) - 1;            
                 //$http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")
-                $http.get(ENV.apiEndpoint+"/licenses/user/"+$localStorage.currentUser.user_id+"?limit="+maxSafeInteger+"&offset=0")
+                $http.get(ENV.apiEndpoint+"/licences?limit="+maxSafeInteger+"&offset=0")
                 .then(function successCallback(result){                
                     defer.resolve(result)})
                 .catch(function errorCallback(error){                
@@ -86,7 +86,7 @@
 
         requestLicense:function(ENV, id){                
             var defer=$q.defer();
-            var data={"service_uuid":id, "user_id":$localStorage.currentUser.user_id, "user_role":$localStorage.currentUser.user_role};
+            var data={"service_uuid":id, "user_role":$localStorage.currentUser.user_role};
             $http.post(ENV.apiEndpoint+"/licenses",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});

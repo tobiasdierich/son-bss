@@ -88,7 +88,7 @@ var fmock = function (req, res, next) {
 
 						if (params.username === authorizedUser.username && params.password === authorizedUser.password) {
 							//console.log("Authenticated and Authorizated usr");
-							body = '{"token": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}, "user_id": "123-456", "user_role": "customer"}';
+							body = '{"token": {"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo"}, "user_role": "customer"}';
 							res.writeHeader(200, {
 								"Content-Type": "application/json"
 							});						
@@ -225,7 +225,7 @@ var fmock = function (req, res, next) {
 							});
 						}
 						break;
-					case /^\/licenses/.test(path):
+					case /^\/licences/.test(path):
 						body += JSON.stringify(require('./examples/userLicenses.json'));
 						res.writeHeader(200, {
 							"Content-Type": "application/json",
