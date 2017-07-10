@@ -38,7 +38,7 @@ angular.module('Login')
             
                 var fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNvbmF0YSIsImFkbWluIjp0cnVlfQ.AdgPchW4kBolbrVPn8YlrNIOx8XqcHcO_bCR2gclGyo';
 
-                $localStorage.currentUser = { username: 'sonata', token: fakeToken , user_id:'1234', user_role:'customer'};
+                $localStorage.currentUser = { username: 'sonata', token: fakeToken , user_role:'customer'};
                 $http.defaults.headers.common.Authorization = 'Bearer ' + fakeToken;
                 defer.resolve(true);
             } else {
@@ -50,7 +50,7 @@ angular.module('Login')
                     if (response.data.token) {
                     
                         // store username and token in local storage to keep user logged in between page refreshes                    
-                        $localStorage.currentUser = { username: data.username, token: response.data.token.access_token, user_id: response.data.user_id, user_role: response.data.user_role };
+                        $localStorage.currentUser = { username: data.username, token: response.data.token.access_token, user_role: response.data.user_role };
                     
                         // add jwt token to auth header for all requests made by the $http service
                         //$http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
