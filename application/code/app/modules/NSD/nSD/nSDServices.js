@@ -59,7 +59,7 @@
                 }
             }
 
-            var data={"service_uuid":id, "ingress": ingresses, "egress":egresses};
+            var data={"service_uuid":id, "ingresses": ingresses, "egresses":egresses};
             $http.post(ENV.apiEndpoint+"/requests",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
