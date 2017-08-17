@@ -62,7 +62,8 @@
         
         stopNSR:function(nsrId,ENV){                
             var defer=$q.defer();
-            $http.patch(ENV.apiEndpoint+"/records/services/"+nsrId+"/stop")
+            var data={"request_type":"TERMINATE", "service_instance_uuid":nsrId};
+            $http.post(ENV.apiEndpoint+"/requests", data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
             
