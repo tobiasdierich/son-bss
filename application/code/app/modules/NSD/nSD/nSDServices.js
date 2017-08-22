@@ -67,23 +67,6 @@
             return defer.promise;
         },
 
-        getUserLicenses:function(ENV, username){
-            var defer=$q.defer();
-                           
-            if (ENV.licenseManagementEnabled == 'false') { 
-                defer.resolve(true);
-            } else {
-                var maxSafeInteger = Math.pow(2,16) - 1;            
-                //$http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")
-                $http.get(ENV.apiEndpoint+"/licences?limit="+maxSafeInteger+"&offset=0")
-                .then(function successCallback(result){                
-                    defer.resolve(result)})
-                .catch(function errorCallback(error){                
-                    defer.reject(error)});
-            }  
-            return defer.promise;
-        },
-
         requestLicense:function(ENV, id){                
             var defer=$q.defer();
             var data={"service_uuid":id, "user_role":$localStorage.currentUser.user_role};

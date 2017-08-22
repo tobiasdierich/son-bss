@@ -163,7 +163,7 @@ var fmock = function (req, res, next) {
 							//res.setHeader('Access-Control-Allow-Origin', '*');
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
-								"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
+								"Link": "<http://localhost:1338/mock/services?offset=0&limit=10>; rel=\"first\",<http://localhost:1338/mock/services?offset=0&limit=10>; rel=\"last\"",
 							});
 							//res.writeHead['content-type'] = 'application/json';
 						} else {
@@ -174,7 +174,7 @@ var fmock = function (req, res, next) {
 							//res.setHeader('Access-Control-Allow-Origin', '*');
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
-								"Link": "<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/services?limit=10&offset=0>; rel=\"last\"",
+								"Link": "<http://localhost:1338/mock/services?offset=0&limit=10>; rel=\"first\",<http://localhost:1338/mock/services?offset=0&limit=10>; rel=\"last\"",
 							});
 							//res.writeHead['content-type'] = 'application/json';
 						};
@@ -184,27 +184,27 @@ var fmock = function (req, res, next) {
 						    body += JSON.stringify(require('./examples/request2.json'));							
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
-								"Link": "<http://localhost:1338/mock/requests?limit=10&offset=2>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
+								"Link": "<http://localhost:1338/mock/requests?limit=10&offset=2>; rel=\"first\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 							});
 						} else {
 							if (path.indexOf('/requests?limit=10&offset=2') === 0) {
 								body += JSON.stringify(require('./examples/request3.json'));							
 								res.writeHeader(200, {
 									"Content-Type": "application/json",
-									"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
+									"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"first\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 								});
 							} else {
 								if (path.indexOf('/requests?limit=10&offset=3') === 0) {
 									body += JSON.stringify(require('./examples/request4.json'));							
 									res.writeHeader(200, {
 										"Content-Type": "application/json",
-										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
+										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"first\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 									});
 								} else {
 									body += JSON.stringify(require('./examples/request.json'));							
 									res.writeHeader(200, {
 										"Content-Type": "application/json",
-										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
+										"Link": "<http://localhost:1338/mock/requests?limit=10&offset=1>; rel=\"first\",<http://localhost:1338/mock/requests?limit=10&offset=3>; rel=\"last\""
 									});
 								}	
 							}
@@ -215,13 +215,13 @@ var fmock = function (req, res, next) {
 							body += JSON.stringify(require('./examples/NSR2.json'));							
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
-								"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
+								"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"first\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
 							});
 						} else {
 							body += JSON.stringify(require('./examples/NSR.json'));							
 							res.writeHeader(200, {
 								"Content-Type": "application/json",
-								"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"next\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
+								"Link": "<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"first\",<http://localhost:1338/mock/records/services?limit=10&offset=1>; rel=\"last\"",
 							});
 						}
 						break;
@@ -229,7 +229,7 @@ var fmock = function (req, res, next) {
 						body += JSON.stringify(require('./examples/userLicenses.json'));
 						res.writeHeader(200, {
 							"Content-Type": "application/json",
-							"Link": "<http://localhost:1338/mock/licenses/user/1234?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/licenses/user/1234?limit=10&offset=0>; rel=\"last\""
+							"Link": "<http://localhost:1338/mock/licenses/user/1234?limit=10&offset=0>; rel=\"first\",<http://localhost:1338/mock/licenses/user/1234?limit=10&offset=0>; rel=\"last\""
 						});							
 						break;
 					case /^\/vims/.test(path):
@@ -269,13 +269,13 @@ var fmock = function (req, res, next) {
 						}
 						res.writeHeader(200, {
 							"Content-Type": "application/json",
-							"Link": "<http://localhost:1338/mock/vims/1234?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\""
+							"Link": "<http://localhost:1338/mock/vims/1234?limit=10&offset=0>; rel=\"first\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\""
 						})
 						break;
 					default:
 						res.writeHeader(200, {
 							"Content-Type": "application/json",
-							"Link": "<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"next\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\"",
+							"Link": "<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"first\",<http://localhost:1338/mock/xxx?limit=10&offset=0>; rel=\"last\"",
 						});
 						break;
 				}

@@ -32,8 +32,8 @@
                     <tr ng-repeat="userLicense in userLicenses" ng-animate="''" ng-mouseover="showPopover(userLicense)" ng-mouseleave="hidePopover()">      
 
                         <td>{{ userLicense['service_name'] }}</td>
-                        <td>{{ userLicense['license_type'] }}</td>
-                        <td>{{ userLicense['license_use'] }}</td>
+                        <td style="text-transform: capitalize;">{{ userLicense['license_type'] }}</td>
+                        <td style="text-transform: capitalize;">{{ userLicense['license_use'] }}</td>
                         <td>
                             <button class="btn btn-primary btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details" ng-click="openDetailedUserLicense(userLicense)">

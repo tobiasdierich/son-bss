@@ -28,18 +28,7 @@
 
 angular.module('Licenses')
     .factory('LicensesServices',["$http","$q","$localStorage",function ($http,$q,$localStorage) {
-        return {
-            retrieveAllUserLicenses:function(ENV){
-
-                var defer=$q.defer();
-                var maxSafeInteger = Math.pow(2,16) - 1;  
-                $http.get(ENV.apiEndpoint+"/licences?limit="+maxSafeInteger+"&offset="+0)      
-                    .then(function successCallback(response){                        
-                        defer.resolve(response)
-                    })
-                    .catch(function errorCallback(error){defer.reject(error)});
-                return defer.promise;
-            },
+        return {            
             retrieveNSDs:function(ENV){
 
                 var defer=$q.defer();   
@@ -53,13 +42,15 @@ angular.module('Licenses')
                 return defer.promise;
             },
             requestLicense:function(ENV, service_id){                
-            var defer=$q.defer();
-            var data={"service_uuid":service_id, "user_role":$localStorage.currentUser.user_role};
-            $http.post(ENV.apiEndpoint+"/licences",data)
-            .then(function successCallback(result){defer.resolve(result)})
-            .catch(function errorCallback(error){defer.reject(error)});
+                var defer=$q.defer();
+                var data={"service_uuid":service_id, "user_role":$localStorage.currentUser.user_role};
+                $http.post(ENV.apiEndpoint+"/licences",data)
+                .then(function successCallback(result){
+                    defer.resolve(result)})
+                .catch(function errorCallback(error){
+                    defer.reject(error)});
             
-            return defer.promise;
-        }
+                return defer.promise;
+            }
         }
     }]);

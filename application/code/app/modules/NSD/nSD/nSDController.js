@@ -35,54 +35,19 @@
   $scope.ingresses = [{}];
   $scope.egresses = [{}];
 
-$scope.getUserLicenses = function(callback) {
-  //console.log("-------------- getUserLicenses");
-  NSDServices.getUserLicenses(ENV, $rootScope.username)
-  .then(function(result) {   
-   $rootScope.userLicenses = result.data;
-   callback(result.data);
- }, function(error) {
-  $scope.error = angular.copy(JSON.stringify(error.data.message));
-  $('#error.modal').modal('show');   
-})
-}
-
   // retrieve NSD to server
   $scope.retrieveNSDs = (function(offset) {    
 
-    $scope.getUserLicenses(function(){
-      //console.log("-------------- retrieveNSDs");
-      NSDServices.retrieveNSDs(ENV, offset)
+    //console.log("-------------- retrieveNSDs");
+    NSDServices.retrieveNSDs(ENV, offset)
       .then(function(result) {
 
        var nSDs = result.data;
-       var licenses = $rootScope.userLicenses;
-       /*var today = new Date();
-       var validityDate;*/     
+       var licenses = $rootScope.userLicenses;       
 
        if (JSON.stringify(nSDs) == "[{}]") {
          nSDs = [];
-       } else {
-         for (x in nSDs) {      
-          nSDs[x].userPermission="false";
-          nSDs[x].comment="";
-          for (y in licenses) {     
-            /*validityDate = new Date(licenses[y].valid_until);*/   
-            if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")/*&&(validityDate > today)*/) {
-              nSDs[x].userPermission="true";
-              nSDs[x].comment="";
-              break;
-            }else{
-              if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Package Creation")) {
-                nSDs[x].comment=". Instantiation License Required"; 
-              }
-              if ((licenses[y].service_id === nSDs[x].uuid)&&(licenses[y].license_use === "Instantiation")/*&&(validityDate <= today)*/) {
-                nSDs[x].comment=". Instantiation License Expired";
-              }
-            }
-          }
-        }
-      }
+       }
       $rootScope.nSDs = nSDs;
       //console.log("-- final nSDs: "+JSON.stringify(nSDs));    
 
@@ -101,12 +66,9 @@ $scope.getUserLicenses = function(callback) {
         $scope.error = angular.copy(JSON.stringify(error.data.message));
         $('#error.modal').modal('show');   
       })
-    })    
-  });
+    });    
 
-  //$scope.getUserLicenses();
-
-  $scope.retrieveNSDs($scope.offset, $scope.userLicenses);
+  $scope.retrieveNSDs($scope.offset);
 
   $scope.openAddNSD = function() {
    $scope.currentNSD = {};

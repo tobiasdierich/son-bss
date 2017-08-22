@@ -31,65 +31,28 @@ angular.module('Licenses')
 
         
         $scope.offset = 0;
-        $scope.pageSize = 10;
-        $scope.currentPage = 1;
+        $scope.limit = 10;
         $scope.user_name = $localStorage.currentUser.username;
 
-        $scope.retrieveLicenses = (function (page) {
+        $scope.retrieveNSDs = (function () {
             LicensesServices.retrieveNSDs(ENV)
             .then(function (result) {
                 var nSDs = result.data;
-                
-                LicensesServices.retrieveAllUserLicenses(ENV)
-                .then( function (result){
-                    var uslic = result.data;
+                $rootScope.nSDs = nSDs;
 
-                    $scope.licenses = [];
+                if ($localStorage.currentUser.user_role === "developer"){
+                    $rootScope.licence_use = "Package Creation";
+                } else {
+                    //customer
+                    $rootScope.licence_use = "Instantiation";
+                }
 
-                    //$scope.licenses generation
-
-                    for (x in nSDs) {
-                        if ($localStorage.currentUser.user_role === "customer") {
-                            //customer license
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Instantiation"}); 
-                        } else if ($localStorage.currentUser.user_role === "developer"){
-                            //developer license
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Package Creation"});
-                        } else {
-                            //both customer and developer licenses
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Instantiation"});
-                            $scope.licenses.push({"service_name":nSDs[x].nsd.name,"service_id":nSDs[x].uuid,"license_type":nSDs[x].nsd.licenses[0].type, "license_use":"Package Creation"});
-                        }
-                    }
-
-                    // already purchased field
-                    for (x in $scope.licenses) {
-                        $scope.licenses[x].already_purchased = "No"
-                        for (y in uslic){
-                            if ($scope.licenses[x].license_type.toUpperCase() === "PUBLIC") {
-                                $scope.licenses[x].already_purchased = "Not Needed"
-                            } else if (($scope.licenses[x].service_name === uslic[y].service_name)&&($scope.licenses[x].license_type.toUpperCase() === uslic[y].license_type.toUpperCase())
-                                        &&($scope.licenses[x].license_use.toUpperCase() === uslic[y].license_use.toUpperCase())) {
-                                $scope.licenses[x].already_purchased = "Yes"
-                            }
-                        }
-                    }
-
-                    //pagination
-                    $scope.totalRecords = $scope.licenses.length;
-                    $scope.pagedLicenses = [];
-                    var pos = (page-1)*$scope.pageSize;
-                    for (x=pos; x < Math.min((pos+$scope.pageSize),$scope.licenses.length); x++) {
-                        $scope.pagedLicenses.push($scope.licenses[x]);
-                    }
-
-                }, function (error) {
-                    if (JSON.stringify(error.data.code).indexOf('401') >= 0) {
-                        $scope.pagedLicenses = '';
-                    }
-                    $scope.error = angular.copy(JSON.stringify(error.data.message));
-                $   ('#error.modal').modal('show');
-                })
+                //pagination
+                var linkHeaderText = result.headers("Link");                    
+                var link = linkHeaderParser.parse(linkHeaderText);                    
+                $scope.totalPages = parseInt(link.last.offset)+1;
+                $scope.limit = parseInt(link.last.limit);
+                $scope.totalRecords = $scope.limit*$scope.totalPages;                
 
             }, function (error) {
                 if (JSON.stringify(error.data.code).indexOf('401') >= 0) {
@@ -128,8 +91,8 @@ angular.module('Licenses')
          }
 
 
-        $scope.clickPageButton = function (page) {
-            $scope.retrieveLicenses(page);
+        $scope.clickPageButton = function () {
+            $scope.retrieveNSDs();
         }
 
         $rootScope.$on("reloadLicenses", function(){
@@ -138,9 +101,9 @@ angular.module('Licenses')
 
         $scope.reload = function () {
             $scope.currentPage = 1;
-            $scope.retrieveLicenses(1);
+            $scope.retrieveNSDs();
         }
 
-        $scope.retrieveLicenses(1);
+        $scope.retrieveNSDs();
     }
 ]);
