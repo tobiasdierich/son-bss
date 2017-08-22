@@ -42,7 +42,7 @@ describe('SonataBSS Licence Store', function() {
 
     it('licences list', function() {
         element(by.xpath("//*[contains(text(),'Service Licences')]")).click()
-        var count = element.all(by.repeater('license in pagedLicenses')).count();
+        var count = element.all(by.repeater('nSD in nSDs')).count();
         expect(count).toBeGreaterThan(0);
     });
   
@@ -51,7 +51,7 @@ describe('SonataBSS Licence Store', function() {
 	
         var EC = protractor.ExpectedConditions;
 
-        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(license[\'service_id\'])"]')).get(1).click();
+        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(nSD[\'uuid\'])"]')).get(1).click();
         browser.wait(EC.visibilityOf(modal), 5000);        
         
         modal = element(by.id('getLicense'));

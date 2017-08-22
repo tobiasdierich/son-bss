@@ -140,7 +140,8 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fa"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fa",
+    "user_licence": "public"
   },
   {
     "created_at": "2017-04-19T11:04:06.136+00:00",
@@ -284,7 +285,8 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fb"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fb",
+    "user_licence":"to buy"
   },
   {
     "created_at": "2017-04-19T11:04:06.136+00:00",
@@ -428,7 +430,8 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fc"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fc",
+    "user_licence": "licenced"
   },
   {
     "created_at": "2017-04-19T11:04:06.136+00:00",
@@ -572,7 +575,8 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fd"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fd",
+    "user_licence":"to buy"
   },
   {
     "created_at": "2017-04-19T11:04:06.136+00:00",
@@ -716,7 +720,8 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fe"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fe",
+    "user_licence":"to buy"
   },
   {
     "created_at": "2017-04-19T11:04:06.136+00:00",
@@ -860,7 +865,8 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1ff"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1ff",
+    "user_licence": "to buy"
   },
   {
     "created_at": "2017-04-19T11:04:06.136+00:00",
@@ -1004,6 +1010,7 @@
     "status": "active",
     "updated_at": "2017-04-19T11:04:06.136+00:00",
     "username": null,
-    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fg"
+    "uuid": "8c58b169-7c38-4bcd-9421-a91bd786f1fg",
+    "user_licence": "owned"
   }
 ]

@@ -35,7 +35,7 @@
                 <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">                                
                     <tr ng-repeat="nSR in nSRs | searchObject:nSRsSearch" ng-animate="''" ng-mouseover="showPopover(nSD)" ng-mouseleave="hidePopover()">      		
                         <td>{{ nSR['uuid'] }}</td>
-                        <td>{{ nSR['status'] }}</td>                    		    
+                        <td style="text-transform: capitalize;">{{ nSR['status'] }}</td>                    		    
                         <td>{{ nSR['descriptor_reference'] }}</td>                                        					                    
                         <td>{{ getNSRDescriptorVersion(nSR['descriptor_reference'], nSDsMap) }}</td>
                         <td>{{ getActualNSDVersion(nSR, nSDsMap, activeNSDsMap )}}</td>
