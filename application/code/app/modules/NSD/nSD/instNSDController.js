@@ -57,9 +57,17 @@ angular.module('NSD')
   $scope.getLocations = function() {
     NSDServices.getVimRequests(ENV)
     .then(function(result) {         
-      var vimRequests = result.data;      
+      var response = result.data;      
+      var vimRequests = JSON.stringify(response["items"]);      
+
+      if (vimRequests.startsWith("[")){
+        vimRequests = JSON.parse(vimRequests);
+      } else  {
+        vimRequests = JSON.parse("["+vimRequests+"]");
+      }
+
       for (var i in vimRequests) { 
-        NSDServices.getVims(ENV, vimRequests[i]["items"]["request_uuid"])
+        NSDServices.getVims(ENV, vimRequests[i]["request_uuid"])
         .then(function(res){
           vim = res.data;
           if ($scope.locations.indexOf(vim["vim_city"]) === -1) {
