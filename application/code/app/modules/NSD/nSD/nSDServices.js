@@ -100,6 +100,7 @@
                 if (JSON.stringify(result) == "[]") {
                     if (counter < 10) {
                         getVims(ENV, vimRequest);
+                        counter++;
                     }
                 } else {
                     defer.resolve(result);
