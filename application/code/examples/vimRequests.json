@@ -1,1 +1,12 @@
-{"status":201,"count":10,"items":{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a61"},"message":"OK"}
+{"status":201,"count":10,"items":[
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a61"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a62"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a63"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a64"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a65"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a66"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a67"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a68"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a69"},
+	{"request_uuid":"e3de42b8-3d62-42c8-a5b6-a92089ed4a60"}
+],"message":"OK"}
