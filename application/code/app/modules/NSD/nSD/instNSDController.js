@@ -55,6 +55,12 @@ angular.module('NSD')
   };
 
   $scope.getLocations = function() {
+
+    var counter = 0;
+    var maxRetries = 10;
+    var vim = "[]";
+    var error ="";
+
     NSDServices.getVimRequests(ENV)
     .then(function(result) {         
       var response = result.data;      
@@ -66,19 +72,24 @@ angular.module('NSD')
         vimRequests = JSON.parse("["+vimRequests+"]");
       }
 
-      for (var i in vimRequests) { 
-        NSDServices.getVims(ENV, vimRequests[i]["request_uuid"])
-        .then(function(res){
-          vim = res.data;
-          if ($scope.locations.indexOf(vim["vim_city"]) === -1) {
-            $scope.locations.push(vim["vim_city"]);
-          }
-          callback(res.data);
-        }, function(err) {
-          $scope.error = angular.copy(JSON.stringify(err.data.message));
-          $('#error.modal').modal('show');   
-        })        
+      for (var i in vimRequests) {   
+        while ((counter < maxRetries) && (vim == "[]") && (error == "")) {
+          NSDServices.getVims(ENV, vimRequests[i]["request_uuid"])
+          .then(function(res){          
+            vim = res.data;
+          
+            if ($scope.locations.indexOf(vim["vim_city"]) === -1) {
+              $scope.locations.push(vim["vim_city"]);
+            }
+          }, function(err){
+            error = err;
+            $scope.error = angular.copy(JSON.stringify(err.data.message));
+              $('#error.modal').modal('show');   
+          })
+          counter++;
+        }
       }
+
       callback($scope.locations);
     }, function(error) {
       $scope.error = angular.copy(JSON.stringify(error.data.message));

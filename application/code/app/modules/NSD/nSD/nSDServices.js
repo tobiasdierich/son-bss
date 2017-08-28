@@ -90,23 +90,17 @@
         },
 
         getVims:function(ENV, vimRequest){
+            
             var defer=$q.defer();
             var data;
-            var counter = 0;
+
             $http.get(ENV.apiEndpoint+"/vims/"+vimRequest)
-            .then(function successCallback(result){
-                //console.log("getVims result: "+JSON.stringify(result));
-                
-                if (JSON.stringify(result) == "[]") {
-                    if (counter < 10) {
-                        getVims(ENV, vimRequest);
-                        counter++;
-                    }
-                } else {
-                    defer.resolve(result);
-                }                
+            .then(function successCallback(result){                
+                defer.resolve(result);
             })
-            .catch(function errorCallback(error){defer.reject(error)});
+            .catch(function errorCallback(error){
+                defer.reject(error)
+            });
 
             return defer.promise;
         }
