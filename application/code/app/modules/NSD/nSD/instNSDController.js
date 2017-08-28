@@ -74,18 +74,20 @@ angular.module('NSD')
 
       for (var i in vimRequests) {   
         while ((counter < maxRetries) && (vim == "[]") && (error == "")) {
-          NSDServices.getVims(ENV, vimRequests[i]["request_uuid"])
-          .then(function(res){          
-            vim = res.data;
+          setTimeout(function(){
+            NSDServices.getVims(ENV, vimRequests[i]["request_uuid"])
+            .then(function(res){          
+              vim = res.data;
           
-            if ($scope.locations.indexOf(vim["vim_city"]) === -1) {
-              $scope.locations.push(vim["vim_city"]);
-            }
-          }, function(err){
-            error = err;
-            $scope.error = angular.copy(JSON.stringify(err.data.message));
-              $('#error.modal').modal('show');   
-          })
+              if ($scope.locations.indexOf(vim["vim_city"]) === -1) {
+                $scope.locations.push(vim["vim_city"]);
+              }
+            }, function(err){
+              error = err;
+              $scope.error = angular.copy(JSON.stringify(err.data.message));
+                $('#error.modal').modal('show');   
+            })
+          }, 1000);
           counter++;
         }
       }
