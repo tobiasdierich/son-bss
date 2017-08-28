@@ -52,8 +52,8 @@
     </div>
     <div paging
         class="small"
-        page="currentPage" 
-        page-size="pageSize" 
+        page="1" 
+        page-size="limit" 
         total="totalRecords"
         show-prev-next="true"
         show-first-last="true"
@@ -62,7 +62,7 @@
         text-first-class="glyphicon glyphicon-backward"
         text-last-class="glyphicon glyphicon-forward"
         paging-action="clickPageButton(page)"
-        ng-if="pagedLicenses.length">
+        ng-if="nSDs.length">
     </div> 
 
     <ng-include src="'modules/Licenses/views/detailedLicense.html'"></ng-include>

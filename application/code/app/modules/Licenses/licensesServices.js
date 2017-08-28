@@ -29,12 +29,12 @@
 angular.module('Licenses')
     .factory('LicensesServices',["$http","$q","$localStorage",function ($http,$q,$localStorage) {
         return {            
-            retrieveNSDs:function(ENV){
+            retrieveNSDs:function(ENV,offset){
 
                 var defer=$q.defer();   
                 var maxSafeInteger = Math.pow(2,16) - 1;            
                 //$http.get(ENV.apiEndpoint+"/licenses?username="+username+"&limit="+maxSafeInteger+"&offset=0")            
-                $http.get(ENV.apiEndpoint+"/services?status=active&limit="+maxSafeInteger+"&offset="+0)
+                $http.get(ENV.apiEndpoint+"/services?status=active&limit="+maxSafeInteger+"&offset="+offset)
                 .then(function successCallback(result){
                     defer.resolve(result)})
                 .catch(function errorCallback(error){

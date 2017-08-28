@@ -33,18 +33,22 @@ angular.module('Licenses')
         $scope.offset = 0;
         $scope.limit = 10;
         $scope.user_name = $localStorage.currentUser.username;
+        $scope.nSDs = {};
 
-        $scope.retrieveNSDs = (function () {
-            LicensesServices.retrieveNSDs(ENV)
-            .then(function (result) {
-                var nSDs = result.data;
-                $rootScope.nSDs = nSDs;
+        $scope.retrieveNSDs = (function (offset) {
+            LicensesServices.retrieveNSDs(ENV, offset)
+            .then(function (result) {                
+                $scope.nSDs = result.data;
 
                 if ($localStorage.currentUser.user_role === "developer"){
                     $rootScope.licence_use = "Package Creation";
                 } else {
                     //customer
                     $rootScope.licence_use = "Instantiation";
+                }
+
+                if (JSON.stringify($scope.nSDs) == "[{}]"){
+                    $scope.nSDs = [];
                 }
 
                 //pagination
@@ -56,7 +60,7 @@ angular.module('Licenses')
 
             }, function (error) {
                 if (JSON.stringify(error.data.code).indexOf('401') >= 0) {
-                    $scope.licenses = '';
+                    $scope.nSDs = '';
                 }
                 $scope.error = angular.copy(JSON.stringify(error.data.message));
                 $('#error.modal').modal('show');
@@ -91,19 +95,19 @@ angular.module('Licenses')
          }
 
 
-        $scope.clickPageButton = function () {
-            $scope.retrieveNSDs();
+        $scope.clickPageButton = function (page) {
+            var userOffset = page - 1;
+            $scope.retrieveNSDs(userOffset);
         }
 
         $rootScope.$on("reloadLicenses", function(){
             $scope.reload();
         });
 
-        $scope.reload = function () {
-            $scope.currentPage = 1;
-            $scope.retrieveNSDs();
+        $scope.reload = function () {            
+            $scope.retrieveNSDs(0);
         }
 
-        $scope.retrieveNSDs();
+        $scope.retrieveNSDs(0);
     }
 ]);
