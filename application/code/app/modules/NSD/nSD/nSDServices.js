@@ -69,7 +69,7 @@
 
         requestLicense:function(ENV, id){                
             var defer=$q.defer();
-            var data={"service_uuid":id, "user_role":$localStorage.currentUser.user_role};
+            var data={"service_uuid":id};
             $http.post(ENV.apiEndpoint+"/licences",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
