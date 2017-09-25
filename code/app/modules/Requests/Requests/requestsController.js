@@ -27,8 +27,9 @@
  */
 
 angular.module('Requests')
-    .controller('RequestsCtrl', ["$scope", "$rootScope", "RequestsServices", "ENV", "linkHeaderParser", function ($scope, $rootScope, RequestsServices, ENV, linkHeaderParser) {
+    .controller('RequestsCtrl', ["$scope", "$rootScope", "RequestsServices", "ENV", "linkHeaderParser", "$localStorage", function ($scope, $rootScope, RequestsServices, ENV, linkHeaderParser, $localStorage) {
 
+        $rootScope.username=$localStorage.currentUser.username;
         $scope.currentRequests = {};
         $scope.offset = 0;
         $scope.limit = 10;

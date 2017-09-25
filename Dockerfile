@@ -5,26 +5,31 @@ MAINTAINER Optare [fporto,srodriguez,jcunha]@optaresolutions.com
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -yq update && \
-    apt-get -yq install vim git net-tools sudo bzip2 bash expect
-RUN apt-get -yq install openjdk-7-jdk
-	
-RUN npm install -g --silent yo@1.7.0 bower@1.7.6 grunt@1.0.1 grunt-ng-constant@2.0.1
+    apt-get -yq install bash sudo git bzip2 jvm-7-avian-jre 
+    #openjdk-7-jdk
 
-# Add a yeoman user because grunt doesn't like being root
-RUN adduser --disabled-password --gecos "" yeoman && \
-  echo "yeoman ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Install Bower & Grunt
+RUN npm install -g --silent bower@1.7.6 grunt@1.0.1 grunt-ng-constant@2.0.1
 
-# Expose the port
-EXPOSE 9000
+# Add a sonata user because grunt doesn't like being root
+RUN adduser --disabled-password --gecos "" sonata && \
+  echo "sonata ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# set HOME so 'npm install' and 'bower install' don't write to /
-ENV HOME /home/yeoman
+# Include the code
+RUN mkdir -p /usr/local/bss/code
+ADD code /usr/local/bss/code
 
-ENV LANG en_US.UTF-8
+RUN chown sonata:sonata -R /usr/local/bss
 
-RUN mkdir /usr/local/yeoman && chown yeoman:yeoman /usr/local/yeoman
-WORKDIR /usr/local/yeoman
+WORKDIR /usr/local/bss/code
 
-ADD set_env.sh /usr/local/sbin/
-RUN chmod +x /usr/local/sbin/set_env.sh
+USER sonata
+
+# bower install && npm install
+RUN bower install && sudo npm install
+RUN sudo node ./node_modules/protractor/bin/webdriver-manager update
+
+# Your app should be listening in this port
+EXPOSE 1337 1339
+
 CMD ["bash"]

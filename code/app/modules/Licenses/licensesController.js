@@ -29,7 +29,7 @@
 angular.module('Licenses')
     .controller('LicensesCtrl', ["$scope", "$rootScope", "$localStorage", "LicensesServices", "ENV", "linkHeaderParser", function ($scope, $rootScope, $localStorage, LicensesServices, ENV, linkHeaderParser) {
 
-        
+        $rootScope.username=$localStorage.currentUser.username;
         $scope.offset = 0;
         $scope.limit = 10;
         $scope.user_name = $localStorage.currentUser.username;
@@ -69,7 +69,7 @@ angular.module('Licenses')
 
         $scope.openDetailedLicense = function (data) {
             $scope.currentLicense = angular.copy(data);
-            console.log($scope.currentLicense);
+            //console.log($scope.currentLicense);
             $('#detailedLicense.modal').modal('show');
             $($(".key.ng-binding.ng-scope")[0]).text("License#" + $scope.currentLicense.service_name);
         }

@@ -9,9 +9,7 @@ To contribute to the development of the SONATA BSS, you may use the very same de
 ### Building
 
 Build Docker container image
-* docker build -t son-yo-base .
-* docker build -t son-yo-gen generator/
-* docker build --no-cache -t son-yo-gen-bss application/ 
+* docker build --no-cache -t son-yo-gen-bss . 
 
 ### Dependencies
 
@@ -336,7 +334,6 @@ The SONATA BSS is published under Apache 2.0 license. Please see the LICENSE fil
 * [AngularJS] (https://www.angularjs.org/) - JavaScript Framework for Web apps
 * [Bower] (http://bower.io/) - Package manager for the web
 * [npm] (https://www.npmjs.com/) -  Package manager for JavaScript
-* [yeoman] (http://yeoman.io/) - Web Scaffolding Tool
 * [node.js] (https://nodejs.org/en/) - JavaScript Runtime 
 
 ---
