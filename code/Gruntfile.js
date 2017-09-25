@@ -137,7 +137,7 @@ var fmock = function (req, res, next) {
 						body = '{"code": "401", "message":"Not Authorized User"}';
 						res.writeHeader(401);
 					} else {
-						body += '{"status":201,"count":1,"items":{"id":"1c58b169-7c38-4bcd-9421-a91bd786f100","created_at":"2017-03-24T09:41:27.408Z","updated_at":"2017-03-24T09:41:27.408Z","service_uuid":"456fd81b-2fd2-4dc6-b7d6-cbd84c43abb5","status":"NEW","request_type":"CREATE","service_instance_uuid":null},"message":"OK"}';
+						body += '{"status":201,"count":1,"items":{"id":"1c58b169-7c38-4bcd-9421-a91bd786f100","created_at":"2017-03-24T09:41:27.408Z","updated_at":"2017-03-24T09:41:27.408Z","service_uuid":"456fd81b-2fd2-4dc6-b7d6-cbd84c43abb5","status":"NEW","request_type":"CREATE","service_instance_uuid":"8c58b169-7c38-4bcd-9421-a91bd786f1fa"},"message":"OK"}';
 						res.writeHeader(200, {
 							"Content-Type": "application/json"
 						});

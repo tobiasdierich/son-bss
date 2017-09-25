@@ -27,7 +27,9 @@
  */
 
  angular.module('NSR')
- .controller('NSRCtrl', ["$scope", "$rootScope", "NSRServices", "NSDServices", "ENV", "linkHeaderParser", function($scope, $rootScope, NSRServices, NSDServices, ENV, linkHeaderParser) {
+ .controller('NSRCtrl', ["$scope", "$rootScope", "NSRServices", "NSDServices", "ENV", "linkHeaderParser", "$localStorage", function($scope, $rootScope, NSRServices, NSDServices, ENV, linkHeaderParser, $localStorage) {
+
+  $rootScope.username=$localStorage.currentUser.username;
 
   $scope.offset = 0;
   $scope.limit = 10;

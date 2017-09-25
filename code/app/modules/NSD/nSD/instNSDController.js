@@ -27,9 +27,9 @@
  */
 
 angular.module('NSD')
- .controller('InstNSDCtrl', ["$scope", "NSDServices", "ENV", function($scope, NSDServices, ENV) {
+ .controller('InstNSDCtrl', ["$scope", "NSDServices", "ENV", "$localStorage", "$rootScope", function($scope, NSDServices, ENV, $localStorage, $rootScope) {
 
-  
+  $rootScope.username=$localStorage.currentUser.username;
   $scope.locations = [];  
 
   $scope.addNewIngress = function() {    

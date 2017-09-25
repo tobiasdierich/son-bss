@@ -27,9 +27,9 @@
  */
 
 angular.module('Licenses')
-    .controller('LicensesTabsCtrl', ["$scope", "$rootScope", function ($scope, $rootScope) {
+    .controller('LicensesTabsCtrl', ["$scope", "$rootScope", "$localStorage", function ($scope, $rootScope, $localStorage) {
 
-        
+        $rootScope.username=$localStorage.currentUser.username;
         $scope.index = 0; 
 
         /***************************************  TABS **********************************************/

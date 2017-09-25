@@ -24,7 +24,7 @@
         <ul class="navbar-header pull-right" ng-hide="username.length == 0">                                                
             <li ng-class="{'active':currentState.name=='Logout'}">                                           
                 <a href="#/logout" class="btn btn-danger btn-block">                    
-                    <strong>{{username}}</strong>                    
+                    <strong ng-hide="username.length == 0">{{username}}</strong>                    
                     <span class="glyphicon glyphicon-user"></span>                                                                  
                     <strong> | Logout</strong> 
                 </a>                    

@@ -29,7 +29,7 @@
 angular.module('Licenses')
     .controller('UserLicensesCtrl', ["$scope", "$rootScope", "$localStorage", "UserLicensesServices", "ENV", "linkHeaderParser", function ($scope, $rootScope, $localStorage, UserLicensesServices, ENV, linkHeaderParser) {
 
-        
+        $rootScope.username=$localStorage.currentUser.username;
         $scope.userLicenses = {};
         $scope.userLicOffset = 0;
         $scope.userLicLimit = 10;

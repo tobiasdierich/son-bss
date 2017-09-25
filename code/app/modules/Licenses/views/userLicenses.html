@@ -24,7 +24,7 @@
                 <tr role="row">                    
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Name</th>
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Licence Type</th>
-                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Licence Use</th>                                   
+                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Id</th>                                   
                     <th role="columnheader" class="actionTH">Actions</th>
                 </tr>
             </thead>
@@ -33,7 +33,7 @@
 
                         <td>{{ userLicense['service_name'] }}</td>
                         <td style="text-transform: capitalize;">{{ userLicense['license_type'] }}</td>
-                        <td style="text-transform: capitalize;">{{ userLicense['license_use'] }}</td>
+                        <td>{{ userLicense['service_uuid'] }}</td>
                         <td>
                             <button class="btn btn-primary btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Show details" ng-click="openDetailedUserLicense(userLicense)">

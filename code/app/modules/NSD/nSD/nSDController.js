@@ -27,7 +27,9 @@
  */
 
  angular.module('NSD')
- .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices", "ENV", "linkHeaderParser", function($scope, $rootScope, NSDServices, ENV, linkHeaderParser) {
+ .controller('NSDCtrl', ["$scope", "$rootScope", "NSDServices", "ENV", "linkHeaderParser", "$localStorage", function($scope, $rootScope, NSDServices, ENV, linkHeaderParser, $localStorage) {
+
+  $rootScope.username=$localStorage.currentUser.username;
 
   $scope.currentNSD = {};
   $scope.offset = 0;
