@@ -31,7 +31,7 @@
             <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">                                    
                     <tr ng-repeat="nSD in nSDs" ng-animate="''" ng-mouseover="showPopover(nSD)" ng-mouseleave="hidePopover()">
                         <td>{{ nSD['nsd']['name'] }}</td>
-                        <td style="text-transform: capitalize;">{{ nSD['nsd']['licenses'][0]['type'] }}<div ng-if="!nSD['nsd']['licenses'][0]['type']">Public</div></td>
+                        <td style="text-transform: capitalize;">{{ nSD['nsd']['licences'][0]['type'] }}<div ng-if="!nSD['nsd']['licences'][0]['type']">Public</div></td>
                         <td>{{ licence_use }}</td>
                         <td style="text-transform: capitalize;">{{ nSD['user_licence'] }}</td>
                         <td>
