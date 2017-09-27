@@ -41,7 +41,7 @@
                             </button>
                             <button class="btn btn-warning btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Request Licence"
-                            ng-click="showModalRequestingLicense(nSD['uuid'])" ng-show="((nSD['user_licence'] | uppercase) == 'TO BUY')">
+                            ng-click="showModalRequestingLicense(nSD['uuid'], nSD['nsd']['licences'][0]['url'])" ng-show="((nSD['user_licence'] | uppercase) == 'TO BUY')">
                                 <i class="glyphicon glyphicon-shopping-cart"></i>
                             </button>
                         </td>

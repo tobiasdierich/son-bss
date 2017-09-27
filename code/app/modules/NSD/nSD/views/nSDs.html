@@ -57,7 +57,7 @@
                             </button>
                             <button class="btn btn-warning btn-xs" tooltip-init
                             data-toggle="tooltip" data-placement="top" title="Request for instantiation licence"
-                            ng-click="showModalRequestingLicense(nSD['uuid'])" ng-show="((nSD['user_licence'] | uppercase) == 'TO BUY') && nSD['user_licence'].length > 0">
+                            ng-click="showModalRequestingLicense(nSD['uuid'], nSD['nsd']['licences'][0]['url'])" ng-show="((nSD['user_licence'] | uppercase) == 'TO BUY') && nSD['user_licence'].length > 0">
                                 <i class="glyphicon glyphicon-alert"></i>
                             </button>
                         </td>

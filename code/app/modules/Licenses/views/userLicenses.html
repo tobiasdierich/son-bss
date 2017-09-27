@@ -22,7 +22,7 @@
             <table class="table table-striped table-hover table-bordered dataTable" ng-if="userLicenses.length">
             <thead>
                 <tr role="row">                    
-                    <th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Name</th>
+                    <!--th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Name</th-->
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Licence Type</th>
                     <th role="columnheader" ng-click="sort='id';reverse=!reverse">Related Service Id</th>                                   
                     <th role="columnheader" class="actionTH">Actions</th>
@@ -31,7 +31,7 @@
             <tbody role="alert" aria-live="polite" aria-relevant="all" right-menu id="rightContextMenu">                                    
                     <tr ng-repeat="userLicense in userLicenses" ng-animate="''" ng-mouseover="showPopover(userLicense)" ng-mouseleave="hidePopover()">      
 
-                        <td>{{ userLicense['service_name'] }}</td>
+                        <!--td>{{ userLicense['service_name'] }}</td-->
                         <td style="text-transform: capitalize;">{{ userLicense['license_type'] }}</td>
                         <td>{{ userLicense['service_uuid'] }}</td>
                         <td>

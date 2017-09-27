@@ -138,15 +138,17 @@
    $scope.retrieveNSDs(offset);
  }
 
- $scope.showModalRequestingLicense = function(data) {
-   $scope.service_id = angular.copy(data);
+ $scope.showModalRequestingLicense = function(service_id, licence_url) {
+   $scope.service_id = angular.copy(service_id);
+   $scope.licence_url = angular.copy(licence_url);
+   console.log("service_id: "+$scope.service_id+" and licence_url: "+$scope.licence_url);
    $('#getLicense.modal').modal('show');
  }
 
 
- $scope.requestLicense = function(service_id) {
+ $scope.requestLicense = function(service_id, licence_url) {
    //console.log("$scope.currentNSD.uuid: "+$scope.currentNSD.uuid);
-   NSDServices.requestLicense(ENV, service_id)
+   NSDServices.requestLicense(ENV, service_id, licence_url)
    .then(function(result) {
      $('#getLicense.modal').modal('hide');   
      $scope.licenseRequest = result.data;
