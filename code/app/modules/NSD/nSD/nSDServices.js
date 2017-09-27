@@ -67,9 +67,9 @@
             return defer.promise;
         },
 
-        requestLicense:function(ENV, id){                
+        requestLicense:function(ENV, id, licence_url){                
             var defer=$q.defer();
-            var data={"service_uuid":id};
+            var data={"service_uuid":id, "licence_type": "PRIVATE", "licence_url":licence_url};
             $http.post(ENV.apiEndpoint+"/licences",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});

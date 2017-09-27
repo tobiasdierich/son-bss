@@ -41,9 +41,9 @@ angular.module('Licenses')
                     defer.reject(error)});
                 return defer.promise;
             },
-            requestLicense:function(ENV, service_id){                
+            requestLicense:function(ENV, service_id, licence_url){                
                 var defer=$q.defer();
-                var data={"service_uuid":service_id, "licence_type": "PRIVATE"};
+                var data={"service_uuid":service_id, "licence_type": "PRIVATE", "licence_url":licence_url};
                 $http.post(ENV.apiEndpoint+"/licences",data)
                 .then(function successCallback(result){
                     defer.resolve(result)})
