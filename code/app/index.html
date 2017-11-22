@@ -38,6 +38,9 @@
                 <li ng-class="{'active':currentState.name=='NSD'}" >
                     <a href="#/nSDs">Available Network Services</a>
                 </li>
+                <li ng-class="{'active':currentState.name=='COSD'}" >
+                    <a href="#/cOSDs">Available Complex Services</a>
+                </li>
 				<li ng-class="{'active':currentState.name=='Requests'}" >
                     <a href="#/requests">Requests</a>
                 </li>
@@ -77,6 +80,10 @@
 <script src="modules/common/directives.js"></script>
 <script src="modules/common/filters.js"></script>
 <script src="modules/common/startUpController.js"></script>
+
+<script src="modules/COSD/cOSD/cOSDController.js"></script>
+<script src="modules/COSD/cOSD/instCOSDController.js"></script>
+<script src="modules/COSD/cOSD/cOSDServices.js"></script>
 
 <script src="modules/NSD/nSD/nSDController.js"></script>
 <script src="modules/NSD/nSD/instNSDController.js"></script>

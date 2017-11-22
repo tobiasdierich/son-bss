@@ -26,6 +26,7 @@
  * partner consortium (www.sonata-nfv.eu).* dirPagination - AngularJS module for paginating (almost) anything.
  */
 
+angular.module("COSD",["config"]);
     
 angular.module("NSD",["config"]);
     
@@ -45,13 +46,15 @@ angular.module("SonataBSS", ["angular-json-tree", "ui.router", "formly", "formly
 
     ,"ngStorage", "bw.paging", "base64", "ui.bootstrap"
 
+    ,"COSD"
+
     ,"NSD"
 
     ,"Requests"
 	
-	,"NSR"
+	  ,"NSR"
 	
-	,"Login"
+	  ,"Login"
 
     ,"Register"
 
@@ -63,6 +66,11 @@ angular.module("SonataBSS", ["angular-json-tree", "ui.router", "formly", "formly
     .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$qProvider", function ($stateProvider, $urlRouterProvider, $locationProvider, $qProvider) {
         
         $stateProvider
+            .state("COSD",{
+              url: "/cOSDs",
+              templateUrl: "modules/COSD/cOSD/views/cOSDs.html",
+              controller: "COSDCtrl"
+            })
             .state("NSD",{
                 url: "/nSDs",
                 templateUrl: "modules/NSD/nSD/views/nSDs.html",

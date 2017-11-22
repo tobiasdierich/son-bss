@@ -41,3 +41,5 @@ code/node_modules/
 code/app/vendor/
 
 code/E2E_tests/reports/
+
+.idea/

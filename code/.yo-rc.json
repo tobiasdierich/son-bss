@@ -9,6 +9,13 @@
         "relativePath": "modules/NSD"
       },
       {
+        "moduleName": "COSD",
+        "moduleVariable": "cOSDs",
+        "module": "cOSD",
+        "dir": "app/modules/COSD",
+        "relativePath": "modules/COSD"
+      },
+      {
         "moduleName": "VNFD",
         "moduleVariable": "vNFDs",
         "module": "vNFD",
