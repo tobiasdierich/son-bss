@@ -66,7 +66,7 @@ angular.module('Licenses')
         $scope.openDetailedUserLicense = function (data) {
             $scope.currentUserLicense = angular.copy(data);
             $('#detailedUserLicense.modal').modal('show');
-            $($(".key.ng-binding.ng-scope")[0]).text("License#" + $scope.currentUserLicense.license_id);
+            $($(".key.ng-binding.ng-scope")[0]).text("");//.text("License#" + $scope.currentUserLicense.license_id);
         }
 
         $scope.clickUserLicPageButton = function (page) {
