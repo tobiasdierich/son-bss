@@ -91,9 +91,7 @@
  $scope.openUpdateNSD = function(data) {
    $scope.currentNSD = angular.copy(data);
    $('#updateNSD.modal').modal('show');
-   $($(".key.ng-binding.ng-scope")[0]).text("NSD#" + $scope.currentNSD.uuid);
-
-   //$(".key.ng-binding.ng-scope").text("NSD")
+   $($(".key.ng-binding.ng-scope")[0]).text("");  //.text("NSD#" + $scope.currentNSD.uuid);  
  }
 
  $scope.openInstantiateNSD = function(data) {

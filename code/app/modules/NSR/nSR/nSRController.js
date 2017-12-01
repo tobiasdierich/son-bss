@@ -113,7 +113,7 @@
   $scope.openDetailedNSR = function(data) {
    $scope.currentNSR = angular.copy(data);
    $('#detailedNSR.modal').modal('show');
-   $($(".key.ng-binding.ng-scope")[0]).text("NSR#" + $scope.currentNSR.uuid);   
+   $($(".key.ng-binding.ng-scope")[0]).text("");//.text("NSR#" + $scope.currentNSR.uuid);      
  }
 
  $scope.openUpdateNSR = function(data) {

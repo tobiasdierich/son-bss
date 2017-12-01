@@ -65,7 +65,7 @@ angular.module('Requests')
         $scope.openDetailedRequest = function (data) {
             $scope.currentRequest = angular.copy(data);
             $('#detailedRequest.modal').modal('show');
-            $($(".key.ng-binding.ng-scope")[0]).text("Request#" + $scope.currentRequest.id);
+            $($(".key.ng-binding.ng-scope")[0]).text("");//.text("Request#" + $scope.currentRequest.id);
         }
 
         //update data to server

@@ -71,7 +71,7 @@ angular.module('Licenses')
             $scope.currentLicense = angular.copy(data);
             //console.log($scope.currentLicense);
             $('#detailedLicense.modal').modal('show');
-            $($(".key.ng-binding.ng-scope")[0]).text("License#" + $scope.currentLicense.service_name);
+            $($(".key.ng-binding.ng-scope")[0]).text("");
         }
 
 

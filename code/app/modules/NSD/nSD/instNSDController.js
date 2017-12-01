@@ -59,44 +59,49 @@ angular.module('NSD')
     NSDServices.getVimRequests(ENV)
     .then(function(result) {         
       var response = result.data;      
-      var vimRequests = JSON.stringify(response["items"]);
-      var vim;      
+      var vimRequest = JSON.stringify(response["items"]);
+      var vims;      
 
-      if (vimRequests.startsWith("[")){
-        vimRequests = JSON.parse(vimRequests);
+      /*if (vimRequest.startsWith("[")){
+        vimRequest = JSON.parse(vimRequest);
       } else  {
-        vimRequests = JSON.parse("["+vimRequests+"]");
-      }
+        vimRequest = JSON.parse("["+vimRequest+"]");
+      }*/
+      vimRequest = JSON.parse(vimRequest);
 
-      for (var i in vimRequests) {
-
-        vim='';
+        vims='';
 
         (function loop (counter) {          
           setTimeout(function () {   
-            //var res = $scope.getVims(vimRequests[i]["request_uuid"], counter);
 
-            NSDServices.getVims(ENV, vimRequests[i]["request_uuid"])
+            locationsAdded = false;
+
+            NSDServices.getVims(ENV, vimRequest["request_uuid"])
             .then(function(result){
               if (result.data != ''){
-                vim = result.data;
+                vims = result.data;
+
+                if (JSON.stringify(vims)!='[]') {
+                  //console.log("vims: "+JSON.stringify(vims));
+
+                  for (var i in vims){
+                    if ($scope.locations.indexOf(vims[i]["vim_city"]) === -1) {
+                      $scope.locations.push(vims[i]["vim_city"]);
+                      //console.log(vims[i]["vim_city"]+" added to locations");
+                      locationsAdded = true;
+                    }
+                  }
+                }
               }
             }, function(error) {
               $scope.error = angular.copy(JSON.stringify(err.data.message));
               $('#error.modal').modal('show'); 
             })
 
-            if (vim!='') {
-
-              if ($scope.locations.indexOf(vim[0]["vim_city"]) === -1) {
-                $scope.locations.push(vim[0]["vim_city"]);
-              }
-              counter=1;
-            }
-            if (--counter) loop(counter);      //  decrement i and call my loop again if counter > 0
+            if ((locationsAdded)&&(--counter)) loop(counter);      //  decrement i and call my loop again if counter > 0
           }, 1000)
         })(10);
-      }
+      
       callback($scope.locations);
     }, function(error) {
       $scope.error = angular.copy(JSON.stringify(error.data.message));

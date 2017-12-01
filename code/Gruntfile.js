@@ -235,34 +235,7 @@ var fmock = function (req, res, next) {
 					case /^\/vims/.test(path):
 						if (path.indexOf('/vims/') === 0) {
 							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a61') === 0) {
-								body += JSON.stringify(require('./examples/vimAthens.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a62') === 0) {
-								body += JSON.stringify(require('./examples/vimAveiro.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a63') === 0) {
-								body += JSON.stringify(require('./examples/vimLondon.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a64') === 0) {
-								body += JSON.stringify(require('./examples/vimPaderborn.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a65') === 0) {
-								body += JSON.stringify(require('./examples/vimTelAviv.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a66') === 0) {
-								body += JSON.stringify(require('./examples/vimAthens.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a67') === 0) {
-								body += JSON.stringify(require('./examples/vimAveiro.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a68') === 0) {
-								body += JSON.stringify(require('./examples/vimPaderborn.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a69') === 0) {
-								body += JSON.stringify(require('./examples/vimLondon.json'));
-							}
-							if (path.indexOf('/vims/e3de42b8-3d62-42c8-a5b6-a92089ed4a60') === 0) {
-								body += JSON.stringify(require('./examples/vimTelAviv.json'));
+								body += JSON.stringify(require('./examples/vimsList.json'));
 							}
 						} else {
 							body += JSON.stringify(require('./examples/vimRequests.json'));
