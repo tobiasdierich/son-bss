@@ -41,8 +41,8 @@
         
         updateNSR:function(nsrId,nsdId,latestNsdId,ENV){				
             var defer=$q.defer();
-            var data={"nsd_id":nsdId,"latest_nsd_id":latestNsdId};
-            $http.put(ENV.apiEndpoint+"/records/services/"+nsrId,data)
+            var data={"request_type":"UPDATE","service_instance_uuid":nsrId,"nsd_id":nsdId,"latest_nsd_id":latestNsdId};
+            $http.post(ENV.apiEndpoint+"/requests",data)
             .then(function successCallback(result){defer.resolve(result)})
             .catch(function errorCallback(error){defer.reject(error)});
             

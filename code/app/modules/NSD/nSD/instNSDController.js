@@ -62,33 +62,27 @@ angular.module('NSD')
       var vimRequest = JSON.stringify(response["items"]);
       var vims;      
 
-      /*if (vimRequest.startsWith("[")){
-        vimRequest = JSON.parse(vimRequest);
-      } else  {
-        vimRequest = JSON.parse("["+vimRequest+"]");
-      }*/
       vimRequest = JSON.parse(vimRequest);
 
         vims='';
+        var locationsAdded = false;
 
         (function loop (counter) {          
           setTimeout(function () {   
-
-            locationsAdded = false;
 
             NSDServices.getVims(ENV, vimRequest["request_uuid"])
             .then(function(result){
               if (result.data != ''){
                 vims = result.data;
 
-                if (JSON.stringify(vims)!='[]') {
+                if (vims.length!=0) {
                   //console.log("vims: "+JSON.stringify(vims));
 
                   for (var i in vims){
                     if ($scope.locations.indexOf(vims[i]["vim_city"]) === -1) {
                       $scope.locations.push(vims[i]["vim_city"]);
                       //console.log(vims[i]["vim_city"]+" added to locations");
-                      locationsAdded = true;
+                      locationsAdded = true;                      
                     }
                   }
                 }
@@ -97,8 +91,8 @@ angular.module('NSD')
               $scope.error = angular.copy(JSON.stringify(err.data.message));
               $('#error.modal').modal('show'); 
             })
-
-            if ((locationsAdded)&&(--counter)) loop(counter);      //  decrement i and call my loop again if counter > 0
+            
+            if ((!locationsAdded)&&(--counter)) loop(counter);      //  decrement i and call my loop again if counter > 0
           }, 1000)
         })(10);
       

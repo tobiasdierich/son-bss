@@ -153,6 +153,10 @@
 
  $scope.getNSRDescriptorVersion = function(descriptorReference, nSDsMap ){
 
+  //console.log("<<<<<<<<<<<<<<<<<<<< nSDsMap >>>>>>>>>>>>>>>>>>>>>>>>>>");
+  //console.log(JSON.stringify(nSDsMap));
+  //console.log("looking for "+descriptorReference+" reference");
+
    var nameVendorVersion = nSDsMap[descriptorReference];
    var descriptorVersion = nameVendorVersion.substring(nameVendorVersion.lastIndexOf("//")+2,nameVendorVersion.length);
    return descriptorVersion;
