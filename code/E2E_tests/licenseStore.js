@@ -51,7 +51,8 @@ describe('SonataBSS Licence Store', function() {
 	
         var EC = protractor.ExpectedConditions;
 
-        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(nSD[\'uuid\'])"]')).get(1).click();
+        //var modal = element.all(by.css('[ng-click="showModalRequestingLicense(nSD[\'uuid\'])"]')).get(1).click();
+        var modal = element.all(by.css('[ng-click="showModalRequestingLicense(nSD[\'uuid\'], nSD[\'nsd\'][\'licences\'][0][\'url\'])"]')).get(1).click();
         browser.wait(EC.visibilityOf(modal), 5000);        
         
         modal = element(by.id('getLicense'));

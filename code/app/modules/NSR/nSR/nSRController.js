@@ -113,7 +113,7 @@
   $scope.openDetailedNSR = function(data) {
    $scope.currentNSR = angular.copy(data);
    $('#detailedNSR.modal').modal('show');
-   $($(".key.ng-binding.ng-scope")[0]).text("NSR#" + $scope.currentNSR.uuid);   
+   $($(".key.ng-binding.ng-scope")[0]).text("");//.text("NSR#" + $scope.currentNSR.uuid);      
  }
 
  $scope.openUpdateNSR = function(data) {
@@ -152,6 +152,10 @@
  }
 
  $scope.getNSRDescriptorVersion = function(descriptorReference, nSDsMap ){
+
+  //console.log("<<<<<<<<<<<<<<<<<<<< nSDsMap >>>>>>>>>>>>>>>>>>>>>>>>>>");
+  //console.log(JSON.stringify(nSDsMap));
+  //console.log("looking for "+descriptorReference+" reference");
 
    var nameVendorVersion = nSDsMap[descriptorReference];
    var descriptorVersion = nameVendorVersion.substring(nameVendorVersion.lastIndexOf("//")+2,nameVendorVersion.length);
