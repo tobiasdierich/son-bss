@@ -49,9 +49,19 @@
 				<li ng-class="{'active':currentState.name=='Requests'}" >
                     <a href="#/requests">Requests</a>
                 </li>
-                <li ng-class="{'active':currentState.name=='NSR'}" >
-                    <a href="#/nSRs">Network Services Instances</a>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Running Instances <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{'active':currentState.name=='NSR'}" >
+                            <a href="#/nSRs">Network Services Instances</a>
+                        </li>
+                        <li ng-class="{'active':currentState.name=='NSR'}" >
+                            <a href="#/cOSRs">Complex Services Instances</a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li ng-class="{'active':currentState.name=='Licenses'}" >
                     <a href="#/licenses">Licence Store</a>
                 </li>
@@ -99,6 +109,9 @@
 
 <script src="modules/NSR/nSR/nSRController.js"></script>
 <script src="modules/NSR/nSR/nSRServices.js"></script>
+
+<script src="modules/COSR/cOSR/cOSRController.js"></script>
+<script src="modules/COSR/cOSR/cOSRServices.js"></script>
 
 <script src="modules/Licenses/licensesController.js"></script>
 <script src="modules/Licenses/licensesServices.js"></script>
