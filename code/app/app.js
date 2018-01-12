@@ -34,6 +34,8 @@ angular.module("Requests",["config"]);
 
 angular.module("NSR",["config"]);
 
+angular.module("COSR",["config"]);
+
 angular.module("Login",["config"]);  
 
 angular.module("Register",["config"]);  
