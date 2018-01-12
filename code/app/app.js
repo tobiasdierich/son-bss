@@ -92,7 +92,7 @@ angular.module("SonataBSS", ["angular-json-tree", "ui.router", "formly", "formly
             })
             .state("COSR",{
               url: "/cOSRs",
-              templateUrl: "modules/COSR/COSR/views/cOSRs.html",
+              templateUrl: "modules/COSR/cOSR/views/cOSRs.html",
               controller: "COSRCtrl"
             })
             .state("Login",{
